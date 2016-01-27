@@ -12,28 +12,28 @@ namespace Suplanus.Sepla.Gui
 {
     public class Preview
     {
-        public static void Display(object previewObject, Border border)
+        public static void Display(object sender, Border border)
         {
             // EPLAN
             DrawingService drawingService = new DrawingService();
             drawingService.DrawConnections = true;
-            if (previewObject is SymbolMacro)
+            if (sender is SymbolMacro)
             {
-                SymbolMacro macro = (SymbolMacro) previewObject;
+                SymbolMacro macro = (SymbolMacro) sender;
                 drawingService.CreateDisplayList(macro);
                 Draw(drawingService, border);
                 return;
             }
-            if (previewObject is WindowMacro)
+            if (sender is WindowMacro)
             {
-                WindowMacro macro = (WindowMacro)previewObject;
+                WindowMacro macro = (WindowMacro)sender;
                 drawingService.CreateDisplayList(macro);
                 Draw(drawingService, border);
                 return;
             }
-            if (previewObject is PageMacro)
+            if (sender is PageMacro)
             {
-                PageMacro macro = (PageMacro)previewObject;
+                PageMacro macro = (PageMacro)sender;
                 drawingService.CreateDisplayList(macro.Pages);
                 Draw(drawingService, border);
                 return;
@@ -43,7 +43,7 @@ namespace Suplanus.Sepla.Gui
 
             // Codesys
 
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
 
         }
 

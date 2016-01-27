@@ -12,7 +12,7 @@ namespace Suplanus.Sepla.Application
     /// </summary>
     public class Starter
     {
-        public static string GetBinPath()
+        public static string GetBinPathLastVersion()
         {
             List<EplanData> eplanVersions = new List<EplanData>();
 
