@@ -5,69 +5,104 @@ using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
 using Eplan.EplApi.HEServices;
 
 namespace Suplanus.Sepla.Gui
 {
-    public class Preview
-    {
-        public static void Display(object sender, Border border)
-        {
-            // EPLAN
-            DrawingService drawingService = new DrawingService();
-            drawingService.DrawConnections = true;
-            if (sender is SymbolMacro)
-            {
-                SymbolMacro macro = (SymbolMacro) sender;
-                drawingService.CreateDisplayList(macro);
-                Draw(drawingService, border);
-                return;
-            }
-            if (sender is WindowMacro)
-            {
-                WindowMacro macro = (WindowMacro)sender;
-                drawingService.CreateDisplayList(macro);
-                Draw(drawingService, border);
-                return;
-            }
-            if (sender is PageMacro)
-            {
-                PageMacro macro = (PageMacro)sender;
-                drawingService.CreateDisplayList(macro.Pages);
-                Draw(drawingService, border);
-                return;
-            }
+	public class Preview
+	{
+		private readonly Border _border;
+		private DrawingService _drawingService;
+		private readonly Project _project;
 
-            // Siemens
+		public Preview(Border border, string projectFile)
+		{
+			var projectManager = new ProjectManager();
+			projectManager.LockProjectByDefault = false;
+			_project = projectManager.OpenProject(projectFile, ProjectManager.OpenMode.Exclusive);
 
-            // Codesys
+			//_drawingService = new DrawingService();
+			//_drawingService.DrawConnections = true;
 
-            throw new NotImplementedException();
+			_border = border;
+		}
 
-        }
+		public void Display(string path, PreviewType previewType)
+		{
+			// new instance, cause of memory leak
+			_drawingService = new DrawingService();
+			_drawingService.DrawConnections = true;
 
-        private static void Draw(DrawingService drawingService, Border border)
-        {
-            int width = Convert.ToInt16(border.ActualWidth);
-            int height = Convert.ToInt16(border.ActualHeight);
+			switch (previewType)
+			{
+				case PreviewType.WindowMacro:
+					WindowMacro windowMacro = new WindowMacro();
+					windowMacro.Open(path, _project);
+					_drawingService.CreateDisplayList(windowMacro);
+					DrawEplan();
+					windowMacro.Dispose();
+					break;
 
-            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(width, height);
-            System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(bitmap);
-            System.Drawing.Rectangle r = new System.Drawing.Rectangle(0, 0, width, height);
-            PaintEventArgs paintEventArgs = new PaintEventArgs(g, r);
+				case PreviewType.SymbolMacro:
+					SymbolMacro symbolMacro = new SymbolMacro();
+					symbolMacro.Open(path, _project);
+					_drawingService.CreateDisplayList(symbolMacro);
+					DrawEplan();
+					symbolMacro.Dispose();
+					break;
 
-            drawingService.DrawDisplayList(paintEventArgs);
+				case PreviewType.PageMacro:
+					PageMacro pageMacro = new PageMacro();
+					pageMacro.Open(path, _project);
+					_drawingService.CreateDisplayList(pageMacro.Pages);
+					DrawEplan();
+					pageMacro.Dispose();
+					break;
 
-            BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
-                bitmap.GetHbitmap(),
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
+				default:
+					throw new ArgumentOutOfRangeException(nameof(previewType), previewType, null);
+			}
 
-            border.Background = new ImageBrush(bitmapSource);
+		}
 
-            drawingService.Dispose();
-        }
-    }
+		private void DrawEplan()
+		{
+			int width = Convert.ToInt16(_border.ActualWidth);
+			int height = Convert.ToInt16(_border.ActualHeight);
+
+			if (width > 0 && height > 0)
+			{
+				System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(width, height);
+				System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(bitmap);
+				System.Drawing.Rectangle rectangle = new System.Drawing.Rectangle(0, 0, width, height);
+				PaintEventArgs paintEventArgs = new PaintEventArgs(graphics, rectangle);
+
+				_drawingService.DrawDisplayList(paintEventArgs);
+
+				BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(),
+					IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+				_border.Background = new ImageBrush(bitmapSource);
+
+				// needed cause of memory leak
+				bitmap.Dispose();
+				graphics.Dispose();
+				paintEventArgs.Dispose();
+                _drawingService.Dispose();
+			}
+			else
+			{
+				_border.Background = null;
+			}
+
+		}
+	}
+
+	public enum PreviewType
+	{
+		WindowMacro,
+		SymbolMacro,
+		PageMacro
+	}
 }
