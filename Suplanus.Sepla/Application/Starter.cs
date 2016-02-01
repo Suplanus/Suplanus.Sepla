@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Eplan.EplApi.Starter;
 
 namespace Suplanus.Sepla.Application
@@ -16,13 +14,13 @@ namespace Suplanus.Sepla.Application
         {
             List<EplanData> eplanVersions = new List<EplanData>();
 
-            List<EplanData> eplanVersions32bit = new List<EplanData>();
-            new EplanFinder().GetInstalledEplanVersions(ref eplanVersions32bit);
-            eplanVersions.AddRange(eplanVersions32bit);
+            List<EplanData> eplanVersions32Bit = new List<EplanData>();
+            new EplanFinder().GetInstalledEplanVersions(ref eplanVersions32Bit);
+            eplanVersions.AddRange(eplanVersions32Bit);
 
-            List<EplanData> eplanVersions64bit = new List<EplanData>();
-            new EplanFinder().GetInstalledEplanVersions(ref eplanVersions64bit, true);
-            eplanVersions.AddRange(eplanVersions64bit);
+            List<EplanData> eplanVersions64Bit = new List<EplanData>();
+            new EplanFinder().GetInstalledEplanVersions(ref eplanVersions64Bit, true);
+            eplanVersions.AddRange(eplanVersions64Bit);
 
             eplanVersions = new List<EplanData>(eplanVersions
                 .Where(obj => obj.EplanVariant.Equals("Electric P8"))
