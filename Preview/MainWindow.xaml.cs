@@ -1,6 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using Suplanus.Sepla.Application;
 using Suplanus.Sepla.Gui;
@@ -10,7 +10,7 @@ namespace Preview
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow
 	{
 		private EplanOffline _eplanOffline;
 		private readonly string _macroPath = Path.Combine(AssemblyDirectory, "Demodata", "WindowMacro.ema");
@@ -59,7 +59,13 @@ namespace Preview
 
 		private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
+			// Refresh on resize
 			_eplanOffline.Preview.Display(_macroPath, PreviewType.WindowMacro);
+		}
+
+		private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+		{
+			_eplanOffline.Close();
 		}
 	}
 }
