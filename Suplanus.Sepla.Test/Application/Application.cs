@@ -12,26 +12,7 @@ namespace Suplanus.Sepla.Test.Application
         [TestMethod]
         public void Wpf()
         {
-            // Pin to EPLAN
-            var binPath = Sepla.Application.Starter.Setup();
 
-            // Test have no GUI... so we create a test-window
-            var window = new Window();
-            var handle = new WindowInteropHelper(window).Handle;
-
-            // load DLLs and get the EPLAN Application Object
-            var offline = new Sepla.Application.Offline();
-            offline.Start(handle, binPath);
-            if (offline.Application == null)
-            {
-                throw new NotImplementedException();
-            }
-
-	        //var project = Project.Utility.GetCurrentProject();
-	        //if (project == null)
-	        //{
-		       // throw new NotImplementedException();
-	        //}
         }
     }
 
