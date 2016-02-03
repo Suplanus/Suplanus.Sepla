@@ -18,6 +18,11 @@ namespace Suplanus.Sepla.Gui
 		private readonly DrawingService _drawingService;
 		private readonly Project _project;
 
+		/// <summary>
+		/// Init Preview object for WPF
+		/// </summary>
+		/// <param name="border"></param>
+		/// <param name="projectFile"></param>
 		public Preview(Border border, string projectFile)
 		{
 			var projectManager = new ProjectManager();
@@ -30,6 +35,11 @@ namespace Suplanus.Sepla.Gui
 			_border = border;
 		}
 
+		/// <summary>
+		/// Display a file
+		/// </summary>
+		/// <param name="path">Full filename</param>
+		/// <param name="previewType">Type of file</param>
 		public void Display(string path, PreviewType previewType)
 		{
 			switch (previewType)
@@ -64,6 +74,9 @@ namespace Suplanus.Sepla.Gui
 
 		}
 
+		/// <summary>
+		/// Draw EPLAN files
+		/// </summary>
 		private void DrawEplan()
 		{
 			int width = Convert.ToInt16(_border.ActualWidth);
@@ -106,7 +119,9 @@ namespace Suplanus.Sepla.Gui
 	}
 
 	
-
+	/// <summary>
+	/// Filetype to preview
+	/// </summary>
 	public enum PreviewType
 	{
 		WindowMacro,
