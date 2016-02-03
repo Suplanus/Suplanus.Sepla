@@ -6,6 +6,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Eplan.EplApi.DataModel;
+using System.Runtime.InteropServices;
 using Eplan.EplApi.DataModel.MasterData;
 using Eplan.EplApi.HEServices;
 
@@ -14,7 +15,7 @@ namespace Suplanus.Sepla.Gui
 	public class Preview
 	{
 		private readonly Border _border;
-		private DrawingService _drawingService;
+		private readonly DrawingService _drawingService;
 		private readonly Project _project;
 
 		public Preview(Border border, string projectFile)
@@ -23,18 +24,14 @@ namespace Suplanus.Sepla.Gui
 			projectManager.LockProjectByDefault = false;
 			_project = projectManager.OpenProject(projectFile, ProjectManager.OpenMode.Exclusive);
 
-			//_drawingService = new DrawingService();
-			//_drawingService.DrawConnections = true;
+			_drawingService = new DrawingService();
+			_drawingService.DrawConnections = true;
 
 			_border = border;
 		}
 
 		public void Display(string path, PreviewType previewType)
 		{
-			// new instance, cause of memory leak
-			_drawingService = new DrawingService();
-			_drawingService.DrawConnections = true;
-
 			switch (previewType)
 			{
 				case PreviewType.WindowMacro:
@@ -81,15 +78,16 @@ namespace Suplanus.Sepla.Gui
 
 				_drawingService.DrawDisplayList(paintEventArgs);
 
-				BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(),
+				IntPtr hBitmap = bitmap.GetHbitmap();
+				BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(hBitmap,
 					IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
 				_border.Background = new ImageBrush(bitmapSource);
 
-				// needed cause of memory leak
 				bitmap.Dispose();
 				graphics.Dispose();
 				paintEventArgs.Dispose();
-                _drawingService.Dispose();
+				DeleteObject(hBitmap);
 			}
 			else
 			{
@@ -97,7 +95,17 @@ namespace Suplanus.Sepla.Gui
 			}
 
 		}
+
+		/// <summary>
+		/// Memory Leak: http://stackoverflow.com/questions/1546091/wpf-createbitmapsourcefromhbitmap-memory-leak
+		/// </summary>
+		/// <param name="hObject"></param>
+		/// <returns></returns>
+		[DllImport("gdi32.dll")]
+		public static extern bool DeleteObject(IntPtr hObject);
 	}
+
+	
 
 	public enum PreviewType
 	{
