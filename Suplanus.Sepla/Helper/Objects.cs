@@ -4,7 +4,7 @@ using Eplan.EplApi.DataModel;
 
 namespace Suplanus.Sepla.Helper
 {
-	public class Objects
+	public class ObjectsUtility
 	{
 		public static List<T> GetAllObjects<T>(Eplan.EplApi.DataModel.Project project)
 		{
