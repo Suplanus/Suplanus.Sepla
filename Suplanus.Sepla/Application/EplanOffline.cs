@@ -9,7 +9,7 @@ namespace Suplanus.Sepla.Application
 {
     public class EplanOffline
     {
-        public EplApplication Application;
+	    public EplApplication Application;
 
 	    public Preview Preview;
 
@@ -51,7 +51,11 @@ namespace Suplanus.Sepla.Application
 		/// </summary>
 		public bool IsRunning
         {
-            get { return Application != null; }
+			get
+			{
+				var running = Application != null;
+				return running;
+			}
         }
 
 	    
