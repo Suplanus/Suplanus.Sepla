@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +10,7 @@ using System.Windows.Media.Imaging;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
 using Eplan.EplApi.HEServices;
+using Suplanus.Sepla.Application;
 
 namespace Suplanus.Sepla.Gui
 {
@@ -42,6 +44,11 @@ namespace Suplanus.Sepla.Gui
 		/// <param name="previewType">Type of file</param>
 		public void Display(string path, PreviewType previewType)
 		{
+			if (!File.Exists(path))
+			{
+				throw new FileNotFoundException(path);
+			}
+
 			switch (previewType)
 			{
 				case PreviewType.WindowMacro:

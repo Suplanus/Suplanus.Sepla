@@ -11,9 +11,7 @@ namespace Suplanus.Sepla.Application
     {
 	    public EplApplication Application;
 
-	    public Preview Preview;
-
-		/// <summary>
+	    /// <summary>
 		/// Starts EPLAN with the last version of Electric P8 and attach to (WPF) window
 		/// </summary>
 		/// <param name="window"></param>
@@ -67,7 +65,7 @@ namespace Suplanus.Sepla.Application
 		/// <param name="binPath"></param>
         private void Start(IntPtr handle, string binPath)
         {
-            if (Application == null)
+            if (!IsRunning)
             {
                 try
                 {
@@ -90,7 +88,7 @@ namespace Suplanus.Sepla.Application
 		/// </summary>
         public void Close()
         {
-            if (Application != null)
+            if (IsRunning)
             {
                 Application.Exit();
                 Application = null;

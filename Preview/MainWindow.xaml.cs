@@ -7,14 +7,19 @@ using Suplanus.Sepla.Gui;
 
 namespace Preview
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
 	public partial class MainWindow
 	{
+		// ReSharper disable once AssignNullToNotNullAttribute
+		// DemoData should exist
+		static readonly string DemoData = Path.Combine(
+			Path.GetDirectoryName(Path.GetDirectoryName(
+				Path.GetDirectoryName(Path.GetDirectoryName(AssemblyDirectory)))), "Demodata");
+
+		readonly string _macroPath = Path.Combine(DemoData, "WindowMacro.ema");
+		readonly string _previewProject = Path.Combine(DemoData, "Template.elk");
+
 		private EplanOffline _eplanOffline;
-		private readonly string _macroPath = Path.Combine(AssemblyDirectory, "Demodata", "WindowMacro.ema");
-		private readonly string _previewProject = Path.Combine(AssemblyDirectory, "Demodata", "Template.elk");
+
 
 		public MainWindow()
 		{
