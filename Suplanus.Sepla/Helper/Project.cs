@@ -52,6 +52,7 @@ namespace Suplanus.Sepla.Helper
 				PageMacro pageMacroNew = new PageMacro();
 				pageMacroOriginal.Open(pageMacroFile, project);
 
+				List<Page> tempPages = new List<Page>();
 				foreach (var page in pageMacroOriginal.Pages)
 				{
 					PagePropertyList ppl = page.NameParts;
@@ -59,12 +60,12 @@ namespace Suplanus.Sepla.Helper
 					ppl = page.NameParts;
 					NameService nameServ = new NameService(page);
 					nameServ.EvaluateAndSetAllNames();
+					tempPages.Add(page);
 				}
-				
 
 				var tempMacro = Path.Combine(Path.GetTempPath(), "Suplanus.Sepla.Generator.TempMacro.emp");
-				pageMacroOriginal.Create(tempMacro, pageMacroOriginal.Pages, pageMacroOriginal.Description);
-				pageMacroOriginal.Open(tempMacro, project);
+				pageMacroNew.Create(tempMacro, tempPages.ToArray(), pageMacroOriginal.Description);
+				pageMacroNew.Open(tempMacro, project);
 
 				// Insert in Project
 				StorableObject[] insertedPages = insert.PageMacro(
