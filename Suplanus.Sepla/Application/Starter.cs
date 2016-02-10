@@ -6,7 +6,7 @@ using Eplan.EplApi.Starter;
 namespace Suplanus.Sepla.Application
 {
     /// <summary>
-    /// EPLAN Starter Helper: No other EPLAN-Namespaces are allowd
+    /// EPLAN Starter Helper: No other EPLAN-Namespaces are allowed
     /// </summary>
     public class Starter
     {
