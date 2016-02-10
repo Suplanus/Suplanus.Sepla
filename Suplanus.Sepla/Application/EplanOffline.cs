@@ -11,6 +11,15 @@ namespace Suplanus.Sepla.Application
     {
 	    public EplApplication Application;
 
+		/// <summary>
+		/// Starts EPLAN
+		/// </summary>
+		public void StartWithoutGui()
+		{
+			string binPath = Starter.GetBinPathLastVersion();
+			Start(binPath);
+		}
+
 	    /// <summary>
 		/// Starts EPLAN with the last version of Electric P8 and attach to (WPF) window
 		/// </summary>
@@ -56,7 +65,8 @@ namespace Suplanus.Sepla.Application
 			}
         }
 
-	    
+	    public Preview Preview { get; set; }
+
 
 	    /// <summary>
 		/// Starts the application
@@ -84,9 +94,32 @@ namespace Suplanus.Sepla.Application
         }
 
 		/// <summary>
+		/// Starts the application without Gui
+		/// </summary>
+		/// <param name="binPath"></param>
+		private void Start(string binPath)
+		{
+			if (!IsRunning)
+			{
+				try
+				{
+					EplApplication eplApplication = new EplApplication();
+					eplApplication.EplanBinFolder = binPath;
+					eplApplication.ResetQuietMode();
+					eplApplication.Init("", true, true);
+					Application = eplApplication;
+				}
+				catch
+				{
+					Application = null;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Release all objects
 		/// </summary>
-        public void Close()
+		public void Close()
         {
             if (IsRunning)
             {
@@ -94,5 +127,7 @@ namespace Suplanus.Sepla.Application
                 Application = null;
             }
         }
+
+
     }
 }
