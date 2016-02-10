@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
 using Eplan.EplApi.HEServices;
@@ -44,34 +45,37 @@ namespace Suplanus.Sepla.Helper
 		{
 			var project = Create(projectLinkFilePath, projectTemplateFilePath, false);
 
+#if DEBUG
+			project.RemoveAllPages(); // test
+#endif
+
 			Insert insert = new Insert();
+			var pageCount = project.Pages.Length; // needed cause of overwrite
 			foreach (var pageMacroFile in pageMacros)
 			{
 				// Load pages from macro
-				PageMacro pageMacroOriginal = new PageMacro();
-				PageMacro pageMacroNew = new PageMacro();
-				pageMacroOriginal.Open(pageMacroFile, project);
-
-				List<Page> tempPages = new List<Page>();
-				foreach (var page in pageMacroOriginal.Pages)
+				PageMacro pageMacro = new PageMacro();
+				pageMacro.Open(pageMacroFile, project);
+				foreach (var page in pageMacro.Pages)
 				{
-					PagePropertyList ppl = page.NameParts;
-					ppl[Properties.Page.DESIGNATION_PLANT] = "TEST";
-					ppl = page.NameParts;
-					NameService nameServ = new NameService(page);
-					nameServ.EvaluateAndSetAllNames();
-					tempPages.Add(page);
+					// Rename
+					pageCount++;
+					PagePropertyList pagePropertyList = page.NameParts;
+					pagePropertyList[Properties.Page.DESIGNATION_PLANT] = "TEST";
+					pagePropertyList[Properties.Page.PAGE_COUNTER] = pageCount;
+					page.NameParts = pagePropertyList;
+					new NameService(page).EvaluateAndSetAllNames();
 				}
 
-				var tempMacro = Path.Combine(Path.GetTempPath(), "Suplanus.Sepla.Generator.TempMacro.emp");
-				pageMacroNew.Create(tempMacro, tempPages.ToArray(), pageMacroOriginal.Description);
-				pageMacroNew.Open(tempMacro, project);
-
-				// Insert in Project
-				StorableObject[] insertedPages = insert.PageMacro(
-					pageMacroOriginal, project, null, PageMacro.Enums.NumerationMode.Number);
-
+				// Insert pagemacro
+				insert.PageMacro(pageMacro, project, null, PageMacro.Enums.NumerationMode.Number);
 			}
+
+
+
+
+
+
 		}
 
 	}
