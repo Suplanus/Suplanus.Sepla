@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Eplan.EplApi.Baseu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.Baseu.dll</HintPath>
+    </Reference>
     <Reference Include="Eplan.EplApi.DataModelu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.DataModelu.dll</HintPath>
