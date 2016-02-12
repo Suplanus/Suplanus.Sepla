@@ -4,6 +4,7 @@ using System.Linq;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
 using Eplan.EplApi.HEServices;
+using Suplanus.Sepla.Objects;
 
 namespace Suplanus.Sepla.Helper
 {
@@ -41,7 +42,8 @@ namespace Suplanus.Sepla.Helper
 			return project;
 		}
 
-		public static void Generate(string projectLinkFilePath, string projectTemplateFilePath, List<string> pageMacros)
+		public static void Generate(string projectLinkFilePath, string projectTemplateFilePath,
+			List<GeneratablePageMacro> generatablePageMacros)
 		{
 			var project = Create(projectLinkFilePath, projectTemplateFilePath, false);
 
@@ -51,19 +53,31 @@ namespace Suplanus.Sepla.Helper
 
 			Insert insert = new Insert();
 			var pageCount = project.Pages.Length; // needed cause of overwrite
-			foreach (var pageMacroFile in pageMacros)
+			foreach (var generatablePageMacro in generatablePageMacros)
 			{
 				// Load pages from macro
 				PageMacro pageMacro = new PageMacro();
-				pageMacro.Open(pageMacroFile, project);
+				pageMacro.Open(generatablePageMacro.Filename, project);
 				foreach (var page in pageMacro.Pages)
 				{
 					// Rename
 					pageCount++;
+
 					PagePropertyList pagePropertyList = page.NameParts;
-					pagePropertyList[Properties.Page.DESIGNATION_PLANT] = "TEST";
+					pagePropertyList[Properties.Page.DESIGNATION_FUNCTIONALASSIGNMENT] =
+						generatablePageMacro.LocationIdentifierIdentifier.FunctionAssignment;
+					pagePropertyList[Properties.Page.DESIGNATION_PLANT] =
+						generatablePageMacro.LocationIdentifierIdentifier.Plant;
+                    pagePropertyList[Properties.Page.DESIGNATION_PLACEOFINSTALLATION] =
+						generatablePageMacro.LocationIdentifierIdentifier.PlaceOfInstallation;
+					pagePropertyList[Properties.Page.DESIGNATION_LOCATION] =
+						generatablePageMacro.LocationIdentifierIdentifier.Location;
+					pagePropertyList[Properties.Page.DESIGNATION_USERDEFINED] =
+						generatablePageMacro.LocationIdentifierIdentifier.UserDefinied;
+
 					pagePropertyList[Properties.Page.PAGE_COUNTER] = pageCount;
 					page.NameParts = pagePropertyList;
+
 					new NameService(page).EvaluateAndSetAllNames();
 				}
 
