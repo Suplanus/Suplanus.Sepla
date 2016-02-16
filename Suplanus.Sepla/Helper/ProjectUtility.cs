@@ -64,16 +64,19 @@ namespace Suplanus.Sepla.Helper
 					pageCount++;
 
 					PagePropertyList pagePropertyList = page.NameParts;
-					pagePropertyList[Properties.Page.DESIGNATION_FUNCTIONALASSIGNMENT] =
-						generatablePageMacro.LocationIdentifierIdentifier.FunctionAssignment;
-					pagePropertyList[Properties.Page.DESIGNATION_PLANT] =
-						generatablePageMacro.LocationIdentifierIdentifier.Plant;
-                    pagePropertyList[Properties.Page.DESIGNATION_PLACEOFINSTALLATION] =
-						generatablePageMacro.LocationIdentifierIdentifier.PlaceOfInstallation;
-					pagePropertyList[Properties.Page.DESIGNATION_LOCATION] =
-						generatablePageMacro.LocationIdentifierIdentifier.Location;
-					pagePropertyList[Properties.Page.DESIGNATION_USERDEFINED] =
-						generatablePageMacro.LocationIdentifierIdentifier.UserDefinied;
+					if (generatablePageMacro.LocationIdentifierIdentifier != null)
+					{
+						pagePropertyList[Properties.Page.DESIGNATION_FUNCTIONALASSIGNMENT] =
+							generatablePageMacro.LocationIdentifierIdentifier.FunctionAssignment;
+						pagePropertyList[Properties.Page.DESIGNATION_PLANT] =
+							generatablePageMacro.LocationIdentifierIdentifier.Plant;
+						pagePropertyList[Properties.Page.DESIGNATION_PLACEOFINSTALLATION] =
+							generatablePageMacro.LocationIdentifierIdentifier.PlaceOfInstallation;
+						pagePropertyList[Properties.Page.DESIGNATION_LOCATION] =
+							generatablePageMacro.LocationIdentifierIdentifier.Location;
+						pagePropertyList[Properties.Page.DESIGNATION_USERDEFINED] =
+							generatablePageMacro.LocationIdentifierIdentifier.UserDefinied;
+					}
 
 					pagePropertyList[Properties.Page.PAGE_COUNTER] = pageCount;
 					page.NameParts = pagePropertyList;
