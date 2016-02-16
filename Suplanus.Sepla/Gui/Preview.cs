@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -27,6 +28,11 @@ namespace Suplanus.Sepla.Gui
 		/// <param name="projectFile"></param>
 		public Preview(Border border, string projectFile)
 		{
+			if (!File.Exists(projectFile))
+			{
+				throw new FileNotFoundException(projectFile);
+			}
+
 			var projectManager = new ProjectManager();
 			projectManager.LockProjectByDefault = false;
 			_project = projectManager.OpenProject(projectFile, ProjectManager.OpenMode.Exclusive);

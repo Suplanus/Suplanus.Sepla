@@ -15,7 +15,7 @@ namespace Preview
 			Path.GetDirectoryName(Path.GetDirectoryName(
 				Path.GetDirectoryName(Path.GetDirectoryName(AssemblyDirectory)))), "Demodata");
 
-		readonly string _macroPath = Path.Combine(DemoData, "WindowMacro.ema");
+		readonly string _macroPath = Path.Combine(DemoData, "PageMacro.emp");
 		readonly string _previewProject = Path.Combine(DemoData, "Template.elk");
 
 		private EplanOffline _eplanOffline;
@@ -26,6 +26,11 @@ namespace Preview
 			InitializeComponent();
 
 			Init();
+		}
+
+		public static string AssemblyDirectory
+		{
+			get { return AppDomain.CurrentDomain.BaseDirectory; }
 		}
 
 		private void Init()
@@ -52,20 +57,13 @@ namespace Preview
 			_eplanOffline.Preview = new Suplanus.Sepla.Gui.Preview(previewBorder, _previewProject);
 
 			// first display
-			_eplanOffline.Preview.Display(_macroPath, PreviewType.WindowMacro);
+			_eplanOffline.Preview.Display(_macroPath, PreviewType.PageMacro);
 		}
-
-
-		public static string AssemblyDirectory
-		{
-			get { return AppDomain.CurrentDomain.BaseDirectory; }
-		}
-
 
 		private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			// Refresh on resize
-			_eplanOffline.Preview.Display(_macroPath, PreviewType.WindowMacro);
+			_eplanOffline.Preview.Display(_macroPath, PreviewType.PageMacro);
 		}
 
 		private void MainWindow_OnClosing(object sender, CancelEventArgs e)
