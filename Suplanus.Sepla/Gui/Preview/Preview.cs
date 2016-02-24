@@ -106,14 +106,14 @@ namespace Suplanus.Sepla.Gui
 
 			foreach (var representationType in windowMacro.RepresentationTypes)
 			{
-				VariantCombination variantCombination = new VariantCombination();
+				VariantCombination variantCombination = new VariantCombination(PreviewType.WindowMacro);
 				variantCombination.PreviewObject = windowMacro;
 				variantCombination.RepresentationType = representationType;
 				foreach (int variantIndex in windowMacro.GetVariants(representationType))
 				{
 					windowMacro.ChangeCurrentVariant(representationType, variantIndex);
 
-					Variant variant = new Variant();
+					Variant variant = new Variant(variantCombination);
 					variant.Index = variantIndex;
 					variant.Description = windowMacro.Description
 						.GetStringToDisplay(MultiLanguage.GuiLanguage);
@@ -136,14 +136,14 @@ namespace Suplanus.Sepla.Gui
 
 			foreach (var representationType in symbolMacro.RepresentationTypes)
 			{
-				VariantCombination variantCombination = new VariantCombination();
+				VariantCombination variantCombination = new VariantCombination(PreviewType.SymbolMacro);
 				variantCombination.PreviewObject = symbolMacro;
 				variantCombination.RepresentationType = representationType;
 				foreach (int variantIndex in symbolMacro.GetVariants(representationType))
 				{
 					symbolMacro.ChangeCurrentVariant(representationType, variantIndex);
 
-					Variant variant = new Variant();
+					Variant variant = new Variant(variantCombination);
 					variant.Index = variantIndex;
 					variant.Description = symbolMacro.Description
 						.GetStringToDisplay(MultiLanguage.GuiLanguage);
@@ -164,14 +164,14 @@ namespace Suplanus.Sepla.Gui
 			_previewControl.VariantsCombinations = new ObservableCollection<VariantCombination>();
 			_previewControl.previewType = PreviewType.PageMacro;
 
-			VariantCombination variantCombination = new VariantCombination();
+			VariantCombination variantCombination = new VariantCombination(PreviewType.PageMacro);
 			variantCombination.PreviewObject = pageMacro;
 			for (int index = 0; index < pageMacro.Pages.Length; index++)
 			{
 				var page = pageMacro.Pages[index];
 
 				variantCombination.RepresentationType = WindowMacro.Enums.RepresentationType.Default;
-				Variant variant = new Variant();
+				Variant variant = new Variant(variantCombination);
 				if (!page.Properties.PAGE_NOMINATIOMN.IsEmpty)
 				{
 					variant.Description = page.Properties.PAGE_NOMINATIOMN.ToMultiLangString()
@@ -189,9 +189,10 @@ namespace Suplanus.Sepla.Gui
 
 		public class VariantCombination
 		{
-			public VariantCombination()
+			public VariantCombination(PreviewType previewType)
 			{
 				Variants = new ObservableCollection<Variant>();
+				PreviewType = previewType;
 			}
 
 			public override string ToString()
@@ -202,11 +203,19 @@ namespace Suplanus.Sepla.Gui
 			public object PreviewObject { get; set; }
 			public WindowMacro.Enums.RepresentationType RepresentationType { get; set; }
 			public ObservableCollection<Variant> Variants { get; set; }
+			public PreviewType PreviewType { get; set; }
 
 		}
 
 		public class Variant
 		{
+			public VariantCombination VariantCombination { get; set; }
+
+			public Variant(VariantCombination variantCombination)
+			{
+				VariantCombination = variantCombination;
+			}
+
 			public override string ToString()
 			{
 				// Generate Variantstring from index
@@ -217,14 +226,27 @@ namespace Suplanus.Sepla.Gui
 					variantString += res[j] += (char)(17); // '0' is 48, 'A' is 65
 				}
 
-				if (!string.IsNullOrEmpty(Description))
+				if (VariantCombination.PreviewType == PreviewType.PageMacro)
 				{
-					return "Variante " + variantString + ": " + Description;
+					if (string.IsNullOrEmpty(Description))
+					{
+						return "Seite " + Index;
+					}
+					else
+					{
+						return Description;
+					}
 				}
-				else
+
+				if (VariantCombination.PreviewType != PreviewType.PageMacro)
 				{
-					return "Variante " + variantString;
+					if (!string.IsNullOrEmpty(Description))
+					{
+						return "Variante " + variantString + ": " + Description;
+					}
 				}
+
+				return "Variante " + variantString;
 			}
 
 			public int Index { get; set; }

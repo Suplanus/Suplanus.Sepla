@@ -22,8 +22,23 @@ namespace Suplanus.Sepla.Gui
 	{
 		public PreviewType previewType { get; set; }
 
+
 		public ObservableCollection<Preview.VariantCombination> VariantsCombinations { get; set; }
-		public Preview.VariantCombination SelectedVariantCombination { get; set; }
+
+		private Preview.VariantCombination selectedVariantCombination;
+		public Preview.VariantCombination SelectedVariantCombination
+		{
+			get
+			{
+				if (selectedVariantCombination == null)
+				{
+					return VariantsCombinations.FirstOrDefault();
+				}
+				return selectedVariantCombination;
+			}
+			set { selectedVariantCombination = value; }
+		}
+
 		private Preview.Variant SelectedVariant { get; set; }
 
 		public Preview Preview { get; set; }
