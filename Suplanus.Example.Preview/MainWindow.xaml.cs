@@ -38,11 +38,11 @@ namespace Preview
 			// check files	
 			if (!File.Exists(_previewProject))
 			{
-				throw new Exception("Preview project not found");
+				throw new Exception("Preview project not found:" + Environment.NewLine + _previewProject);
 			}
 			if (!File.Exists(_macroPath))
 			{
-				throw new Exception("Macro not found");
+				throw new Exception("Macro not found:" + Environment.NewLine + _macroPath);
 			}
 
 			// start eplan
