@@ -19,6 +19,7 @@ namespace Preview
 		readonly string _previewProject = Path.Combine(DemoData, "Template.elk");
 
 		private EplanOffline _eplanOffline;
+		private Suplanus.Sepla.Gui.Preview _preview;
 
 
 		public MainWindow()
@@ -54,10 +55,10 @@ namespace Preview
 			}
 
 			// setup preview
-			_eplanOffline.Preview = new Suplanus.Sepla.Gui.Preview(previewBorder, _previewProject);
+			_preview = new Suplanus.Sepla.Gui.Preview(previewBorder, _previewProject);
 
 			// display
-			_eplanOffline.Preview.Display(_macroPath, PreviewType.PageMacro);
+			_preview.Display(_macroPath, PreviewType.PageMacro);
 		}
 
 		private void MainWindow_OnClosing(object sender, CancelEventArgs e)

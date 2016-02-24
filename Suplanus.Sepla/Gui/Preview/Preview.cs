@@ -22,7 +22,6 @@ namespace Suplanus.Sepla.Gui
 {
 	public class Preview
 	{
-		private readonly Border _border;
 		public readonly DrawingService DrawingService;
 		private readonly Project _project;
 		private readonly PreviewControl _previewControl = new PreviewControl();
@@ -58,8 +57,7 @@ namespace Suplanus.Sepla.Gui
 			DrawingService = new DrawingService();
 			DrawingService.DrawConnections = true;
 
-			_border = border;
-			_border.Child = _previewControl;
+			border.Child = _previewControl;
 			_previewControl.Preview = this;
 		}
 
@@ -79,7 +77,7 @@ namespace Suplanus.Sepla.Gui
 			{
 				case PreviewType.WindowMacro:
 					WindowMacro windowMacro = new WindowMacro();
-					windowMacro.Open(path, _project);					
+					windowMacro.Open(path, _project);
 					SetVariantCombinations(windowMacro);
 					break;
 
@@ -221,7 +219,7 @@ namespace Suplanus.Sepla.Gui
 
 				if (!string.IsNullOrEmpty(Description))
 				{
-					return "Variante " + variantString +": " + Description;
+					return "Variante " + variantString + ": " + Description;
 				}
 				else
 				{

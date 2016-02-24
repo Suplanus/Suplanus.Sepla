@@ -18,6 +18,7 @@ namespace Suplanus.Examples.EplAddin.Preview
 		readonly string _previewProject = Path.Combine(DemoData, "Template.elk");
 
 		private EplanOffline _eplanOffline;
+		private Sepla.Gui.Preview _preview;
 
 
 		public MainWindow()
@@ -55,10 +56,10 @@ namespace Suplanus.Examples.EplAddin.Preview
 			}
 
 			// Init preview
-			_eplanOffline.Preview = new Sepla.Gui.Preview(previewBorder, _previewProject);
+			_preview = new Sepla.Gui.Preview(previewBorder, _previewProject);
 
 			// display
-			_eplanOffline.Preview.Display(_macroPath, PreviewType.WindowMacro);
+			_preview.Display(_macroPath, PreviewType.WindowMacro);
 		}
 
 		private void MainWindow_OnClosing(object sender, CancelEventArgs e)

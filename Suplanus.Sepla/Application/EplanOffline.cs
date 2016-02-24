@@ -65,9 +65,6 @@ namespace Suplanus.Sepla.Application
 			}
         }
 
-	    public Preview Preview { get; set; }
-
-
 	    /// <summary>
 		/// Starts the application
 		/// </summary>
