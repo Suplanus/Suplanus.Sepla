@@ -56,13 +56,7 @@ namespace Preview
 			// setup preview
 			_eplanOffline.Preview = new Suplanus.Sepla.Gui.Preview(previewBorder, _previewProject);
 
-			// first display
-			_eplanOffline.Preview.Display(_macroPath, PreviewType.PageMacro);
-		}
-
-		private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			// Refresh on resize
+			// display
 			_eplanOffline.Preview.Display(_macroPath, PreviewType.PageMacro);
 		}
 
