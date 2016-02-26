@@ -6,15 +6,10 @@ namespace Suplanus.Sepla.Helper
 {
 	public class ObjectsUtility
 	{
-		public static List<T> GetAllObjects<T>(Eplan.EplApi.DataModel.Project project)
+		public static List<T> GetAllObjects<T>(Project project)
 		{
-			List<T> objects = new List<T>();
-			foreach (Page page in project.Pages)
-			{
-				objects.AddRange(page.AllPlacements.OfType<T>());
-			}
-			return objects;
+			DMObjectsFinder dmObjectsFinder = new DMObjectsFinder(project);
+			return dmObjectsFinder.GetPlacements(null).OfType<T>().ToList();
 		}
-
 	}
 }
