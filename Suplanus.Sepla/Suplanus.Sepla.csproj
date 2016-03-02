@@ -152,6 +152,7 @@
     <Compile Include="Helper\ProjectUtility.cs" />
     <Compile Include="Objects\GeneratablePageMacro.cs" />
     <Compile Include="Objects\ILocationIdentifier.cs" />
+    <Compile Include="Objects\IPlaceholder.cs" />
     <Compile Include="Objects\LocationIdentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
