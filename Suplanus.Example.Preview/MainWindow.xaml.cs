@@ -20,7 +20,7 @@ namespace Suplanus.Example.Preview
 		readonly string _previewProject = Path.Combine(DemoData, "Template.elk");
 
 		private EplanOffline _eplanOffline;
-		private Suplanus.Sepla.Gui.Preview _preview;
+		private Sepla.Gui.Preview _preview;
 
 
 		public MainWindow()

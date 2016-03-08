@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using Eplan.EplApi.System;
-using Suplanus.Sepla.Gui;
 
 namespace Suplanus.Sepla.Application
 {
@@ -61,11 +59,7 @@ namespace Suplanus.Sepla.Application
 		public void StartWpf(Window window)
 	    {
 			IntPtr handle = new WindowInteropHelper(window).Handle;
-			//string test = Starter.GetBinPathLastVersion();
-		    //Debug.WriteLine(test);
-			string binPath = @"C:\Program Files\EPLAN\Electric P8\2.5.4\Bin";
-		    Debug.WriteLine(binPath);
-
+			string binPath = Starter.GetBinPathLastVersion();
 			Start(handle,binPath);
 		}
 
