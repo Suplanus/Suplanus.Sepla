@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
@@ -11,6 +13,37 @@ namespace Suplanus.Sepla.Application
     public class EplanOffline
     {
 	    public EplApplication Application;
+
+	    public EplanOffline()
+	    {
+			AppDomain.CurrentDomain.AssemblyResolve += EplanAssemblyResolver;
+		}
+
+		private Assembly EplanAssemblyResolver(object sender, ResolveEventArgs args)
+		{
+			string[] fields = args.Name.Split(',');
+			string name = fields[0];
+
+			// failing to ignore queries for satellite resource assemblies or using [assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)] 
+			// in AssemblyInfo.cs will crash the program on non en-US based system cultures.
+			// http://stackoverflow.com/questions/4368201/appdomain-currentdomain-assemblyresolve-asking-for-a-appname-resources-assembl
+			if (fields.Length > 2)
+			{
+				string culture = fields[2];
+				if (name.EndsWith(".resources") && !culture.EndsWith("neutral"))
+				{
+					return null;
+				}
+			}
+
+			var filename = Path.Combine(@"C:\Program Files\EPLAN\Platform\2.5.4\Bin\", name + ".dll");
+			if (!File.Exists(filename))
+			{
+				throw new FileNotFoundException(filename);
+			}
+			Assembly assembly = Assembly.LoadFile(filename);
+			return assembly;
+		}
 
 		/// <summary>
 		/// Starts EPLAN
@@ -28,7 +61,11 @@ namespace Suplanus.Sepla.Application
 		public void StartWpf(Window window)
 	    {
 			IntPtr handle = new WindowInteropHelper(window).Handle;
-			string binPath = Starter.GetBinPathLastVersion();
+			//string test = Starter.GetBinPathLastVersion();
+		    //Debug.WriteLine(test);
+			string binPath = @"C:\Program Files\EPLAN\Electric P8\2.5.4\Bin";
+		    Debug.WriteLine(binPath);
+
 			Start(handle,binPath);
 		}
 

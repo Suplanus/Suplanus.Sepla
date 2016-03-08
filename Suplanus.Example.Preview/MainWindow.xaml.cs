@@ -48,7 +48,7 @@ namespace Suplanus.Example.Preview
 			}
 
 			// start eplan
-			AppDomain.CurrentDomain.AssemblyResolve += EplanAssemblyResolver;
+			
 			_eplanOffline = new EplanOffline();
 			_eplanOffline.StartWpf(this);
 			if (!_eplanOffline.IsRunning)
@@ -63,31 +63,7 @@ namespace Suplanus.Example.Preview
 			_preview.Display(_macroPath, PreviewType.PageMacro);
 		}
 
-		private Assembly EplanAssemblyResolver(object sender, ResolveEventArgs args)
-		{
-			string[] fields = args.Name.Split(',');
-			string name = fields[0];
 
-			// failing to ignore queries for satellite resource assemblies or using [assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)] 
-			// in AssemblyInfo.cs will crash the program on non en-US based system cultures.
-			// http://stackoverflow.com/questions/4368201/appdomain-currentdomain-assemblyresolve-asking-for-a-appname-resources-assembl
-			if (fields.Length > 2)
-			{
-				string culture = fields[2];				
-				if (name.EndsWith(".resources") && !culture.EndsWith("neutral"))
-				{
-					return null;
-				}
-			}
-
-			var filename = Path.Combine(@"C:\Program Files\EPLAN\Platform\2.5.4\Bin\", name + ".dll");
-			if (!File.Exists(filename))
-			{
-				throw new FileNotFoundException(filename);
-			}
-            Assembly assembly = Assembly.LoadFile(filename);
-			return assembly;
-		}
 
 		private void MainWindow_OnClosing(object sender, CancelEventArgs e)
 		{
