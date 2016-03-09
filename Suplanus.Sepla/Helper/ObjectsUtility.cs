@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Eplan.EplApi.DataModel;
+using Eplan.EplApi.HEServices;
 
 namespace Suplanus.Sepla.Helper
 {
@@ -10,6 +11,21 @@ namespace Suplanus.Sepla.Helper
 		{
 			DMObjectsFinder dmObjectsFinder = new DMObjectsFinder(project);
 			return dmObjectsFinder.GetPlacements(null).OfType<T>().ToList();
+		}
+
+		public static List<StorableObject> GetSelectedStorableObjects()
+		{
+			SelectionSet selectionSet = new SelectionSet();
+
+			// navigators
+			List<StorableObject> storableObjects = selectionSet.SelectionRecursive.ToList();
+
+			// GED
+			if (!storableObjects.Any())
+			{
+				storableObjects = selectionSet.Selection.ToList();
+			}
+			return storableObjects;
 		}
 	}
 }
