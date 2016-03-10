@@ -7,10 +7,16 @@ namespace Suplanus.Sepla.Helper
 {
 	public class ObjectsUtility
 	{
-		public static List<T> GetAllObjects<T>(Project project)
+		public static List<T> GetAllObjectsOfType<T>(Project project)
 		{
 			DMObjectsFinder dmObjectsFinder = new DMObjectsFinder(project);
 			return dmObjectsFinder.GetPlacements(null).OfType<T>().ToList();
+		}
+
+		public static List<Placement> GetAllObjects(Project project)
+		{
+			DMObjectsFinder dmObjectsFinder = new DMObjectsFinder(project);
+			return dmObjectsFinder.GetPlacements(null).ToList();
 		}
 
 		public static List<StorableObject> GetSelectedStorableObjects()
