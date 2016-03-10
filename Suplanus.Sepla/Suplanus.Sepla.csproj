@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Helper\MultiLanguage.cs" />
     <Compile Include="Helper\ObjectsUtility.cs" />
+    <Compile Include="Helper\PlaceHolderUtility.cs" />
     <Compile Include="Helper\ProjectUtility.cs" />
     <Compile Include="Objects\GeneratablePageMacro.cs" />
     <Compile Include="Objects\ILocationIdentifier.cs" />
