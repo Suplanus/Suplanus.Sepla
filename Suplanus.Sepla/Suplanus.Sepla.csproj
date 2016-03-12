@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,7 +37,7 @@
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -143,18 +143,21 @@
   <ItemGroup>
     <Compile Include="Application\EplanOffline.cs" />
     <Compile Include="Application\Starter.cs" />
+    <Compile Include="Extensions\List.cs" />
     <Compile Include="Gui\Preview\Preview.cs" />
     <Compile Include="Gui\Preview\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\MacroPlaceholderUtility.cs" />
     <Compile Include="Helper\MultiLanguage.cs" />
     <Compile Include="Helper\ObjectsUtility.cs" />
     <Compile Include="Helper\PlaceHolderUtility.cs" />
     <Compile Include="Helper\ProjectUtility.cs" />
     <Compile Include="Objects\GeneratablePageMacro.cs" />
     <Compile Include="Objects\ILocationIdentifier.cs" />
-    <Compile Include="Objects\IPlaceholder.cs" />
+    <Compile Include="Objects\IMacroPlaceholder.cs" />
     <Compile Include="Objects\LocationIdentifier.cs" />
+    <Compile Include="Objects\MacroPlaceholder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
