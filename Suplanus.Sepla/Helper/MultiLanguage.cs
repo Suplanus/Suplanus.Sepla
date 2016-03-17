@@ -15,22 +15,30 @@ namespace Suplanus.Sepla.Helper
 			}
 		}
 
-		public static StringCollection DisplayLanguages()
+		public static StringCollection DisplayLanguages(Project project)
+		{
+			return GetLanguages(project, "TRANSLATEGUI.DISPLAYED_LANGUAGES");
+		}
+
+		public static StringCollection ProjectLanguages(Project project)
+		{
+
+			return GetLanguages(project, "TRANSLATEGUI.TRANSLATE_LANGUAGES");
+
+		}
+
+		private static StringCollection GetLanguages(Project project, string settingsPath)
 		{
 			using (new LockingStep())
 			{
-				var project = ProjectUtility.GetCurrentProject();
 				ProjectSettings projectSettings = new ProjectSettings(project);
-				var displayLanguagesString = projectSettings.GetStringSetting("TRANSLATEGUI.DISPLAYED_LANGUAGES", 0);
-
+				var displayLanguagesString = projectSettings.GetStringSetting(settingsPath, 0);
 				var languages = new StringCollection();
-				var displaylanguages = displayLanguagesString.Split(';')
+				var languagesFromSettings = displayLanguagesString.Split(';')
 					.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToArray(); // remove empty
-				languages.AddRange(displaylanguages);
-
+				languages.AddRange(languagesFromSettings);
 				return languages;
 			}
 		}
-
 	}
 }
