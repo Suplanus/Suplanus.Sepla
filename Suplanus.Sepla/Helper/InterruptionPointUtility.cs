@@ -13,11 +13,11 @@ namespace Suplanus.Sepla.Helper
 			interruptionPointsFilter.Name = interruptionPoint.Name;
 			InterruptionPoint[] interruptionPoints = objectsFinder.GetInterruptionPoints(interruptionPointsFilter);
 
-			// Device tag
-			NameService nameService = new NameService(interruptionPoint.Page);
+			// Device tag			
 			foreach (InterruptionPoint ip in interruptionPoints)
 			{
-				ip.LockObject();
+				NameService nameService = new NameService(ip.Page);
+				ip.LockObject();				
 				ip.NameParts = functionBasePropertyList;
 				nameService.AdjustVisibleName(ip);
 			}
