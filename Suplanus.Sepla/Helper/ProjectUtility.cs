@@ -87,12 +87,6 @@ namespace Suplanus.Sepla.Helper
 				// Insert pagemacro
 				insert.PageMacro(pageMacro, project, null, PageMacro.Enums.NumerationMode.Number);
 			}
-
-
-
-
-
-
 		}
 
 	}
