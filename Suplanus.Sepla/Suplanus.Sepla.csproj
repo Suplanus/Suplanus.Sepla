@@ -50,6 +50,15 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>2161_Public.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>true</DelaySign>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Eplan.EplApi.AFu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
@@ -148,11 +157,15 @@
     <Compile Include="Gui\Preview\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\InterruptionPointUtility.cs" />
     <Compile Include="Helper\MacroPlaceholderUtility.cs" />
+    <Compile Include="Helper\MasterdataUtility.cs" />
     <Compile Include="Helper\MultiLanguage.cs" />
     <Compile Include="Helper\ObjectsUtility.cs" />
     <Compile Include="Helper\PlaceHolderUtility.cs" />
     <Compile Include="Helper\ProjectUtility.cs" />
+    <Compile Include="Helper\SymbolUtility.cs" />
+    <Compile Include="Helper\UserDefiniedPropertyUtility.cs" />
     <Compile Include="Objects\GeneratablePageMacro.cs" />
     <Compile Include="Objects\ILocationIdentifier.cs" />
     <Compile Include="Objects\IMacroPlaceholder.cs" />
@@ -173,6 +186,9 @@
     <Resource Include="Resources\Images\Arrow_Right_64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="2161_Public.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

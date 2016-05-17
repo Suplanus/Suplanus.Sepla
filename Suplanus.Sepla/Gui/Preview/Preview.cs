@@ -303,6 +303,7 @@ namespace Suplanus.Sepla.Gui
 	/// </summary>
 	public enum PreviewType
 	{
+		Unknow,
 		WindowMacro,
 		SymbolMacro,
 		PageMacro

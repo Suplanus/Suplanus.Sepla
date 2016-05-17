@@ -28,7 +28,7 @@ namespace Suplanus.Sepla.Helper
 			}
 
 			if (!projectForms.Contains(formName))
-			{				
+			{
 				newForms.Add(formName);
 				masterdata.AddToProjectEx(project, newForms);
 			}
