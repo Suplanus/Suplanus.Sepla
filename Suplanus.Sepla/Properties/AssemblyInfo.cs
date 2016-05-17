@@ -6,12 +6,12 @@ using Eplan.EplApi.Starter;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Suplanus.Sepl")]
+[assembly: AssemblyTitle("Suplanus.Sepla")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Suplanus.Sepl")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("Suplanus.Sepla")]
+[assembly: AssemblyCopyright("Copyright © Suplanus 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
