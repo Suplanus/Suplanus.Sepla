@@ -21,8 +21,6 @@ namespace Suplanus.Sepla.Helper
 
 		public static List<StorableObject> GetSelectedStorableObjects()
 		{
-         // hello git
-
 			SelectionSet selectionSet = new SelectionSet();
 
 			// navigators
