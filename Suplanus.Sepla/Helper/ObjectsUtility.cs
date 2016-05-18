@@ -9,8 +9,8 @@ namespace Suplanus.Sepla.Helper
 	{
 		public static List<T> GetAllObjectsOfType<T>(Project project)
 		{
-			DMObjectsFinder dmObjectsFinder = new DMObjectsFinder(project);
-			return dmObjectsFinder.GetPlacements(null).OfType<T>().ToList();
+         DMObjectsFinder dmObjectsFinder = new DMObjectsFinder(project);
+			return dmObjectsFinder.GetPlacements(null).OfType<T>().ToList();       
 		}
 
 		public static List<Placement> GetAllObjects(Project project)
@@ -21,6 +21,8 @@ namespace Suplanus.Sepla.Helper
 
 		public static List<StorableObject> GetSelectedStorableObjects()
 		{
+         // hello git
+
 			SelectionSet selectionSet = new SelectionSet();
 
 			// navigators
