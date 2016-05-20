@@ -67,6 +67,10 @@ namespace Suplanus.Sepla.Gui
 		/// <param name="previewType">Type of file</param>
 		public void Display(string path, PreviewType previewType)
 		{
+		   if (path == null)
+		   {
+		      return;
+		   }
 			if (!File.Exists(path))
 			{
 				throw new FileNotFoundException(path);

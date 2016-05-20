@@ -47,17 +47,17 @@ namespace Suplanus.Example.Preview
 				throw new Exception("Macro not found:" + Environment.NewLine + _macroPath);
 			}
 
-			// start eplan			
-			_eplanOffline = new EplanOffline();
+         // start eplan			
+         _eplanOffline = new EplanOffline();
          //_eplanOffline.StartWpf(this);
          _eplanOffline.StartWpf(this, @"C:\Program Files\EPLAN\Platform\2.5.4\Bin");
          if (!_eplanOffline.IsRunning)
-			{
-				throw new Exception("EPLAN not running");
-			}
+         {
+            throw new Exception("EPLAN not running");
+         }
 
-			// setup preview
-			_preview = new Sepla.Gui.Preview(previewBorder, _previewProject);
+         // setup preview
+         _preview = new Sepla.Gui.Preview(previewBorder, _previewProject);
 
 			// display
 			_preview.Display(_macroPath, PreviewType.PageMacro);
