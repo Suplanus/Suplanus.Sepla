@@ -47,9 +47,17 @@ namespace Suplanus.Sepla.Application
 			var filename = Path.Combine(@"C:\Program Files\EPLAN\Platform\2.5.4\Bin\", name + ".dll");
 			if (!File.Exists(filename))
 			{
-				throw new FileNotFoundException(filename);
+			   // fix: http://stackoverflow.com/questions/1127431/xmlserializer-giving-filenotfoundexception-at-constructor
+			   if (filename.Contains("Xceed.Wpf.AvalonDock.XmlSerializers.dll"))
+			   {
+			      return null;
+			   }
+			   else
+			   {
+			      throw new FileNotFoundException(filename);
+			   }
 			}
-			Assembly assembly = Assembly.LoadFile(filename);
+		   Assembly assembly = Assembly.LoadFile(filename);
 			return assembly;
 		}
 

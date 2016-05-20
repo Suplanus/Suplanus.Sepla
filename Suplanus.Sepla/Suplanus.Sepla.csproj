@@ -37,7 +37,7 @@
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -51,7 +51,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
@@ -61,47 +61,47 @@
     <DelaySign>true</DelaySign>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Eplan.EplApi.AFu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.AFu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.AFu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.Baseu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.Baseu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.Baseu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.DataModelu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.DataModelu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.DataModelu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.EServicesu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.EServicesu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.EServicesu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.Guiu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.Guiu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.Guiu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.HEServicesu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.HEServicesu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.HEServicesu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.MasterDatau, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.MasterDatau, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.MasterDatau.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.Ppeu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.Ppeu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.Ppeu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.RecorderToolsu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.RecorderToolsu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.RecorderToolsu.dll</HintPath>
       <Private>False</Private>
@@ -126,12 +126,12 @@
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.Starteru.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.Systemu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.Systemu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.Systemu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplApi.WebServiceu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ecea1219c93267ce, processorArchitecture=AMD64">
+    <Reference Include="Eplan.EplApi.WebServiceu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ecea1219c93267ce, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.WebServiceu.dll</HintPath>
       <Private>False</Private>

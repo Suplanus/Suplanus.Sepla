@@ -47,11 +47,11 @@ namespace Suplanus.Example.Preview
 				throw new Exception("Macro not found:" + Environment.NewLine + _macroPath);
 			}
 
-			// start eplan
-			
+			// start eplan			
 			_eplanOffline = new EplanOffline();
-			_eplanOffline.StartWpf(this);
-			if (!_eplanOffline.IsRunning)
+         //_eplanOffline.StartWpf(this);
+         _eplanOffline.StartWpf(this, @"C:\Program Files\EPLAN\Platform\2.5.4\Bin");
+         if (!_eplanOffline.IsRunning)
 			{
 				throw new Exception("EPLAN not running");
 			}
