@@ -11,8 +11,8 @@ namespace Suplanus.Sepla.Helper
 	{
 		public const string TextplaceholderStartText = "&lt;#";
 		public const string TextplaceholderEndText = "#&gt;";
-		public const string BrickplaceholderStartText = "&lt;@";
-		public const string BrickplaceholderEndText = "@&gt;";
+		public const string BrickplaceholderStartText = "&lt;@@";
+		public const string BrickplaceholderEndText = "@@&gt;";
 
 		public static IEnumerable<T> GetMacroPlaceholder<T>(string filename, string startText, string endText)
 			where T : IMacroPlaceholder, new()
