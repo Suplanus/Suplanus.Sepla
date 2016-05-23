@@ -87,12 +87,25 @@ namespace Suplanus.Sepla.Application
 			Start(handle, binPath);
 		}
 
-		/// <summary>
-		/// Starts EPLAN with the given version of program variant and attach to (WPF) window
-		/// </summary>
-		/// <param name="window"></param>
-		/// <param name="binPath"></param>
-		public void StartWpf(Window window, string binPath)
+
+      /// <summary>
+      /// Starts EPLAN with the last version of Electric P8 and attach to (WF) form
+      /// </summary>
+      /// <param name="form"></param>
+      /// <param name="binPath"></param>
+      public void StartWindowsForms(Form form, string binPath)
+      {
+         IntPtr handle = form.Handle;
+         LoadAssemblies(binPath);
+         Start(handle, binPath);
+      }
+
+      /// <summary>
+      /// Starts EPLAN with the given version of program variant and attach to (WPF) window
+      /// </summary>
+      /// <param name="window"></param>
+      /// <param name="binPath"></param>
+      public void StartWpf(Window window, string binPath)
 		{
 			IntPtr handle = new WindowInteropHelper(window).Handle;
 			LoadAssemblies(binPath);
