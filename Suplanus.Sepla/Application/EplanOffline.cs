@@ -11,25 +11,19 @@ namespace Suplanus.Sepla.Application
 	public class EplanOffline
 	{
 		public EplApplication Application;
+	   public string BinPath;
 
-		public EplanOffline()
+		public EplanOffline(string binPath)
 		{
+		   BinPath = binPath;
 			AppDomain.CurrentDomain.AssemblyResolve += EplanAssemblyResolver;
 		}
 
-		private void LoadAssemblies(string binPath)
+		public Assembly EplanAssemblyResolver(object sender, ResolveEventArgs args)
 		{
-			binPath = binPath.Replace("Electric P8", "Platform");
-			var files = Directory.GetFiles(binPath, "Eplan.EplApi.*.dll", SearchOption.TopDirectoryOnly);
-			foreach (var file in files)
-			{
-				Assembly.LoadFile(file);
-			}
-		}
+        BinPath = BinPath.Replace("Electric P8", "Platform"); // dlls in Platform directory
 
-		public static Assembly EplanAssemblyResolver(object sender, ResolveEventArgs args)
-		{
-			string[] fields = args.Name.Split(',');
+         string[] fields = args.Name.Split(',');
 			string name = fields[0];
 
 			// failing to ignore queries for satellite resource assemblies or using [assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)] 
@@ -44,7 +38,7 @@ namespace Suplanus.Sepla.Application
 				}
 			}
 
-			var filename = Path.Combine(@"C:\Program Files\EPLAN\Platform\2.5.4\Bin\", name + ".dll");
+			var filename = Path.Combine(BinPath, name + ".dll");
 			if (!File.Exists(filename))
 			{
 			   return null;
@@ -58,9 +52,8 @@ namespace Suplanus.Sepla.Application
 		/// </summary>
 		public void StartWithoutGui()
 		{
-			string binPath = Starter.GetBinPathLastVersion();
-			LoadAssemblies(binPath);
-			Start(binPath);
+			BinPath = Starter.GetBinPathLastVersion();
+			Start();
 		}
 
 		/// <summary>
@@ -70,9 +63,7 @@ namespace Suplanus.Sepla.Application
 		public void StartWpf(Window window)
 		{
 			IntPtr handle = new WindowInteropHelper(window).Handle;
-			string binPath = Starter.GetBinPathLastVersion();
-			LoadAssemblies(binPath);
-			Start(handle, binPath);
+			Start(handle);
 		}
 
 		/// <summary>
@@ -82,34 +73,7 @@ namespace Suplanus.Sepla.Application
 		public void StartWindowsForms(Form form)
 		{
 			IntPtr handle = form.Handle;
-			string binPath = Starter.GetBinPathLastVersion();
-			LoadAssemblies(binPath);
-			Start(handle, binPath);
-		}
-
-
-      /// <summary>
-      /// Starts EPLAN with the last version of Electric P8 and attach to (WF) form
-      /// </summary>
-      /// <param name="form"></param>
-      /// <param name="binPath"></param>
-      public void StartWindowsForms(Form form, string binPath)
-      {
-         IntPtr handle = form.Handle;
-         LoadAssemblies(binPath);
-         Start(handle, binPath);
-      }
-
-      /// <summary>
-      /// Starts EPLAN with the given version of program variant and attach to (WPF) window
-      /// </summary>
-      /// <param name="window"></param>
-      /// <param name="binPath"></param>
-      public void StartWpf(Window window, string binPath)
-		{
-			IntPtr handle = new WindowInteropHelper(window).Handle;
-			LoadAssemblies(binPath);
-			Start(handle, binPath);
+			Start(handle);
 		}
 
 		/// <summary>
@@ -128,15 +92,14 @@ namespace Suplanus.Sepla.Application
 		/// Starts the application
 		/// </summary>
 		/// <param name="handle"></param>
-		/// <param name="binPath"></param>
-		private void Start(IntPtr handle, string binPath)
+		private void Start(IntPtr handle)
 		{
 			if (!IsRunning)
 			{
 				try
 				{
 					EplApplication eplApplication = new EplApplication();
-					eplApplication.EplanBinFolder = binPath;
+					eplApplication.EplanBinFolder = BinPath;
 					eplApplication.ResetQuietMode();
 					eplApplication.SetMainFrame(handle);
 					eplApplication.Init("", true, true);
@@ -152,15 +115,14 @@ namespace Suplanus.Sepla.Application
 		/// <summary>
 		/// Starts the application without Gui
 		/// </summary>
-		/// <param name="binPath"></param>
-		private void Start(string binPath)
+		private void Start()
 		{
 			if (!IsRunning)
 			{
 				try
 				{
 					EplApplication eplApplication = new EplApplication();
-					eplApplication.EplanBinFolder = binPath;
+					eplApplication.EplanBinFolder = BinPath;
 					eplApplication.ResetQuietMode();
 					eplApplication.Init("", true, true);
 					Application = eplApplication;
@@ -179,9 +141,16 @@ namespace Suplanus.Sepla.Application
 		{
 			if (Application != null)
 			{
-				Application.Exit();
+			   try // needed for eplan runtime exceptions
+			   {
+			      Application.Exit();
+			   }
+			   finally
+			   {
+               Application = null;
+            }
 			}
-			Application = null;
+			
 		}
 	}
 }

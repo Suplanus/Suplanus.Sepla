@@ -46,7 +46,7 @@ namespace Suplanus.Examples.EplAddin.Preview
 			}
 
 			// start eplan
-			_eplanOffline = new EplanOffline();
+		   _eplanOffline = new EplanOffline(Starter.GetBinPathLastVersion());
 
 			// Needed if its an OfflineApplication
 			_eplanOffline.StartWpf(this);

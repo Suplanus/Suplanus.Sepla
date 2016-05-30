@@ -51,9 +51,9 @@ namespace Suplanus.Example.Preview
          }
 
          // start eplan			
-         _eplanOffline = new EplanOffline();
+         _eplanOffline = new EplanOffline(@"C:\Program Files\EPLAN\Electric P8\2.5.4\Bin");
          //_eplanOffline.StartWpf(this);
-         _eplanOffline.StartWpf(this, @"C:\Program Files\EPLAN\Electric P8\2.5.4\Bin");
+         _eplanOffline.StartWpf(this);
          if (!_eplanOffline.IsRunning)
          {
             throw new Exception("EPLAN not running");

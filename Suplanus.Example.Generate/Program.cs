@@ -65,7 +65,7 @@ namespace Suplanus.Example.Generate
 
 			// Start EPLAN
 			Console.WriteLine("Start EPLAN...");
-			var eplanOffline = new EplanOffline();
+			var eplanOffline = new EplanOffline(Starter.GetBinPathLastVersion());
 			eplanOffline.StartWithoutGui();
 			if (!eplanOffline.IsRunning)
 			{
