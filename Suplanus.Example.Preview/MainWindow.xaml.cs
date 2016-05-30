@@ -50,7 +50,9 @@ namespace Suplanus.Example.Preview
          }
 
          // start eplan			
-         _eplanOffline = new EplanOffline(@"C:\Program Files\EPLAN\Electric P8\2.5.4\Bin");
+         string binPath = @"C:\Program Files\EPLAN\Electric P8\2.5.4\Bin";
+         Starter.PinToEplan(binPath);
+         _eplanOffline = new EplanOffline(binPath);
          _eplanOffline.StartWpf(this);
          if (!_eplanOffline.IsRunning)
          {

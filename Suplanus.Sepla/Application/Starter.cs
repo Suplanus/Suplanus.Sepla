@@ -27,7 +27,15 @@ namespace Suplanus.Sepla.Application
          eplanVersions = new List<EplanData>(eplanVersions.OrderBy(obj => obj.EplanVersion));
 
          EplanData eplanData = eplanVersions.LastOrDefault();
-         return Path.GetDirectoryName(eplanData.EplanPath);
+         var binPathPlatform = Path.GetDirectoryName(eplanData.EplanPath);
+         return binPathPlatform;
+      }
+
+      public static void PinToEplan(string binPath)
+      {
+         AssemblyResolver resolver = new AssemblyResolver();
+         resolver.SetEplanBinPath(binPath);
+         resolver.PinToEplan();
       }
    }
 }
