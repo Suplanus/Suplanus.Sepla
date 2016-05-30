@@ -14,12 +14,14 @@ namespace Suplanus.Sepla.Application
       {
          List<EplanData> eplanVersions = new List<EplanData>();
 
+         var eplanFinder = new EplanFinder();
+
          List<EplanData> eplanVersions32Bit = new List<EplanData>();
-         new EplanFinder().GetInstalledEplanVersions(ref eplanVersions32Bit);
+         eplanFinder.GetInstalledEplanVersions(ref eplanVersions32Bit);
          eplanVersions.AddRange(eplanVersions32Bit);
 
          List<EplanData> eplanVersions64Bit = new List<EplanData>();
-         new EplanFinder().GetInstalledEplanVersions(ref eplanVersions64Bit, true);
+         eplanFinder.GetInstalledEplanVersions(ref eplanVersions64Bit, true);
          eplanVersions.AddRange(eplanVersions64Bit);
 
          eplanVersions = new List<EplanData>(eplanVersions.OrderBy(obj => obj.EplanVersion));

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Interop;
-using Eplan.EplApi.DataModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Suplanus.Sepla.Test.Application
 {

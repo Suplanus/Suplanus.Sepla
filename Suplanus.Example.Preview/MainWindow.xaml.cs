@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using Suplanus.Sepla.Application;
 using Suplanus.Sepla.Gui;
@@ -52,7 +51,6 @@ namespace Suplanus.Example.Preview
 
          // start eplan			
          _eplanOffline = new EplanOffline(@"C:\Program Files\EPLAN\Electric P8\2.5.4\Bin");
-         //_eplanOffline.StartWpf(this);
          _eplanOffline.StartWpf(this);
          if (!_eplanOffline.IsRunning)
          {
