@@ -1,38 +1,81 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.HEServices;
 
 namespace Suplanus.Sepla.Helper
 {
-	public class MasterdataUtility
-	{
-		bool IsFormInProject(Project project, string formName)
-		{
-			return new Masterdata().get_ProjectEntries(project).Contains(formName);
-		}
+   public static class MasterdataUtility
+   {
+      /// <summary>
+      /// Check if masterdata in Project
+      /// </summary>
+      /// <param name="project"></param>
+      /// <param name="masterdataName">Full file name</param>
+      /// <returns></returns>
+      public static bool IsMasterdataInProject(Project project, string masterdataName)
+      {
+         return new Masterdata().get_ProjectEntries(project).Contains(masterdataName);
+      }
 
-		bool IsFormInSystem(string formName)
-		{
-			return new Masterdata().SystemEntries.Contains(formName);
-		}
+      /// <summary>
+      /// Check if masterdata is in System
+      /// </summary>
+      /// <param name="masterdataName">Full file name</param>
+      /// <returns></returns>
+      public static bool IsMasterdataInSystem(string masterdataName)
+      {
+         return new Masterdata().SystemEntries.Contains(masterdataName);
+      }
 
-		bool AddFormToProject(Project project, string formName)
-		{
-			Masterdata masterdata = new Masterdata();
-			StringCollection newForms = new StringCollection();
-			StringCollection projectForms = masterdata.get_ProjectEntries(project);
+      /// <summary>
+      /// Returns all files with given extension e.g. f01
+      /// </summary>
+      /// <param name="extension"></param>
+      /// <returns></returns>
+      public static List<string> GetListOfType(string extension)
+      {
+         return new Masterdata().SystemEntries.Cast<string>().Where(systemEntry => systemEntry.EndsWith(extension)).ToList();
+      }
 
-			if (!IsFormInSystem(formName))
-			{
-				return false;
-			}
+      /// <summary>
+      /// Add masterdata from system to project
+      /// </summary>
+      /// <param name="project"></param>
+      /// <param name="masterdataName">Full file name</param>
+      /// <returns></returns>
+      public static void AddMasterdataToProject(Project project, string masterdataName)
+      {
+         Masterdata masterdata = new Masterdata();
+         StringCollection newMasterdatas = new StringCollection();
+         StringCollection projectMasterdatas = masterdata.get_ProjectEntries(project);
+         if (!projectMasterdatas.Contains(masterdataName))
+         {
+            newMasterdatas.Add(masterdataName);
+            var test = masterdata.AddToProjectEx(project, newMasterdatas);
+         }
+      }
 
-			if (!projectForms.Contains(formName))
-			{
-				newForms.Add(formName);
-				masterdata.AddToProjectEx(project, newForms);
-			}
-			return true;
-		}
-	}
+      /// <summary>
+      /// Add masterdata from system to project
+      /// </summary>
+      /// <param name="project"></param>
+      /// <param name="symbolLibraryNameWithExtesion">Filename with extension (without path)</param>
+      /// <returns></returns>
+      public static void AddSymbolLibrary(Project project, string symbolLibraryNameWithExtesion)
+      {
+         Masterdata masterdata = new Masterdata();
+         StringCollection newMasterdatas = new StringCollection();
+         StringCollection projectMasterdatas = masterdata.get_ProjectEntries(project);
+         if (!projectMasterdatas.Contains(symbolLibraryNameWithExtesion))
+         {
+            Masterdata md = new Masterdata();
+            newMasterdatas.Add(symbolLibraryNameWithExtesion);
+            StringCollection entries_before = md.get_ProjectEntries(project);
+            var test = md.AddToProjectEx(project, newMasterdatas);
+            StringCollection entries_after = md.get_ProjectEntries(project);
+         }
+      }
+   }
 }
