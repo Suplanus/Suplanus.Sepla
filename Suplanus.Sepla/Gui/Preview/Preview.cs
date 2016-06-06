@@ -221,26 +221,28 @@ namespace Suplanus.Sepla.Gui
 
 			public override string ToString()
 			{
-				// Generate Variantstring from index
-				StringBuilder res = new StringBuilder(Index.ToString());
+            // Pagemacro
+            if (VariantCombination.PreviewType == PreviewType.PageMacro)
+            {
+               if (string.IsNullOrEmpty(Description))
+               {
+                  return "Seite " + Index;
+               }
+               else
+               {
+                  return Description;
+               }
+            }
+
+            // Generate Variantstring from index
+            StringBuilder res = new StringBuilder(Index.ToString());
 				string variantString = string.Empty;
 				for (int j = 0; j < res.Length; j++)
 				{
 					variantString += res[j] += (char)(17); // '0' is 48, 'A' is 65
 				}
 
-				if (VariantCombination.PreviewType == PreviewType.PageMacro)
-				{
-					if (string.IsNullOrEmpty(Description))
-					{
-						return "Seite " + Index;
-					}
-					else
-					{
-						return Description;
-					}
-				}
-
+            // Not Pagemacro
 				if (VariantCombination.PreviewType != PreviewType.PageMacro)
 				{
 					if (!string.IsNullOrEmpty(Description))
