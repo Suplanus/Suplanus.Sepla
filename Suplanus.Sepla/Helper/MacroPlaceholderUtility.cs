@@ -53,7 +53,7 @@ namespace Suplanus.Sepla.Helper
          return placeholders;
       }
 
-      public static string ReplacePlaceholderTextAndGetTempMacro(string macroFilename, List<IMacroPlaceholder> placeholders)
+      public static string ReplacePlaceholderTextAndGetTempMacro(string macroFilename, List<IMacroPlaceholder> placeholders, bool removeText)
       {
          string extension = Path.GetExtension(macroFilename);
          string tempFile = Path.Combine(Path.GetTempPath(), "Suplanus.Sepla.MacroPlaceholderUtility.TempMacro" + extension); // needed because EPLAN is checking extension
@@ -65,6 +65,10 @@ namespace Suplanus.Sepla.Helper
             string replaceText;
             if (!placeholder.IsActive || placeholder.Value == null || string.IsNullOrEmpty(placeholder.Value.ToString()))
             {
+               if (!removeText)
+               {
+                  continue;
+               }
                replaceText = "";
             }
             else

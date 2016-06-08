@@ -79,7 +79,7 @@ namespace Suplanus.Sepla.Helper
       /// </summary>
       /// <param name="projectLinkFilePath"></param>
       /// <returns></returns>
-      private static Project OpenProject(string projectLinkFilePath)
+      public static Project OpenProject(string projectLinkFilePath)
       {
          ProjectManager projectManager = new ProjectManager();
          var project = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectLinkFilePath.Equals(projectLinkFilePath));
