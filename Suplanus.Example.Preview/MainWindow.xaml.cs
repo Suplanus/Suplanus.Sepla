@@ -71,6 +71,7 @@ namespace Suplanus.Example.Preview
       private void MainWindow_OnClosing(object sender, CancelEventArgs e)
       {
          _eplanOffline.Close();
+         _preview.Dispose();
       }
 
 

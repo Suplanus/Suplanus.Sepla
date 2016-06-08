@@ -157,6 +157,7 @@ namespace Suplanus.Sepla.Gui
 						symbolMacro.ChangeCurrentVariant(SelectedVariantCombination.RepresentationType, SelectedVariant.Index);
 						Preview.DrawingService.CreateDisplayList(symbolMacro);
 						Preview.DrawEplan();
+                  symbolMacro.Dispose();
 						break;
 					case PreviewType.PageMacro:
 						PageMacro pageMacro = (PageMacro)SelectedVariantCombination.PreviewObject;

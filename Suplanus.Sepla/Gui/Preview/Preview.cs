@@ -19,7 +19,7 @@ using Suplanus.Sepla.Helper;
 
 namespace Suplanus.Sepla.Gui
 {
-   public class Preview
+   public class Preview : IDisposable
    {
       public readonly DrawingService DrawingService;
       public WindowMacro WindowMacro;
@@ -329,6 +329,15 @@ namespace Suplanus.Sepla.Gui
       /// <returns></returns>
       [DllImport("gdi32.dll")]
       public static extern bool DeleteObject(IntPtr hObject);
+
+      public void Dispose()
+      {
+         this.DrawingService.Dispose();
+         this.PageMacro.Dispose();
+         this.WindowMacro.Dispose();
+         this.SymbolMacro.Dispose();
+         this.EplanProject.Close();
+      }
    }
 
 
