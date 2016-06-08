@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Eplan.EplApi.RemoteClient;
 using Eplan.EplApi.Starter;
 
 namespace Suplanus.Sepla.Application
@@ -11,6 +12,15 @@ namespace Suplanus.Sepla.Application
    public class Starter
    {
       public static string GetBinPathLastVersion()
+      {
+         var eplanVersions = GetEplanInstallations();
+
+         EplanData eplanData = eplanVersions.LastOrDefault();
+         var binPathPlatform = Path.GetDirectoryName(eplanData.EplanPath);
+         return binPathPlatform;
+      }
+
+      public static List<EplanData> GetEplanInstallations()
       {
          List<EplanData> eplanVersions = new List<EplanData>();
 
@@ -25,11 +35,16 @@ namespace Suplanus.Sepla.Application
          eplanVersions.AddRange(eplanVersions64Bit);
 
          eplanVersions = new List<EplanData>(eplanVersions.OrderBy(obj => obj.EplanVersion));
-
-         EplanData eplanData = eplanVersions.LastOrDefault();
-         var binPathPlatform = Path.GetDirectoryName(eplanData.EplanPath);
-         return binPathPlatform;
+         return eplanVersions;
       }
+
+      public static List<EplanServerData> GetActiveEplanInstallations()
+      {
+         EplanRemoteClient eplanRemoteClient = new EplanRemoteClient();
+         List<EplanServerData> eplanServerDatas = new List<EplanServerData>();
+         eplanRemoteClient.GetActiveEplanServersOnLocalMachine(out eplanServerDatas);
+         return eplanServerDatas;
+      } 
 
       public static void PinToEplan(string binPath)
       {
