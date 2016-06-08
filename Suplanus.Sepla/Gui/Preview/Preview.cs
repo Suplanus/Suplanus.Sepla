@@ -333,9 +333,9 @@ namespace Suplanus.Sepla.Gui
       public void Dispose()
       {
          this.DrawingService.Dispose();
-         this.PageMacro.Dispose();
-         this.WindowMacro.Dispose();
-         this.SymbolMacro.Dispose();
+         if (this.PageMacro != null) this.PageMacro.Dispose();
+         if (this.WindowMacro != null) this.WindowMacro.Dispose();
+         if (this.SymbolMacro != null) this.SymbolMacro.Dispose();
          this.EplanProject.Close();
       }
    }
