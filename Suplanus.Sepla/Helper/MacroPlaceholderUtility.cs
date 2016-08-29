@@ -13,15 +13,22 @@ namespace Suplanus.Sepla.Helper
       public const string TEXTPLACEHOLDER_END_TEXT = "#&gt;"; // equals #>
       public const string BRICKPLACEHOLDER_START_TEXT = "&lt;@@"; // equals <@ double @ needed in eplan
       public const string BRICKPLACEHOLDER_END_TEXT = "@@&gt;"; // equals @> double @ needed in eplan
+      public const string RECORDPLACEHOLDER_START_TEXT = @"&lt;§"; // equals <§
+      public const string RECORDPLACEHOLDER_END_TEXT = @"§&gt;"; // equals §>
+      public const string REAL_RECORDPLACEHOLDER_START_TEXT = @"<§"; // equals <§
+      public const string REAL_RECORDPLACEHOLDER_END_TEXT = @"§>"; // equals §>
+
 
       public static string GetPlaceholderName(string placeholderPlainText)
       {
          string returnValue = placeholderPlainText
             .Replace(TEXTPLACEHOLDER_START_TEXT, "")
             .Replace(BRICKPLACEHOLDER_START_TEXT, "")
+            .Replace(RECORDPLACEHOLDER_START_TEXT, "")
             .Replace("<@", "")
             .Replace(TEXTPLACEHOLDER_END_TEXT, "")
             .Replace(BRICKPLACEHOLDER_END_TEXT, "")
+            .Replace(RECORDPLACEHOLDER_END_TEXT, "")
             .Replace("@>", "");
          return returnValue;
       }
@@ -36,7 +43,7 @@ namespace Suplanus.Sepla.Helper
 
          // Getplaceholders
          var text = File.ReadAllText(filename, Encoding.UTF8);
-         IEnumerable<string> matches = Regex.Matches(text, startText + "(.*?)" + endText)
+         IEnumerable<string> matches = Regex.Matches(text,startText + "(.*?)" + endText)
             .OfType<Match>()
             .Select(m => m.Groups[0].Value)
             .Distinct();
@@ -55,6 +62,11 @@ namespace Suplanus.Sepla.Helper
 
       public static string ReplacePlaceholderTextAndGetTempMacro(string macroFilename, List<IMacroPlaceholder> placeholders, bool removeText)
       {
+         if (!File.Exists(macroFilename))
+         {
+            return null;
+         }
+
          string extension = Path.GetExtension(macroFilename);
          string tempFile = Path.Combine(Path.GetTempPath(), "Suplanus.Sepla.MacroPlaceholderUtility.TempMacro" + extension); // needed because EPLAN is checking extension
          string content = File.ReadAllText(macroFilename);
