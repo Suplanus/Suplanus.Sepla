@@ -10,10 +10,12 @@ namespace Suplanus.Sepla.Application
 	{
 		public EplApplication Application;
 	   public string BinPath;
+	   public string LicenseFile;
 
-		public EplanOffline(string binPath)
+		public EplanOffline(string binPath, string licenseFile = null)
 		{
-		   BinPath = binPath;
+         BinPath = binPath;
+		   LicenseFile = licenseFile;
 		}
 
 		/// <summary>
@@ -70,6 +72,10 @@ namespace Suplanus.Sepla.Application
 					eplApplication.EplanBinFolder = BinPath;
 					eplApplication.QuietMode = EplApplication.QuietModes.ShowAllDialogs;
                eplApplication.SetMainFrame(handle);
+				   if (!string.IsNullOrEmpty(LicenseFile))
+				   {
+				      eplApplication.LicenseFile = LicenseFile; // Set specific licence
+				   }
 					eplApplication.Init("", true, true);
 					Application = eplApplication;
 				}
