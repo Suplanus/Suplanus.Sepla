@@ -81,15 +81,23 @@ namespace Suplanus.Sepla.Helper
       /// <returns></returns>
       public static Project OpenProject(string projectLinkFilePath)
       {
-         ProjectManager projectManager = new ProjectManager();
-         var project = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectLinkFilePath.Equals(projectLinkFilePath));
-         if (project != null)
+         if (!File.Exists(projectLinkFilePath))
          {
-            return project;
+            throw new FileNotFoundException("EPLAN project link file not found", projectLinkFilePath);
          }
-         else
+
+         using (LockingStep lockingStep = new LockingStep())
          {
-            return projectManager.OpenProject(projectLinkFilePath);
+            ProjectManager projectManager = new ProjectManager();
+            var project = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectLinkFilePath.Equals(projectLinkFilePath));
+            if (project != null)
+            {
+               return project;
+            }
+            else
+            {
+               return projectManager.OpenProject(projectLinkFilePath);
+            }
          }
       }
 
