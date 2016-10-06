@@ -5,10 +5,10 @@
 		public GeneratablePageMacro(string filename, ILocationIdentifier locationIdentifier)
 		{
 			Filename = filename;
-			LocationIdentifierIdentifier = (LocationIdentifierIdentifier) locationIdentifier;
+			LocationIdentifierIdentifier = (LocationIdentifier) locationIdentifier;
 		}
 
 		public string Filename { get; set; }
-		public LocationIdentifierIdentifier LocationIdentifierIdentifier { get; set; }
+		public LocationIdentifier LocationIdentifierIdentifier { get; set; }
 	}
 }

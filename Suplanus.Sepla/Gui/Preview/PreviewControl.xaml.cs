@@ -1,48 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 using Eplan.EplApi.DataModel.MasterData;
 
 namespace Suplanus.Sepla.Gui
 {
-	public partial class PreviewControl : System.Windows.Controls.UserControl
+   /// <summary>
+   /// UserControl to Display objects from EPLAN and so on
+   /// </summary>
+	public partial class PreviewControl
 	{
-		public PreviewType previewType { get; set; }
+      /// <summary>
+      /// Type of file
+      /// </summary>
+		public PreviewType PreviewType { get; set; }
 
-
+      /// <summary>
+      /// VariantCominations which inherts the preview object
+      /// </summary>
 		public ObservableCollection<Preview.VariantCombination> VariantsCombinations { get; set; }
 
-		private Preview.VariantCombination selectedVariantCombination;
+		private Preview.VariantCombination _selectedVariantCombination;
+      /// <summary>
+      /// Selected VariantCombination
+      /// </summary>
 		public Preview.VariantCombination SelectedVariantCombination
 		{
 			get
 			{
-				if (selectedVariantCombination == null)
+				if (_selectedVariantCombination == null)
 				{
 					return VariantsCombinations.FirstOrDefault();
 				}
-				return selectedVariantCombination;
+				return _selectedVariantCombination;
 			}
-			set { selectedVariantCombination = value; }
+			set { _selectedVariantCombination = value; }
 		}
 
 		private Preview.Variant SelectedVariant { get; set; }
 
+      /// <summary>
+      /// Preview Class
+      /// </summary>
 		public Preview Preview { get; set; }
 
+      /// <summary>
+      /// Default Constructor
+      /// </summary>
 		public PreviewControl()
 		{
 			InitializeComponent();
@@ -50,7 +56,9 @@ namespace Suplanus.Sepla.Gui
 
 
 		#region Navigation
-
+      /// <summary>
+      /// Checks all controls and set the IsEnabled or Visibility property
+      /// </summary>
 		public void CheckControls()
 		{
 			// Enable
@@ -69,7 +77,7 @@ namespace Suplanus.Sepla.Gui
 				CbbVariant.IsEnabled = false;
 			}
 
-			if (previewType == PreviewType.PageMacro)
+			if (PreviewType == PreviewType.PageMacro)
 			{
 				CbbRepresentationType.Visibility = Visibility.Collapsed;
 			}
@@ -144,7 +152,7 @@ namespace Suplanus.Sepla.Gui
 		{
 			if (SelectedVariant != null)
 			{
-				switch (previewType)
+				switch (PreviewType)
 				{
 					case PreviewType.WindowMacro:
 						WindowMacro windowMacro = (WindowMacro)SelectedVariantCombination.PreviewObject;

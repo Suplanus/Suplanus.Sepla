@@ -3,8 +3,16 @@ using Eplan.EplApi.HEServices;
 
 namespace Suplanus.Sepla.Helper
 {
+	/// <summary>
+	/// Helper class for InterruptionPoints
+	/// </summary>
 	public class InterruptionPointUtility
 	{
+      /// <summary>
+      /// Renames the InterruptionPoint
+      /// </summary>
+      /// <param name="interruptionPoint"></param>
+      /// <param name="functionBasePropertyList"></param>
 		public static void RenameAll(InterruptionPoint interruptionPoint, FunctionBasePropertyList functionBasePropertyList)
 		{
 			// Get all Interruptionpoints

@@ -19,21 +19,43 @@ using Suplanus.Sepla.Helper;
 
 namespace Suplanus.Sepla.Gui
 {
+   /// <summary>
+   /// Preview Helper class to display in user control PreviewControl
+   /// </summary>
    public class Preview : IDisposable
    {
+      /// <summary>
+      /// EPLAN DrawingService
+      /// </summary>
       public readonly DrawingService DrawingService;
+
+      /// <summary>
+      /// EPLAN WindowMacro which is displayed
+      /// </summary>
       public WindowMacro WindowMacro;
+
+      /// <summary>
+      /// EPLAN SymbolMacro which is displayed
+      /// </summary>
       public SymbolMacro SymbolMacro;
+
+      /// <summary>
+      /// EPLAN PageMacro which is displayed
+      /// </summary>
       public PageMacro PageMacro;
 
+      /// <summary>
+      /// EPLAN project object
+      /// </summary>
       public Project EplanProject;
+
       private readonly PreviewControl _previewControl = new PreviewControl();
 
       /// <summary>
       /// Init Preview object for WPF
       /// </summary>
-      /// <param name="border"></param>
-      /// <param name="projectFile"></param>
+      /// <param name="border">Border which should inhert the UserControl</param>
+      /// <param name="projectFile">EPLAN project file to preview (*.elk)</param>
       public Preview(Border border, string projectFile)
       {
          // Clean
@@ -112,18 +134,30 @@ namespace Suplanus.Sepla.Gui
 
       }
 
+      /// <summary>
+      /// Displays the given WindowMacro
+      /// </summary>
+      /// <param name="windowMacro">EPLAN WindowMacro</param>
       public void Display(WindowMacro windowMacro)
       {
          WindowMacro = windowMacro;
          SetVariantCombinations(WindowMacro);
       }
 
+      /// <summary>
+      /// Displays the given SymbolMacro
+      /// </summary>
+      /// <param name="symbolMacro">EPLAN SymbolMacro</param>
       public void Display(SymbolMacro symbolMacro)
       {
          SymbolMacro = symbolMacro;
          SetVariantCombinations(SymbolMacro);
       }
 
+      /// <summary>
+      /// Displays the given PageMacro
+      /// </summary>
+      /// <param name="pageMacro">EPLAN PageMacro</param>
       public void Display(PageMacro pageMacro)
       {
          PageMacro = pageMacro;
@@ -218,35 +252,75 @@ namespace Suplanus.Sepla.Gui
          _previewControl.CheckControls();
       }
 
+      /// <summary>
+      /// Variant and RepresentationType combined to display
+      /// </summary>
       public class VariantCombination
       {
+         /// <summary>
+         /// Creates a VariantCombination with the given PreviewType
+         /// </summary>
+         /// <param name="previewType">Sets how display the object</param>
          public VariantCombination(PreviewType previewType)
          {
             Variants = new ObservableCollection<Variant>();
             PreviewType = previewType;
          }
 
+         /// <summary>
+         /// Returns the PresentationType of the VarianteCombination
+         /// </summary>
+         /// <returns>RepresentationType</returns>
          public override string ToString()
          {
             return RepresentationType.ToString();
          }
 
+         /// <summary>
+         /// Object to preview
+         /// </summary>
          public object PreviewObject { get; set; }
+
+         /// <summary>
+         /// RepresentationType of EPLAN objects
+         /// </summary>
          public WindowMacro.Enums.RepresentationType RepresentationType { get; set; }
+
+         /// <summary>
+         /// Variants of EPLAN objects
+         /// </summary>
          public ObservableCollection<Variant> Variants { get; set; }
+
+         /// <summary>
+         /// PreviewType of PreviewObject
+         /// </summary>
          public PreviewType PreviewType { get; set; }
 
       }
 
+      /// <summary>
+      /// Variant for Preview
+      /// </summary>
       public class Variant
       {
+         /// <summary>
+         /// Parent object
+         /// </summary>
          public VariantCombination VariantCombination { get; set; }
 
+         /// <summary>
+         /// Creates a Variant with given variantCombination
+         /// </summary>
+         /// <param name="variantCombination">Parent object</param>
          public Variant(VariantCombination variantCombination)
          {
             VariantCombination = variantCombination;
          }
 
+         /// <summary>
+         /// Returns the display string of the Preview
+         /// </summary>
+         /// <returns>Display string</returns>
          public override string ToString()
          {
             // Pagemacro
@@ -282,7 +356,14 @@ namespace Suplanus.Sepla.Gui
             return "Variante " + variantString;
          }
 
+         /// <summary>
+         /// Index for variant
+         /// </summary>
          public int Index { get; set; }
+
+         /// <summary>
+         /// Description of the Variant
+         /// </summary>
          public string Description { get; set; }
       }
 
@@ -326,10 +407,13 @@ namespace Suplanus.Sepla.Gui
       /// Memory Leak: http://stackoverflow.com/questions/1546091/wpf-createbitmapsourcefromhbitmap-memory-leak
       /// </summary>
       /// <param name="hObject"></param>
-      /// <returns></returns>
+      /// <returns>State</returns>
       [DllImport("gdi32.dll")]
       public static extern bool DeleteObject(IntPtr hObject);
 
+      /// <summary>
+      /// Release all Objects
+      /// </summary>
       public void Dispose()
       {
          this.DrawingService.Dispose();
@@ -346,9 +430,24 @@ namespace Suplanus.Sepla.Gui
    /// </summary>
    public enum PreviewType
    {
+      /// <summary>
+      /// Unknown file type
+      /// </summary>
       Unknow,
+
+      /// <summary>
+      /// EPLAN WindowMacro
+      /// </summary>
       WindowMacro,
+
+      /// <summary>
+      /// EPLAN SymbolMacro
+      /// </summary>
       SymbolMacro,
+
+      /// <summary>
+      /// EPLAN PageMacro
+      /// </summary>
       PageMacro
    }
 }

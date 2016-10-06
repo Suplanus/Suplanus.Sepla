@@ -96,7 +96,7 @@ namespace Suplanus.Sepla.Helper
             }
             else
             {
-               return projectManager.OpenProject(projectLinkFilePath);
+               return projectManager.OpenProject(projectLinkFilePath, ProjectManager.OpenMode.Standard, true);
             }
          }
       }

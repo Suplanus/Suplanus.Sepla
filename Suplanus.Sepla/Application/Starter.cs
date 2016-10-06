@@ -11,6 +11,10 @@ namespace Suplanus.Sepla.Application
    /// </summary>
    public class Starter
    {
+      /// <summary>
+      /// Returns the bin path of the highest installed EPLAN instance
+      /// </summary>
+      /// <returns>bin path</returns>
       public static string GetBinPathLastVersion()
       {
          var eplanVersions = GetEplanInstallations();
@@ -20,6 +24,10 @@ namespace Suplanus.Sepla.Application
          return binPathPlatform;
       }
 
+      /// <summary>
+      /// Returns all installed EPLAN instances
+      /// </summary>
+      /// <returns></returns>
       public static List<EplanData> GetEplanInstallations()
       {
          List<EplanData> eplanVersions = new List<EplanData>();
@@ -38,14 +46,23 @@ namespace Suplanus.Sepla.Application
          return eplanVersions;
       }
 
+
+      /// <summary>
+      /// Returns all active EPLAN instances
+      /// </summary>
+      /// <returns></returns>
       public static List<EplanServerData> GetActiveEplanInstallations()
       {
          EplanRemoteClient eplanRemoteClient = new EplanRemoteClient();
          List<EplanServerData> eplanServerDatas = new List<EplanServerData>();
          eplanRemoteClient.GetActiveEplanServersOnLocalMachine(out eplanServerDatas);
          return eplanServerDatas;
-      } 
+      }
 
+      /// <summary>
+      /// Pin the Offline Application to EPLAN process
+      /// </summary>
+      /// <param name="binPath"></param>
       public static void PinToEplan(string binPath)
       {
          AssemblyResolver resolver = new AssemblyResolver();

@@ -7,5 +7,7 @@
 		string PlaceOfInstallation { get; set; }
 		string Plant { get; set; }
 		string UserDefinied { get; set; }
-	}
+      string DocType { get; set; }
+	   string InstallationNumber { get; set; }
+   }
 }
