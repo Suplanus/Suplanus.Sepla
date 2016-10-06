@@ -4,16 +4,50 @@ using Fclp.Internals.Extensions;
 
 namespace Suplanus.Sepla.Objects
 {
+	/// <summary>
+	/// LocationIdentifier
+	/// </summary>
 	public class LocationIdentifier : ILocationIdentifier
 	{
-		public string FunctionAssignment { get; set; }
-		public string Location { get; set; }
-		public string PlaceOfInstallation { get; set;}
+      /// <summary>
+      /// FunctionalAssignment ==
+      /// </summary>
+      public string FunctionAssignment { get; set; }
+
+      /// <summary>
+      /// Location +
+      /// </summary>
+      public string Location { get; set; }
+
+      /// <summary>
+      /// PlaceOfInstallation ++
+      /// </summary>
+		public string PlaceOfInstallation { get; set; }
+
+      /// <summary>
+      /// Plant (Function) =
+      /// </summary>
 		public string Plant { get; set; }
+
+      /// <summary>
+      /// Userdefinied #
+      /// </summary>
 		public string UserDefinied { get; set; }
-	   public string DocType { get; set; }
+
+      /// <summary>
+      /// DocType &amp;
+      /// </summary>
+      public string DocType { get; set; }
+
+      /// <summary>
+      /// InstallationNumber (empty)
+      /// </summary>
 	   public string InstallationNumber { get; set; }
 
+      /// <summary>
+      /// Returns the full location in a string
+      /// </summary>
+      /// <returns></returns>
       public override string ToString()
       {
          StringBuilder sb = new StringBuilder();
@@ -35,6 +69,11 @@ namespace Suplanus.Sepla.Objects
          }
       }
 
+      /// <summary>
+      /// Copies a PagePropertyList and insert the locations
+      /// </summary>
+      /// <param name="pagePropertyListSource">PagePropertyList to copy</param>
+      /// <returns>Duplicate of PagePropertyList</returns>
       public PagePropertyList CopyPagePropertyList(PagePropertyList pagePropertyListSource)
 	   {
          PagePropertyList pagePropertylistCopy = pagePropertyListSource;
@@ -42,7 +81,11 @@ namespace Suplanus.Sepla.Objects
 	      return pagePropertylistCopy;
 	   }
 
-	   public PagePropertyList GetPagePropertyList()
+      /// <summary>
+      /// Gets a PagePropertylist with the locations
+      /// </summary>
+      /// <returns>Duplicate of PagePropertyList</returns>
+      public PagePropertyList GetPagePropertyList()
 	   {
 	      PagePropertyList pagePropertyList = new PagePropertyList();
 	      return GetPagePropertyList(pagePropertyList);

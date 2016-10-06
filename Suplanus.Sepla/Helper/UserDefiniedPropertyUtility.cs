@@ -5,9 +5,19 @@ using Eplan.EplApi.DataModel;
 
 namespace Suplanus.Sepla.Helper
 {
+   /// <summary>
+   /// Helper class for userdefinied properties
+   /// </summary>
    public class UserDefiniedPropertyUtility
    {
       #region Project
+
+      /// <summary>
+      /// Return the PropertyValue if not empty
+      /// </summary>
+      /// <param name="project">EPLAN project</param>
+      /// <param name="identName">Identifing name</param>
+      /// <returns>PropertyValue</returns>
       public static PropertyValue GetProjectPropertyValueAndCheckIfEmpty(Project project, string identName)
       {
          PropertyValue propertyValue = GetProjectPropertyValue(project, identName);
@@ -18,6 +28,12 @@ namespace Suplanus.Sepla.Helper
          return propertyValue;
       }
 
+      /// <summary>
+      /// Returns Project property value with the given name
+      /// </summary>
+      /// <param name="project">EPLAN project</param>
+      /// <param name="identName">Identifing name</param>
+      /// <returns>PropertyValue</returns>
       public static PropertyValue GetProjectPropertyValue(Project project, string identName)
       {
          UserDefinedPropertyDefinition userDefProp = project.UserDefinedPropertyDefinitions
@@ -31,6 +47,12 @@ namespace Suplanus.Sepla.Helper
          return null;
       }
 
+      /// <summary>
+      /// Sets a project property
+      /// </summary>
+      /// <param name="project">EPLAN project</param>
+      /// <param name="identName">Identifing name</param>
+      /// <param name="value">New value</param>
       public static void SetProjectPropertyValue(Project project, string identName, object value)
       {
          PropertyValue propertyValue = GetProjectPropertyValue(project, identName);
@@ -79,6 +101,13 @@ namespace Suplanus.Sepla.Helper
       #endregion
 
       #region Function
+
+      /// <summary>
+      /// Returns the PropertyValue if not empty
+      /// </summary>
+      /// <param name="function">Function</param>
+      /// <param name="identName">Identifing name</param>
+      /// <returns>PropertyValue</returns>
       public static PropertyValue GetFunctionPropertyValueAndCheckIfEmpty(Function function, string identName)
       {
          PropertyValue propertyValue = GetFunctionPropertyValue(function, identName);
@@ -89,6 +118,12 @@ namespace Suplanus.Sepla.Helper
          return propertyValue;
       }
 
+      /// <summary>
+      /// Returns the PropertyValue
+      /// </summary>
+      /// <param name="function">Function</param>
+      /// <param name="identName">Identifing name</param>
+      /// <returns>PropertyValue</returns>
       public static PropertyValue GetFunctionPropertyValue(Function function, string identName)
       {
          UserDefinedPropertyDefinition userDefProp = function.Properties.ExistingIds
@@ -104,6 +139,12 @@ namespace Suplanus.Sepla.Helper
          return null;
       }
 
+      /// <summary>
+      /// Sets a value to PropertyValue
+      /// </summary>
+      /// <param name="function">Function</param>
+      /// <param name="identName">Identifing name</param>
+      /// <param name="value">New value</param>
       public static void SetFunctionPropertyValue(Function function, string identName, object value)
       {
          PropertyValue propertyValue = GetFunctionPropertyValue(function, identName);

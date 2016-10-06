@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Eplan.EplApi.Base;
 using Eplan.EplApi.DataModel;
-using Eplan.EplApi.DataModel.Graphics;
 using Eplan.EplApi.HEServices;
 
 namespace Suplanus.Sepla.Helper
 {
+   /// <summary>
+   /// Helper class for searching
+   /// </summary>
    public class SearchUtility
    {
+      /// <summary>
+      /// Find and replace text
+      /// </summary>
+      /// <param name="search">Searchobject with the given properties</param>
+      /// <param name="searchText">Text to search</param>
+      /// <param name="replaceText">Replacement text</param>
+      /// <param name="project">EPLAN Project</param>
       public static void SearchAndReplaceText(Search search, string searchText, string replaceText, Project project)
       {
          // Init search

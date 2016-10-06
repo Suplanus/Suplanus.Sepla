@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.Graphics;
-using Eplan.EplApi.DataModel.MasterData;
-using Suplanus.Sepla.Gui;
 
 namespace Suplanus.Sepla.Helper
 {
+	/// <summary>
+	/// Placeholder Helper Class
+	/// </summary>
 	public class PlaceHolderUtility
 	{
 		/// <summary>
-		/// Apply a record to placeholder by name
+		/// Apply a record to placeholders by name
 		/// </summary>
-		/// <param name="placeHolders"></param>
-		/// <param name="placeHolderName"></param>
-		/// <param name="recordName"></param>
-		/// <returns></returns>
+		/// <param name="placeHolders">List of placeholder which should be applied</param>
+		/// <param name="placeHolderName">Name of placeholder</param>
+		/// <param name="recordName">Name of record</param>
+		/// <returns>Return true if one or more was applied</returns>
 		public static bool ApplyRecord(IEnumerable<PlaceHolder> placeHolders, string placeHolderName, string recordName)
 		{
 			List<PlaceHolder> foundPlaceHolder = placeHolders
@@ -30,6 +29,12 @@ namespace Suplanus.Sepla.Helper
 			return foundPlaceHolder.Any(); // true == found | false == not found
 		}
 
+      /// <summary>
+      /// Apply a record to placeholders
+      /// </summary>
+		/// <param name="placeHolders">List of placeholder which should be applied</param>
+		/// <param name="recordName">Name of record</param>
+		/// <returns>Return true if one or more was applied</returns>
       public static void ApplyRecord(IEnumerable<PlaceHolder> placeHolders, string recordName)
       {
          using (Transaction transaction = new TransactionManager().CreateTransaction())
@@ -47,12 +52,12 @@ namespace Suplanus.Sepla.Helper
       /// <summary>
       /// Create a record to a placeHolder by name and apply a record
       /// </summary>
-      /// <param name="placeHolders"></param>
-      /// <param name="placeHolderName"></param>
-      /// <param name="recordName"></param>
-      /// <param name="variableName"></param>
-      /// <param name="value"></param>
-      /// <returns></returns>
+		/// <param name="placeHolders">List of placeholder which should be applied</param>
+		/// <param name="placeHolderName">Name of placeholder</param>
+		/// <param name="recordName">Name of record</param>
+      /// <param name="variableName">Variable to set</param>
+      /// <param name="value">New value of the variable</param>
+		/// <returns>Return true if one or more was applied</returns>
       public bool CreateRecordWithValueAndApply(PlaceHolder[] placeHolders, string placeHolderName, string recordName, string variableName, string value)
 		{
 			List<PlaceHolder> foundPlaceHolder = placeHolders

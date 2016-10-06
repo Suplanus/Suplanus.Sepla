@@ -1,17 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Suplanus.Sepla.Objects
+﻿namespace Suplanus.Sepla.Objects
 {
-	public class MacroPlaceholder : IMacroPlaceholder
-	{
+   /// <summary>
+   /// MacroPlaceholder
+   /// </summary>
+   public class MacroPlaceholder : IMacroPlaceholder
+   {
+      /// <summary>
+      /// Description
+      /// </summary>
 		public string Description { get; set; }
+
+      /// <summary>
+      /// Name
+      /// </summary>
 		public string Name { get; set; }
-	   public string Container { get; set; }
-	   public object Value { get; set; }
-	   public bool IsActive { get; set; }
-	}
+
+      /// <summary>
+      /// Container
+      /// </summary>
+      public string Container { get; set; }
+
+      /// <summary>
+      /// Value
+      /// </summary>
+      public object Value { get; set; }
+
+      /// <summary>
+      /// IsActive
+      /// </summary>
+      public bool IsActive { get; set; }
+   }
 
 }

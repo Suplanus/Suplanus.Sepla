@@ -167,7 +167,7 @@ namespace Suplanus.Sepla.Gui
       private void SetVariantCombinations(WindowMacro windowMacro)
       {
          _previewControl.VariantsCombinations = new ObservableCollection<VariantCombination>();
-         _previewControl.previewType = PreviewType.WindowMacro;
+         _previewControl.PreviewType = PreviewType.WindowMacro;
 
          foreach (var representationType in windowMacro.RepresentationTypes)
          {
@@ -197,7 +197,7 @@ namespace Suplanus.Sepla.Gui
       private void SetVariantCombinations(SymbolMacro symbolMacro)
       {
          _previewControl.VariantsCombinations = new ObservableCollection<VariantCombination>();
-         _previewControl.previewType = PreviewType.WindowMacro;
+         _previewControl.PreviewType = PreviewType.WindowMacro;
 
          foreach (var representationType in symbolMacro.RepresentationTypes)
          {
@@ -227,7 +227,7 @@ namespace Suplanus.Sepla.Gui
       private void SetVariantCombinations(PageMacro pageMacro)
       {
          _previewControl.VariantsCombinations = new ObservableCollection<VariantCombination>();
-         _previewControl.previewType = PreviewType.PageMacro;
+         _previewControl.PreviewType = PreviewType.PageMacro;
 
          VariantCombination variantCombination = new VariantCombination(PreviewType.PageMacro);
          variantCombination.PreviewObject = pageMacro;

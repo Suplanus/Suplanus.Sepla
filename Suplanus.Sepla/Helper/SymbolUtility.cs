@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Eplan.EplApi.Base;
+﻿using Eplan.EplApi.Base;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
 
 namespace Suplanus.Sepla.Helper
 {
+	/// <summary>
+	/// Helper class for symbols
+	/// </summary>
 	public class SymbolUtility
 	{
-		public bool Insert(Page page, string symbolLibraryName, string symbolName, int symbolvariant)
+      /// <summary>
+      /// Insert a symbol on a given page
+      /// </summary>
+      /// <param name="page">Page where the symbol be insert</param>
+      /// <param name="symbolLibraryName">Symbol library name</param>
+      /// <param name="symbolName">Symbol name</param>
+      /// <param name="symbolvariant">Symbol variant</param>
+		public void Insert(Page page, string symbolLibraryName, string symbolName, int symbolvariant)
 		{
 			page.LockObject();
 
@@ -21,8 +27,6 @@ namespace Suplanus.Sepla.Helper
 			function.Location = new PointD(200, 150);
 			page.InsertSubPlacement(function);
 			function.Dispose();
-
-			return true;
 		}
 	}
 }

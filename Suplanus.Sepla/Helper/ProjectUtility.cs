@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Eplan.EplApi.DataModel;
@@ -9,8 +8,15 @@ using Suplanus.Sepla.Objects;
 
 namespace Suplanus.Sepla.Helper
 {
+   /// <summary>
+   /// Project helper class
+   /// </summary>
    public class ProjectUtility
    {
+      /// <summary>
+      /// Returns the active project
+      /// </summary>
+      /// <returns>Active Project</returns>
       public static Project GetCurrentProject()
       {
          SelectionSet selectionSet = new SelectionSet();
@@ -22,10 +28,10 @@ namespace Suplanus.Sepla.Helper
       /// <summary>
       /// Creates project or get the existing project, or overwrite the existing
       /// </summary>
-      /// <param name="projectLinkFilePath"></param>
-      /// <param name="projectTemplateFilePath"></param>
-      /// <param name="overwrite"></param>
-      /// <returns></returns>
+      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+      /// <param name="projectTemplateFilePath">EPLAN template project (*.zw9)</param>
+      /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
+      /// <returns>EPLAN Project</returns>
       public static Project Create(string projectLinkFilePath, string projectTemplateFilePath, bool overwrite)
       {
          ProjectManager projectManager = new ProjectManager();
@@ -53,10 +59,10 @@ namespace Suplanus.Sepla.Helper
       /// <summary>
       /// Copy the project or get the existing project, or overwrite the existing
       /// </summary>
-      /// <param name="projectSource"></param>
-      /// <param name="projectLinkFilePath"></param>
-      /// <param name="overwrite"></param>
-      /// <returns></returns>
+      /// <param name="projectSource">Source project</param>
+      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+      /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
+      /// <returns>EPLAN Project</returns>
       public static Project Copy(Project projectSource, string projectLinkFilePath, bool overwrite)
       {
          using (new LockingStep()) // needed
@@ -77,8 +83,8 @@ namespace Suplanus.Sepla.Helper
       /// <summary>
       /// Opens project and checks if its open
       /// </summary>
-      /// <param name="projectLinkFilePath"></param>
-      /// <returns></returns>
+      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+      /// <returns>EPLAN Project</returns>
       public static Project OpenProject(string projectLinkFilePath)
       {
          if (!File.Exists(projectLinkFilePath))
@@ -86,7 +92,7 @@ namespace Suplanus.Sepla.Helper
             throw new FileNotFoundException("EPLAN project link file not found", projectLinkFilePath);
          }
 
-         using (LockingStep lockingStep = new LockingStep())
+         using (new LockingStep())
          {
             ProjectManager projectManager = new ProjectManager();
             var project = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectLinkFilePath.Equals(projectLinkFilePath));
@@ -101,6 +107,12 @@ namespace Suplanus.Sepla.Helper
          }
       }
 
+      /// <summary>
+      /// Generates a project with the given GenerateablePageMacros
+      /// </summary>
+      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+      /// <param name="projectTemplateFilePath">EPLAN template project (*.zw9)</param>
+      /// <param name="generatablePageMacros">List of GeneratablePageMaros</param>
       public static void Generate(string projectLinkFilePath, string projectTemplateFilePath,
          List<GeneratablePageMacro> generatablePageMacros)
       {
