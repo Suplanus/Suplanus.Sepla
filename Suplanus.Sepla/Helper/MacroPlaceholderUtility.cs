@@ -12,6 +12,9 @@ namespace Suplanus.Sepla.Helper
    /// </summary>
    public class MacroPlaceholderUtility
    {
+      public const string REAL_RECORDPLACEHOLDER_START_TEXT = @"<§"; // equals <§
+      public const string REAL_RECORDPLACEHOLDER_END_TEXT = @"§>"; // equals §>
+
       /// <summary>
       /// Start text TextPlaceholder
       /// </summary>

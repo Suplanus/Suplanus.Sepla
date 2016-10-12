@@ -130,7 +130,7 @@ namespace Suplanus.Sepla.Application
       /// <summary>
       /// Release all objects
       /// <note type="caution">
-      /// needed for eplan runtime exceptions, there is a known issue (T1094381), EPLAN says Microsoft should fix this problem
+      /// Needed for eplan runtime exceptions, there is a known issue (T1094381), EPLAN says Microsoft should fix this problem
       /// Workaround: Enable native code debugging in visual studio
       /// </note>
       /// </summary>

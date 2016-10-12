@@ -134,12 +134,10 @@
     <Reference Include="Eplan.EplApi.RemoteClientu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.RemoteClientu.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Eplan.EplApi.Remotingu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.Remotingu.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Eplan.EplApi.Simulationu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
@@ -149,7 +147,6 @@
     <Reference Include="Eplan.EplApi.Starteru, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.Starteru.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Eplan.EplApi.Systemu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
