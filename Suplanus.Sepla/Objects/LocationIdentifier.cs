@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using Eplan.EplApi.DataModel;
-using Fclp.Internals.Extensions;
+using Suplanus.Sepla.Extensions;
 
 namespace Suplanus.Sepla.Objects
 {

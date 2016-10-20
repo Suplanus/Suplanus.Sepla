@@ -157,10 +157,6 @@
       <HintPath>C:\Program Files\EPLAN\Platform\2.5.4\Bin\Eplan.EplApi.WebServiceu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FluentCommandLineParser, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\ibKastl.VersionSelector\ibKastl.VersionSelector\packages\FluentCommandLineParser.1.4.3\lib\net35\FluentCommandLineParser.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -178,6 +174,7 @@
   <ItemGroup>
     <Compile Include="Application\EplanOffline.cs" />
     <Compile Include="Application\Starter.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Gui\Preview\Preview.cs" />
     <Compile Include="Gui\Preview\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
@@ -216,7 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="2161_Public.snk" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

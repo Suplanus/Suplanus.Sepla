@@ -3,6 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Eplan.EplApi.Base;
+using Eplan.EplApi.DataModel;
+using Eplan.EplApi.DataModel.Graphics;
+using Eplan.EplApi.HEServices;
 using Suplanus.Sepla.Objects;
 
 namespace Suplanus.Sepla.Helper
@@ -82,7 +86,7 @@ namespace Suplanus.Sepla.Helper
 
          // Getplaceholders
          var text = File.ReadAllText(filename, Encoding.UTF8);
-         IEnumerable<string> matches = Regex.Matches(text,startText + "(.*?)" + endText)
+         IEnumerable<string> matches = Regex.Matches(text, startText + "(.*?)" + endText)
             .OfType<Match>()
             .Select(m => m.Groups[0].Value)
             .Distinct();
@@ -120,21 +124,13 @@ namespace Suplanus.Sepla.Helper
          foreach (var placeholder in placeholders)
          {
             // Skip if not active or empty
-            string replaceText;
             if (!placeholder.IsActive || placeholder.Value == null || string.IsNullOrEmpty(placeholder.Value.ToString()))
             {
-               if (!removeText)
-               {
-                  continue;
-               }
-               replaceText = "";
-            }
-            else
-            {
-               replaceText = placeholder.Value.ToString();
+               continue;
             }
 
             // Replace
+            var replaceText = placeholder.Value.ToString();
             var searchText = TEXTPLACEHOLDER_START_TEXT + placeholder.Name + TEXTPLACEHOLDER_END_TEXT;
             content = content.Replace(searchText, replaceText);
          }
@@ -142,6 +138,77 @@ namespace Suplanus.Sepla.Helper
          File.WriteAllText(tempFile, content, Encoding.UTF8);
 
          return tempFile;
+      }
+
+
+      public static void RemoveAllUnifishedTextPlaceholder(Project project)
+      {
+         // Search text
+         var placeholderIdentifier = new List<string>
+         {
+            TEXTPLACEHOLDER_START_TEXT,
+            TEXTPLACEHOLDER_END_TEXT,
+            BRICKPLACEHOLDER_START_TEXT,
+            BRICKPLACEHOLDER_END_TEXT,
+            RECORDPLACEHOLDER_START_TEXT,
+            RECORDPLACEHOLDER_END_TEXT
+         };
+
+         Search search = new Search();
+         foreach (var identifier in placeholderIdentifier)
+         {
+            // Init search            
+            search.ClearSearchDB(project);
+            search.Project(project, identifier);
+
+            // Get objects
+            StorableObject[] foundObjects = search.GetAllSearchDBEntries(project);
+            foreach (var foundObject in foundObjects)
+            {
+               // Filter only text objects
+               // todo: EPLAN fix (2.6) T1085938
+               var existingValues = foundObject.Properties.ExistingValues
+                  .Where(p => !p.Definition.IsInternal &&
+                              (p.Definition.Type == PropertyDefinition.PropertyType.MultilangString ||
+                               p.Definition.Type == PropertyDefinition.PropertyType.String)).ToList();
+               List<PropertyValue> existingValuesWithoutEmpty = new List<PropertyValue>();
+               foreach (var propertyValue in existingValues)
+               {
+                  if (propertyValue.Definition.IsIndexed)
+                  {
+                     foreach (int index in propertyValue.Indexes)
+                     {
+                        if (!propertyValue[index].IsEmpty)
+                        {
+                           existingValuesWithoutEmpty.Add(propertyValue[index]);
+                        }
+                     }
+                  }
+                  else
+                  {
+                     if (!propertyValue.IsEmpty)
+                     {
+                        existingValuesWithoutEmpty.Add(propertyValue);
+                     }
+                  }
+               }
+
+               existingValues.Clear(); // todo: needed?
+               existingValues = existingValuesWithoutEmpty;
+
+               // Replace
+               foreach (PropertyValue propertyValue in existingValues)
+               {
+                  propertyValue.Set("");
+               }
+            }
+         }
+
+
+
+
+
+
       }
    }
 }
