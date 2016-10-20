@@ -180,6 +180,7 @@
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\InterruptionPointUtility.cs" />
+    <Compile Include="Helper\LocationUtility.cs" />
     <Compile Include="Helper\MacroPlaceholderUtility.cs" />
     <Compile Include="Helper\MasterdataUtility.cs" />
     <Compile Include="Helper\MultiLanguage.cs" />

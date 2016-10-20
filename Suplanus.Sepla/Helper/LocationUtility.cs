@@ -23,7 +23,7 @@ namespace Suplanus.Sepla.Helper
             string[] locations = project.GetLocations(hierachy);
             if (locations != null) // could be null
             {
-               locations = locations.OrderBy(o => o).ToArray(); // Order
+               locations = locations.OrderBy(o => o).ToArray(); // OrderAch
                project.SetSortedLocations(hierachy, locations);
             }
          }
