@@ -55,8 +55,6 @@ namespace Suplanus.Sepla.Helper
                   }
                }
             }
-
-            existingValues.Clear(); // todo: needed?
             existingValues = existingValuesWithoutEmpty;
 
             // Replace
