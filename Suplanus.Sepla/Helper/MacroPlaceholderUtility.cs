@@ -18,11 +18,15 @@ namespace Suplanus.Sepla.Helper
    {
       public const string REAL_RECORDPLACEHOLDER_START_TEXT = @"<§"; // equals <§
       public const string REAL_RECORDPLACEHOLDER_END_TEXT = @"§>"; // equals §>
+      public const string REAL_TEXTPLACEHOLDER_START_TEXT = @"<#"; // equals <#
+      public const string REAL_TEXTPLACEHOLDER_END_TEXT = @"#>"; // equals #>
+      public const string REAL_BRICKPLACEHOLDER_START_TEXT = @"<@"; // equals <@
+      public const string REAL_BRICKPLACEHOLDER_END_TEXT = @"@>"; // equals @>
 
       /// <summary>
       /// Start text TextPlaceholder
       /// </summary>
-      public const string TEXTPLACEHOLDER_START_TEXT = "&lt;#"; // 
+      public const string TEXTPLACEHOLDER_START_TEXT = "&lt;#"; // equals <#
 
       /// <summary>
       /// End text for TextPlaceholder
@@ -146,15 +150,31 @@ namespace Suplanus.Sepla.Helper
          // Search text
          var placeholderIdentifier = new List<string>
          {
-            TEXTPLACEHOLDER_START_TEXT,
-            TEXTPLACEHOLDER_END_TEXT,
-            BRICKPLACEHOLDER_START_TEXT,
-            BRICKPLACEHOLDER_END_TEXT,
-            RECORDPLACEHOLDER_START_TEXT,
-            RECORDPLACEHOLDER_END_TEXT
+            REAL_TEXTPLACEHOLDER_START_TEXT,
+            REAL_RECORDPLACEHOLDER_START_TEXT,
+            REAL_BRICKPLACEHOLDER_START_TEXT,
          };
 
+         // Set special characters: http://eplan.help/help/platform/2.5/en-US/help/EPLAN_help.htm#htm/searchandreplacegui_k_platzhalter.htm
+         for (int index = 0; index < placeholderIdentifier.Count; index++)
+         {
+            placeholderIdentifier[index] = placeholderIdentifier[index].Replace("#", "[#]");
+         }
+
+
          Search search = new Search();
+         search[Search.Settings.AllProperties] = true;
+         search[Search.Settings.Placeholders] = true;
+         search[Search.Settings.DeviceTag] = true;
+         search[Search.Settings.GraphicPages] = true;
+         search[Search.Settings.InstallationSpaces] = true;
+         search[Search.Settings.LogicPages] = true;
+         search[Search.Settings.NotPlaced] = true;
+         search[Search.Settings.EvalutionPages] = false;
+         search[Search.Settings.PageData] = true;
+         search[Search.Settings.ProjectData] = true;
+         search[Search.Settings.Texts] = true;
+         search[Search.Settings.WholeTexts] = false;
          foreach (var identifier in placeholderIdentifier)
          {
             // Init search            
@@ -169,8 +189,11 @@ namespace Suplanus.Sepla.Helper
                // todo: EPLAN fix (2.6) T1085938
                var existingValues = foundObject.Properties.ExistingValues
                   .Where(p => !p.Definition.IsInternal &&
-                              (p.Definition.Type == PropertyDefinition.PropertyType.MultilangString ||
-                               p.Definition.Type == PropertyDefinition.PropertyType.String)).ToList();
+                              !p.Definition.IsReadOnly &&
+                              (
+                                 p.Definition.Type == PropertyDefinition.PropertyType.MultilangString ||
+                                 p.Definition.Type == PropertyDefinition.PropertyType.String))
+                  .ToList();
                List<PropertyValue> existingValuesWithoutEmpty = new List<PropertyValue>();
                foreach (var propertyValue in existingValues)
                {
@@ -192,13 +215,12 @@ namespace Suplanus.Sepla.Helper
                      }
                   }
                }
-
-               existingValues.Clear(); // todo: needed?
                existingValues = existingValuesWithoutEmpty;
 
                // Replace
                foreach (PropertyValue propertyValue in existingValues)
                {
+                  propertyValue.Parent.Parent.LockObject();
                   propertyValue.Set("");
                }
             }
