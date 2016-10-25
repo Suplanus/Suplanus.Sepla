@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
@@ -53,6 +55,46 @@ namespace Suplanus.Sepla.Application
       {
          IntPtr handle = new WindowInteropHelper(window).Handle;
          Start(handle);
+      }
+
+      /// <summary>
+      /// Starts EPLAN with the last version of Electric P8 and attach to (WPF) window
+      /// </summary>
+      /// <param name="window"></param>
+      public Task<bool> StartWpfAsync(Window window)
+      {
+         IntPtr handle = new WindowInteropHelper(window).Handle;
+
+         var tcs = new TaskCompletionSource<bool>();
+         Thread thread = new Thread(() =>
+         {
+            Start(handle);
+            tcs.SetResult(true);
+         });
+         thread.SetApartmentState(ApartmentState.STA);
+         thread.Start();
+
+         tcs.Task.Wait();
+         return tcs.Task;
+      }
+
+      public static Task<T> StartSTATask<T>(Func<T> func)
+      {
+         var tcs = new TaskCompletionSource<T>();
+         Thread thread = new Thread(() =>
+         {
+            try
+            {
+               tcs.SetResult(func());
+            }
+            catch (Exception e)
+            {
+               tcs.SetException(e);
+            }
+         });
+         thread.SetApartmentState(ApartmentState.STA);
+         thread.Start();
+         return tcs.Task;
       }
 
       /// <summary>
