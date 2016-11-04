@@ -1,14 +1,14 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Eplan.EplApi.DataModel;
-using Suplanus.Sepla.Extensions;
 
 namespace Suplanus.Sepla.Objects
 {
-	/// <summary>
-	/// LocationIdentifier
-	/// </summary>
-	public class LocationIdentifier : ILocationIdentifier
-	{
+   /// <summary>
+   /// LocationIdentifier
+   /// </summary>
+   public class LocationIdentifier : ILocationIdentifier
+   {
       /// <summary>
       /// FunctionalAssignment ==
       /// </summary>
@@ -75,55 +75,286 @@ namespace Suplanus.Sepla.Objects
       /// <param name="pagePropertyListSource">PagePropertyList to copy</param>
       /// <returns>Duplicate of PagePropertyList</returns>
       public PagePropertyList CopyPagePropertyList(PagePropertyList pagePropertyListSource)
-	   {
+      {
          PagePropertyList pagePropertylistCopy = pagePropertyListSource;
          GetPagePropertyList(pagePropertylistCopy);
-	      return pagePropertylistCopy;
-	   }
+         return pagePropertylistCopy;
+      }
 
       /// <summary>
       /// Gets a PagePropertylist with the locations
       /// </summary>
       /// <returns>Duplicate of PagePropertyList</returns>
       public PagePropertyList GetPagePropertyList()
-	   {
-	      PagePropertyList pagePropertyList = new PagePropertyList();
-	      return GetPagePropertyList(pagePropertyList);
-	   }
+      {
+         PagePropertyList pagePropertyList = new PagePropertyList();
+         return GetPagePropertyList(pagePropertyList);
+      }
 
-	   private PagePropertyList GetPagePropertyList(PagePropertyList pagePropertylistCopy)
-	   {
-	      if (!this.FunctionAssignment.IsNullOrEmpty())
-	      {
-	         pagePropertylistCopy.DESIGNATION_FUNCTIONALASSIGNMENT = this.FunctionAssignment;
-	      }
-	      if (!this.PlaceOfInstallation.IsNullOrEmpty())
-	      {
-	         pagePropertylistCopy.DESIGNATION_PLACEOFINSTALLATION = this.PlaceOfInstallation;
-	      }
-	      if (!this.Plant.IsNullOrEmpty())
-	      {
-	         pagePropertylistCopy.DESIGNATION_PLANT = this.Plant;
-	      }
-	      if (!this.Location.IsNullOrEmpty())
-	      {
-	         pagePropertylistCopy.DESIGNATION_LOCATION = this.Location;
-	      }
-	      if (!this.UserDefinied.IsNullOrEmpty())
-	      {
-	         pagePropertylistCopy.DESIGNATION_USERDEFINED = this.UserDefinied;
-	      }
-	      if (!this.DocType.IsNullOrEmpty())
-	      {
-	         pagePropertylistCopy.DESIGNATION_DOCTYPE = this.DocType;
-	      }
-	      if (!this.InstallationNumber.IsNullOrEmpty())
-	      {
-	         pagePropertylistCopy.DESIGNATION_INSTALLATIONNUMBER = this.InstallationNumber;
-	      }
+      private PagePropertyList GetPagePropertyList(PagePropertyList pagePropertylistCopy)
+      {
+         GetFunctionalAssignment(pagePropertylistCopy, this.FunctionAssignment);
+         GetPlant(pagePropertylistCopy, this.Plant);
+         GetPlaceOfInstallation(pagePropertylistCopy, this.PlaceOfInstallation);
+         GetLocation(pagePropertylistCopy, this.Location);
+         GetUserDefinied(pagePropertylistCopy, this.UserDefinied);
+         GetDocumentType(pagePropertylistCopy, this.DocType);
+         GetInstallationNumber(pagePropertylistCopy, this.InstallationNumber);         
+         return pagePropertylistCopy;
+      }
 
-	      return pagePropertylistCopy;
+      private static void GetFunctionalAssignment(PagePropertyList pagePropertylist, string location)
+      {
+         if (!string.IsNullOrEmpty(location))
+         {
+            var split = location.Split('.');
+            for (int index = 0; index < split.Length; index++)
+            {
+               var s = split[index];
+               switch (index)
+               {
+                  case 0:
+                     pagePropertylist.DESIGNATION_FUNCTIONALASSIGNMENT = s;
+                     break;
+                  case 1:
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT1 = s;
+                     break;
+                  case 2:
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT2 = s;
+                     break;          
+                  case 3:               
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT3 = s;
+                     break;         
+                  case 4:                
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT4 = s;
+                     break;          
+                  case 5:                    
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT5 = s;
+                     break;         
+                  case 6:                  
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT6 = s;
+                     break;          
+                  case 7:               
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT7 = s;
+                     break;          
+                  case 8:               
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT8 = s;
+                     break;         
+                  case 9:                  
+                     pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT9 = s;
+                     break;
+                  default:
+                     throw new Exception("Only 9 sub locations allowed: + " + location);
+               }
+            }
+         }
+      }
 
-	   }
-	}
+      private static void GetPlant(PagePropertyList pagePropertylist, string location)
+      {
+         if (!string.IsNullOrEmpty(location))
+         {
+            var split = location.Split('.');
+            for (int index = 0; index < split.Length; index++)
+            {
+               var s = split[index];
+               switch (index)
+               {
+                  case 0:
+                     pagePropertylist.DESIGNATION_PLANT = s;
+                     break;
+                  case 1:
+                     pagePropertylist.DESIGNATION_SUBPLANT1 = s;
+                     break;
+                  case 2:
+                     pagePropertylist.DESIGNATION_SUBPLANT2 = s;
+                     break;
+                  case 3:
+                     pagePropertylist.DESIGNATION_SUBPLANT3 = s;
+                     break;
+                  case 4:
+                     pagePropertylist.DESIGNATION_SUBPLANT4 = s;
+                     break;
+                  case 5:
+                     pagePropertylist.DESIGNATION_SUBPLANT5 = s;
+                     break;
+                  case 6:
+                     pagePropertylist.DESIGNATION_SUBPLANT6 = s;
+                     break;
+                  case 7:
+                     pagePropertylist.DESIGNATION_SUBPLANT7 = s;
+                     break;
+                  case 8:
+                     pagePropertylist.DESIGNATION_SUBPLANT8 = s;
+                     break;
+                  case 9:
+                     pagePropertylist.DESIGNATION_SUBPLANT9 = s;
+                     break;
+                  default:
+                     throw new Exception("Only 9 sub locations allowed: + " + location);
+               }
+            }
+         }
+      }
+
+      private static void GetPlaceOfInstallation(PagePropertyList pagePropertylist, string location)
+      {
+         if (!string.IsNullOrEmpty(location))
+         {
+            var split = location.Split('.');
+            for (int index = 0; index < split.Length; index++)
+            {
+               var s = split[index];
+               switch (index)
+               {
+                  case 0:
+                     pagePropertylist.DESIGNATION_PLACEOFINSTALLATION = s;
+                     break;
+                  case 1:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION1 = s;
+                     break;
+                  case 2:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION2 = s;
+                     break;
+                  case 3:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION3 = s;
+                     break;
+                  case 4:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION4 = s;
+                     break;
+                  case 5:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION5 = s;
+                     break;
+                  case 6:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION6 = s;
+                     break;
+                  case 7:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION7 = s;
+                     break;
+                  case 8:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION8 = s;
+                     break;
+                  case 9:
+                     pagePropertylist.DESIGNATION_SUBPLACEOFINSTALLATION9 = s;
+                     break;
+                  default:
+                     throw new Exception("Only 9 sub locations allowed: + " + location);
+               }
+            }
+         }
+      }
+
+      private static void GetLocation(PagePropertyList pagePropertylist, string location)
+      {
+         if (!string.IsNullOrEmpty(location))
+         {
+            var split = location.Split('.');
+            for (int index = 0; index < split.Length; index++)
+            {
+               var s = split[index];
+               switch (index)
+               {
+                  case 0:
+                     pagePropertylist.DESIGNATION_LOCATION = s;
+                     break;
+                  case 1:
+                     pagePropertylist.DESIGNATION_SUBLOCATION1 = s;
+                     break;
+                  case 2:
+                     pagePropertylist.DESIGNATION_SUBLOCATION2 = s;
+                     break;
+                  case 3:
+                     pagePropertylist.DESIGNATION_SUBLOCATION3 = s;
+                     break;
+                  case 4:
+                     pagePropertylist.DESIGNATION_SUBLOCATION4 = s;
+                     break;
+                  case 5:
+                     pagePropertylist.DESIGNATION_SUBLOCATION5 = s;
+                     break;
+                  case 6:
+                     pagePropertylist.DESIGNATION_SUBLOCATION6 = s;
+                     break;
+                  case 7:
+                     pagePropertylist.DESIGNATION_SUBLOCATION7 = s;
+                     break;
+                  case 8:
+                     pagePropertylist.DESIGNATION_SUBLOCATION8 = s;
+                     break;
+                  case 9:
+                     pagePropertylist.DESIGNATION_SUBLOCATION9 = s;
+                     break;
+                  default:
+                     throw new Exception("Only 9 sub locations allowed: + " + location);
+               }
+            }
+         }
+      }
+
+      private static void GetUserDefinied(PagePropertyList pagePropertylist, string location)
+      {
+         if (!string.IsNullOrEmpty(location))
+         {
+            var split = location.Split('.');
+            for (int index = 0; index < split.Length; index++)
+            {
+               var s = split[index];
+               switch (index)
+               {
+                  case 0:
+                     pagePropertylist.DESIGNATION_USERDEFINED = s;
+                     break;
+                  case 1:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB1 = s;
+                     break;
+                  case 2:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB2 = s;
+                     break;
+                  case 3:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB3 = s;
+                     break;
+                  case 4:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB4 = s;
+                     break;
+                  case 5:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB5 = s;
+                     break;
+                  case 6:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB6 = s;
+                     break;
+                  case 7:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB7 = s;
+                     break;
+                  case 8:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB8 = s;
+                     break;
+                  case 9:
+                     pagePropertylist.DESIGNATION_USERDEFINED_SUB9 = s;
+                     break;
+                  default:
+                     throw new Exception("Only 9 sub locations allowed: + " + location);
+               }
+            }
+         }
+      }
+
+      private static void GetDocumentType(PagePropertyList pagePropertylist, string location)
+      {
+         if (!string.IsNullOrEmpty(location))
+         {
+            // There is no sub doctype
+            pagePropertylist.DESIGNATION_DOCTYPE = location;
+         }
+      }
+
+      private static void GetInstallationNumber(PagePropertyList pagePropertylist, string location)
+      {
+         if (!string.IsNullOrEmpty(location))
+         {
+            // There is no sub installation number
+            pagePropertylist.DESIGNATION_INSTALLATIONNUMBER = location;
+         }
+      }
+
+   }
 }
