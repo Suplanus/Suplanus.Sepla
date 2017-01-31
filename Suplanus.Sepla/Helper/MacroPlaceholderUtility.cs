@@ -3,18 +3,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Eplan.EplApi.Base;
-using Eplan.EplApi.DataModel;
-using Eplan.EplApi.DataModel.Graphics;
-using Eplan.EplApi.HEServices;
 using Suplanus.Sepla.Objects;
 
 namespace Suplanus.Sepla.Helper
 {
    /// <summary>
-   /// Helper for placeholders in EPLAN macros
+   /// Helper for placeholders
    /// </summary>
-   public class MacroPlaceholderUtility
+   public class PlaceholderUtility
    {
       public const string REAL_RECORDPLACEHOLDER_START_TEXT = @"<§"; // equals <§
       public const string REAL_RECORDPLACEHOLDER_END_TEXT = @"§>"; // equals §>
@@ -26,22 +22,22 @@ namespace Suplanus.Sepla.Helper
       /// <summary>
       /// Start text TextPlaceholder
       /// </summary>
-      public const string TEXTPLACEHOLDER_START_TEXT = "&lt;#"; // equals <#
+      public const string TEXTPLACEHOLDER_START_TEXT_EPLAN = "&lt;#"; // equals <#
 
       /// <summary>
       /// End text for TextPlaceholder
       /// </summary>
-      public const string TEXTPLACEHOLDER_END_TEXT = "#&gt;"; // equals #>
+      public const string TEXTPLACEHOLDER_END_TEXT_EPLAN = "#&gt;"; // equals #>
 
       /// <summary>
       /// Start text for BrickPlaceholder
       /// </summary>
-      public const string BRICKPLACEHOLDER_START_TEXT = "&lt;@@"; // equals <@ double @ needed in eplan
+      public const string BRICKPLACEHOLDER_START_TEXT_EPLAN = "&lt;@@"; // equals <@ double @ needed in eplan
 
       /// <summary>
       /// End text for BrickPlaceholder
       /// </summary>
-      public const string BRICKPLACEHOLDER_END_TEXT = "@@&gt;"; // equals @> double @ needed in eplan
+      public const string BRICKPLACEHOLDER_END_TEXT_EPLAN = "@@&gt;"; // equals @> double @ needed in eplan
 
       /// <summary>
       /// Start text for RecordPlaceholder
@@ -61,14 +57,21 @@ namespace Suplanus.Sepla.Helper
       public static string GetPlaceholderName(string placeholderPlainText)
       {
          string returnValue = placeholderPlainText
-            .Replace(TEXTPLACEHOLDER_START_TEXT, "")
-            .Replace(BRICKPLACEHOLDER_START_TEXT, "")
+            .Replace(TEXTPLACEHOLDER_START_TEXT_EPLAN, "")
+            .Replace(BRICKPLACEHOLDER_START_TEXT_EPLAN, "")
             .Replace(RECORDPLACEHOLDER_START_TEXT, "")
-            .Replace("<@", "")
-            .Replace(TEXTPLACEHOLDER_END_TEXT, "")
-            .Replace(BRICKPLACEHOLDER_END_TEXT, "")
+            
+            .Replace(TEXTPLACEHOLDER_END_TEXT_EPLAN, "")
+            .Replace(BRICKPLACEHOLDER_END_TEXT_EPLAN, "")
             .Replace(RECORDPLACEHOLDER_END_TEXT, "")
-            .Replace("@>", "");
+
+            .Replace(REAL_BRICKPLACEHOLDER_START_TEXT, "")
+            .Replace(REAL_BRICKPLACEHOLDER_END_TEXT, "")
+            .Replace(REAL_TEXTPLACEHOLDER_START_TEXT, "")
+            .Replace(REAL_TEXTPLACEHOLDER_END_TEXT, "")
+            .Replace(REAL_RECORDPLACEHOLDER_START_TEXT, "")
+            .Replace(REAL_RECORDPLACEHOLDER_END_TEXT, "")
+            ;
          return returnValue;
       }
 
@@ -112,17 +115,22 @@ namespace Suplanus.Sepla.Helper
       /// </summary>
       /// <param name="macroFilename">Source macro file</param>
       /// <param name="placeholders">Placeholder to replace</param>
-      /// <param name="removeText">Remove Text if value is not active or empty</param>
+      /// <param name="endText">End text</param>
+      /// <param name="removeText">Remove text if value is not active or empty</param>
+      /// <param name="startText">Start text</param>
       /// <returns></returns>
-      public static string ReplacePlaceholderTextAndGetTempMacro(string macroFilename, List<IMacroPlaceholder> placeholders, bool removeText)
+      public static string ReplacePlaceholderTextAndGetTempFile(
+         string macroFilename, List<IMacroPlaceholder> placeholders,
+         string startText, string endText, bool removeText)
       {
          if (!File.Exists(macroFilename))
          {
             return null;
          }
 
-         string extension = Path.GetExtension(macroFilename);
-         string tempFile = Path.Combine(Path.GetTempPath(), "Suplanus.Sepla.MacroPlaceholderUtility.TempMacro" + extension); // needed because EPLAN is checking extension
+         // needed because EPLAN is checking extension
+         string extension = Path.GetExtension(macroFilename);         
+         string tempFile = Path.Combine(Path.GetTempPath(), "Suplanus.Sepla.MacroPlaceholderUtility" + extension);
          string content = File.ReadAllText(macroFilename);
 
          foreach (var placeholder in placeholders)
@@ -135,102 +143,13 @@ namespace Suplanus.Sepla.Helper
 
             // Replace
             var replaceText = placeholder.Value.ToString();
-            var searchText = TEXTPLACEHOLDER_START_TEXT + placeholder.Name + TEXTPLACEHOLDER_END_TEXT;
+            var searchText = startText + placeholder.Name + endText;
             content = content.Replace(searchText, replaceText);
          }
 
          File.WriteAllText(tempFile, content, Encoding.UTF8);
 
          return tempFile;
-      }
-
-
-      public static void RemoveAllUnifishedTextPlaceholder(Project project)
-      {
-         // Search text
-         var placeholderIdentifier = new List<string>
-         {
-            REAL_TEXTPLACEHOLDER_START_TEXT,
-            REAL_RECORDPLACEHOLDER_START_TEXT,
-            REAL_BRICKPLACEHOLDER_START_TEXT,
-         };
-
-         // Set special characters: http://eplan.help/help/platform/2.5/en-US/help/EPLAN_help.htm#htm/searchandreplacegui_k_platzhalter.htm
-         for (int index = 0; index < placeholderIdentifier.Count; index++)
-         {
-            placeholderIdentifier[index] = placeholderIdentifier[index].Replace("#", "[#]");
-         }
-
-
-         Search search = new Search();
-         search[Search.Settings.AllProperties] = true;
-         search[Search.Settings.Placeholders] = true;
-         search[Search.Settings.DeviceTag] = true;
-         search[Search.Settings.GraphicPages] = true;
-         search[Search.Settings.InstallationSpaces] = true;
-         search[Search.Settings.LogicPages] = true;
-         search[Search.Settings.NotPlaced] = true;
-         search[Search.Settings.EvalutionPages] = false;
-         search[Search.Settings.PageData] = true;
-         search[Search.Settings.ProjectData] = true;
-         search[Search.Settings.Texts] = true;
-         search[Search.Settings.WholeTexts] = false;
-         foreach (var identifier in placeholderIdentifier)
-         {
-            // Init search            
-            search.ClearSearchDB(project);
-            search.Project(project, identifier);
-
-            // Get objects
-            StorableObject[] foundObjects = search.GetAllSearchDBEntries(project);
-            foreach (var foundObject in foundObjects)
-            {
-               // Filter only text objects
-               // todo: EPLAN fix (2.6) T1085938
-               var existingValues = foundObject.Properties.ExistingValues
-                  .Where(p => !p.Definition.IsInternal &&
-                              !p.Definition.IsReadOnly &&
-                              (
-                                 p.Definition.Type == PropertyDefinition.PropertyType.MultilangString ||
-                                 p.Definition.Type == PropertyDefinition.PropertyType.String))
-                  .ToList();
-               List<PropertyValue> existingValuesWithoutEmpty = new List<PropertyValue>();
-               foreach (var propertyValue in existingValues)
-               {
-                  if (propertyValue.Definition.IsIndexed)
-                  {
-                     foreach (int index in propertyValue.Indexes)
-                     {
-                        if (!propertyValue[index].IsEmpty)
-                        {
-                           existingValuesWithoutEmpty.Add(propertyValue[index]);
-                        }
-                     }
-                  }
-                  else
-                  {
-                     if (!propertyValue.IsEmpty)
-                     {
-                        existingValuesWithoutEmpty.Add(propertyValue);
-                     }
-                  }
-               }
-               existingValues = existingValuesWithoutEmpty;
-
-               // Replace
-               foreach (PropertyValue propertyValue in existingValues)
-               {
-                  propertyValue.Parent.Parent.LockObject();
-                  propertyValue.Set("");
-               }
-            }
-         }
-
-
-
-
-
-
       }
    }
 }
