@@ -62,8 +62,9 @@ namespace Suplanus.Sepla.Helper
       /// <param name="projectSource">Source project</param>
       /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
       /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
+      /// <param name="copyMode"></param>
       /// <returns>EPLAN Project</returns>
-      public static Project Copy(Project projectSource, string projectLinkFilePath, bool overwrite)
+      public static Project Copy(Project projectSource, string projectLinkFilePath, bool overwrite, ProjectManager.CopyMode copyMode)
       {
          using (new LockingStep()) // needed
          {
@@ -73,7 +74,32 @@ namespace Suplanus.Sepla.Helper
             if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
             {
                projectManager.CopyProject(projectSource.ProjectLinkFilePath, projectLinkFilePath,
-                  ProjectManager.CopyMode.OnlyProjecthead);
+                  copyMode);
+            }
+
+            return OpenProject(projectLinkFilePath);
+         }
+      }
+
+      /// <summary>
+      /// Copy the project or get the existing project, or overwrite the existing
+      /// </summary>
+      /// <param name="projectSource">Source project</param>
+      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+      /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
+      /// <param name="copyMode"></param>
+      /// <returns>EPLAN Project</returns>
+      public static Project Copy(string projectSource, string projectLinkFilePath, bool overwrite, ProjectManager.CopyMode copyMode)
+      {
+         using (new LockingStep()) // needed
+         {
+            ProjectManager projectManager = new ProjectManager();
+
+            // New
+            if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
+            {
+               projectManager.CopyProject(projectSource, projectLinkFilePath,
+                  copyMode);
             }
 
             return OpenProject(projectLinkFilePath);
