@@ -9,6 +9,11 @@ namespace Suplanus.Sepla.Objects
    /// </summary>
    public class LocationIdentifier : ILocationIdentifier
    {
+      public bool Equals(LocationIdentifier obj)
+      {
+         return Equals(obj.ToString().Equals(this.ToString()));
+      }
+
       /// <summary>
       /// FunctionalAssignment ==
       /// </summary>
@@ -99,7 +104,7 @@ namespace Suplanus.Sepla.Objects
          GetLocation(pagePropertylistCopy, this.Location);
          GetUserDefinied(pagePropertylistCopy, this.UserDefinied);
          GetDocumentType(pagePropertylistCopy, this.DocType);
-         GetInstallationNumber(pagePropertylistCopy, this.InstallationNumber);         
+         GetInstallationNumber(pagePropertylistCopy, this.InstallationNumber);  
          return pagePropertylistCopy;
       }
 
