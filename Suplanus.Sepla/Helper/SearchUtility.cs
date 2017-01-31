@@ -29,7 +29,7 @@ namespace Suplanus.Sepla.Helper
          foreach (var foundObject in foundObjects)
          {
             // Filter only text objects
-            // todo: EPLAN fix (2.6) T1085938
+            // EPLAN fix (2.6) T1085938
             var existingValues = foundObject.Properties.ExistingValues
                .Where(p => !p.Definition.IsInternal &&
                (p.Definition.Type == PropertyDefinition.PropertyType.MultilangString ||

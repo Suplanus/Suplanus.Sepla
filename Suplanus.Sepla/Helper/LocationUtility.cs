@@ -14,6 +14,9 @@ namespace Suplanus.Sepla.Helper
       /// <summary>
       /// Orders all location ascending
       /// </summary>
+      /// <note type="caution">
+      /// Takes long time if EPLAN version not 2.6 or higher
+      /// </note>
       /// <param name="project"></param>
       public static void OrderLocation(Project project)
       {

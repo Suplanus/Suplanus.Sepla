@@ -178,6 +178,7 @@ namespace Suplanus.Sepla.Application
       /// </summary>
       public void Close()
       {
+         // T1094381: There is a known problem with console applications, that visual studio not quit the debugging session, workaround: enable native code debugging in project
          if (Application != null)
          {
             try
