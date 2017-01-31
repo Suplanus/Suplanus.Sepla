@@ -73,6 +73,18 @@ namespace Suplanus.Sepla.Helper
          {
             Masterdata md = new Masterdata();
             newMasterdatas.Add(symbolLibraryNameWithExtesion);
+            md.AddToProjectEx(project, newMasterdatas);
+         }
+      }
+
+      public static void RemoveSymbolLibrary(Project project, string symbolLibraryNameWithExtesion)
+      {
+         Masterdata masterdata = new Masterdata();
+         StringCollection newMasterdatas = new StringCollection();
+         StringCollection projectMasterdatas = masterdata.get_ProjectEntries(project);
+         if (projectMasterdatas.Contains(symbolLibraryNameWithExtesion))
+         {
+            newMasterdatas.Remove(symbolLibraryNameWithExtesion);
          }
       }
    }
