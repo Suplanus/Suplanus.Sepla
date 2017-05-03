@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
 using Eplan.EplApi.HEServices;
@@ -183,6 +185,50 @@ namespace Suplanus.Sepla.Helper
          }
       }
 
+      /// <summary>
+      /// Returns true if there is a multi user conflict in project
+      /// </summary>
+      /// <param name="project">EPLAN project</param>
+      /// <param name="showDialog">Shows dialog if there is a conflict (optional)</param>
+      /// <returns></returns>
+      public static bool IsMultiUserConflict(Project project, bool showDialog = false)
+      {
+         var currentUsers = project.CurrentUsers.ToList();
+
+         // No conflict
+         if (currentUsers.Count <= 1)
+         {
+            return false;
+         }
+
+         // Conflict
+         if (showDialog)
+         {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Multi user conflict:");
+            foreach (var user in currentUsers)
+            {
+               if (!string.IsNullOrEmpty(user.Name) && !string.IsNullOrEmpty(user.Identification))
+               {
+                  sb.AppendLine(user.ComputerName + " / " + user.Name + " / " + user.Identification);
+               }
+               else if (!string.IsNullOrEmpty(user.Name))
+               {
+                  sb.AppendLine(user.ComputerName + " / " + user.Name);
+               }
+               else if (!string.IsNullOrEmpty(user.Identification))
+               {
+                  sb.AppendLine(user.ComputerName + " / " + user.Identification);
+               }
+               else
+               {
+                  sb.AppendLine(user.ComputerName);
+               }
+            }
+            MessageBox.Show(sb.ToString(), "Multi user conflict", MessageBoxButton.OK, MessageBoxImage.Warning);
+         }
+         return true;
+      }
 
    }
 }
