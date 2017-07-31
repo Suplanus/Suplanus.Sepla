@@ -7,11 +7,37 @@ namespace Suplanus.Sepla.Objects
    /// <summary>
    /// LocationIdentifier
    /// </summary>
+   [Serializable]
    public class LocationIdentifier : ILocationIdentifier
    {
       public bool Equals(LocationIdentifier obj)
       {
          return Equals(obj.ToString().Equals(this.ToString()));
+      }
+
+      public LocationIdentifier()
+      {
+
+      }
+
+      public LocationIdentifier(PagePropertyList pagePropertyList)
+      {
+         this.FunctionAssignment = GetPageProperty(pagePropertyList.DESIGNATION_FUNCTIONALASSIGNMENT);
+         this.PlaceOfInstallation = GetPageProperty(pagePropertyList.DESIGNATION_PLACEOFINSTALLATION);
+         this.Plant = GetPageProperty(pagePropertyList.DESIGNATION_PLANT);
+         this.Location = GetPageProperty(pagePropertyList.DESIGNATION_LOCATION);
+         this.UserDefinied = GetPageProperty(pagePropertyList.DESIGNATION_USERDEFINED);
+         this.DocType= GetPageProperty(pagePropertyList.DESIGNATION_DOCTYPE);
+         // todo add sub locations
+      }
+
+      private string GetPageProperty(PropertyValue propertyValue)
+      {
+         if (!propertyValue.IsEmpty)
+         {
+            return propertyValue;
+         }
+         return null;
       }
 
       /// <summary>
@@ -104,7 +130,7 @@ namespace Suplanus.Sepla.Objects
          GetLocation(pagePropertylistCopy, this.Location);
          GetUserDefinied(pagePropertylistCopy, this.UserDefinied);
          GetDocumentType(pagePropertylistCopy, this.DocType);
-         GetInstallationNumber(pagePropertylistCopy, this.InstallationNumber);  
+         GetInstallationNumber(pagePropertylistCopy, this.InstallationNumber);
          return pagePropertylistCopy;
       }
 
@@ -126,26 +152,26 @@ namespace Suplanus.Sepla.Objects
                      break;
                   case 2:
                      pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT2 = s;
-                     break;          
-                  case 3:               
+                     break;
+                  case 3:
                      pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT3 = s;
-                     break;         
-                  case 4:                
+                     break;
+                  case 4:
                      pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT4 = s;
-                     break;          
-                  case 5:                    
+                     break;
+                  case 5:
                      pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT5 = s;
-                     break;         
-                  case 6:                  
+                     break;
+                  case 6:
                      pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT6 = s;
-                     break;          
-                  case 7:               
+                     break;
+                  case 7:
                      pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT7 = s;
-                     break;          
-                  case 8:               
+                     break;
+                  case 8:
                      pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT8 = s;
-                     break;         
-                  case 9:                  
+                     break;
+                  case 9:
                      pagePropertylist.DESIGNATION_SUBFUNCTIONALASSIGNMENT9 = s;
                      break;
                   default:

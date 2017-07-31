@@ -1,9 +1,11 @@
-﻿namespace Suplanus.Sepla.Objects
+﻿using System;
+
+namespace Suplanus.Sepla.Objects
 {
-	/// <summary>
-	/// Interface of LocationIdentifier
-	/// </summary>
-	public interface ILocationIdentifier
+   /// <summary>
+   /// Interface of LocationIdentifier
+   /// </summary>   
+   public interface ILocationIdentifier
 	{
       /// <summary>
       /// FunctionalAssignment ==

@@ -205,7 +205,6 @@ namespace Suplanus.Sepla.Helper
          if (showDialog)
          {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Multi user conflict:");
             foreach (var user in currentUsers)
             {
                if (!string.IsNullOrEmpty(user.Name) && !string.IsNullOrEmpty(user.Identification))

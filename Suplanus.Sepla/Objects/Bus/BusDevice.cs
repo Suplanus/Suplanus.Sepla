@@ -7,7 +7,9 @@ namespace Suplanus.Sepla.Objects.Bus
    public class BusDevice
    {
       public string Name { get; set; }
+      public string PartDescription { get; set; }
       public List<BusPinBase> BusPins { get; set; }
+      public ILocationIdentifier LocationIdentifier { get; set; }
 
       public BusDevice()
       {
