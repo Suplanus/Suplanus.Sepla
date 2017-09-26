@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: C:\Program Files\EPLAN\Platform\2.7.3\Bin\Eplan.EplCoreAddin.MultiuserMonitoru.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F3B92726-8268-4F6A-B3D6-BC1435EDCC15}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Suplanus.EplAddIn.NavigatorExample</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Suplanus.EplAddIn.NavigatorExample</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Eplan.EplApi.AFu">
+      <HintPath>lib\Eplan.EplApi.AFu.dll</HintPath>
+    </Reference>
+    <Reference Include="Eplan.EplApi.DataModelu">
+      <HintPath>lib\Eplan.EplApi.DataModelu.dll</HintPath>
+    </Reference>
+    <Reference Include="Eplan.EplApi.Baseu">
+      <HintPath>lib\Eplan.EplApi.Baseu.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="Eplan.EplSDK.WPF.Interfacesu">
+      <HintPath>lib\Eplan.EplSDK.WPF.Interfacesu.dll</HintPath>
+    </Reference>
+    <Reference Include="Eplan.EplSDK.WPF.Controlsu">
+      <HintPath>lib\Eplan.EplSDK.WPF.Controlsu.dll</HintPath>
+    </Reference>
+    <Reference Include="Eplan.EplExt.MultiuserMonitorClientu">
+      <HintPath>lib\Eplan.EplExt.MultiuserMonitorClientu.dll</HintPath>
+    </Reference>
+    <Reference Include="Eplan.EplExt.MultiuserMonitorCommonu">
+      <HintPath>lib\Eplan.EplExt.MultiuserMonitorCommonu.dll</HintPath>
+    </Reference>
+    <Reference Include="Eplan.EplSDK.WPFu">
+      <HintPath>lib\Eplan.EplSDK.WPFu.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NavigatorContent.xaml.cs">
+      <DependentUpon>NavigatorContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NavigatorExampleAction.cs" />
+    <Compile Include="MultiuserMonitorModule.cs" />
+    <Compile Include="OpenProjectCommand.cs" />
+    <Compile Include="GridColumnSelectionBehavior.cs" />
+    <Compile Include="MultiuserMonitorGrau.cs" />
+    <Compile Include="PortValidationRule.cs" />
+    <Compile Include="MultiuserMonitorSettingsDialog.cs" />
+    <Compile Include="DataConverter_VisibilityToBool.cs" />
+    <Compile Include="DataConverter_boolToVisibility.cs" />
+    <Compile Include="MultiuserMonitor.cs" />
+    <Compile Include="XMUMDialogData.cs" />
+    <Compile Include="XMUMOpenProjectDialogData.cs" />
+    <Compile Include="XMUMReceiver.cs" />
+    <Compile Include="Properties\Resources.cs" />
+    <Compile Include="Expression\Blend\SampleData\SampleDataMultiUserMonitor\SampleDataMultiUserMonitor.cs" />
+    <Compile Include="XamlGeneratedNamespace\GeneratedInternalTypeHelper.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="NavigatorContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
