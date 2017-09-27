@@ -84,8 +84,6 @@
     <Compile Include="XMUMOpenProjectDialogData.cs" />
     <Compile Include="XMUMReceiver.cs" />
     <Compile Include="Properties\Resources.cs" />
-    <Compile Include="Expression\Blend\SampleData\SampleDataMultiUserMonitor\SampleDataMultiUserMonitor.cs" />
-    <Compile Include="XamlGeneratedNamespace\GeneratedInternalTypeHelper.cs" />
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
