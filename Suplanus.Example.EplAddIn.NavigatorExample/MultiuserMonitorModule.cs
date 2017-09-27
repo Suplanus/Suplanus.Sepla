@@ -11,6 +11,7 @@ using Eplan.EplCoreAddin.MultiuserMonitor.Properties;
 using Eplan.EplExt.MultiuserMonitorClient;
 using Eplan.EplSDK.WPF;
 using System.Globalization;
+using Suplanus.EplAddIn.NavigatorExample;
 
 namespace Eplan.EplCoreAddIn.MultiuserMonitor
 {
@@ -37,13 +38,13 @@ namespace Eplan.EplCoreAddIn.MultiuserMonitor
 
     public bool OnInitGui()
     {
-      DialogBarFactory dialogBarFactory1 = new DialogBarFactory("MultiuserMonitorBar", typeof (Eplan.EplCoreAddin.MultiuserMonitor.MultiuserMonitor), 568);
-      DialogFactory dialogFactory = new DialogFactory("MultiuserMonitorSettingsDialog", typeof (MultiuserMonitorSettingsDialog), 568);
-      DialogBarFactory dialogBarFactory2 = new DialogBarFactory("MultiuserMonitorGrauBar", typeof (MultiuserMonitorGrau), 568);
-      this.m_myOnServerChangedHandler = new EventHandler();
-      this.m_myOnServerChangedHandler.SetEvent("onServerChanged");
-      this.m_myOnServerChangedHandler.EplanEvent += new EventHandlerFunction(this.m_myOnServerChangedHandler_EplanEvent);
-      return true;
+        //DialogBarFactory dialogBarFactory1 = new DialogBarFactory("MultiuserMonitorBar", typeof(NavigatorContent), 568);
+            //DialogFactory dialogFactory = new DialogFactory("MultiuserMonitorSettingsDialog", typeof (MultiuserMonitorSettingsDialog), 568);
+            //DialogBarFactory dialogBarFactory2 = new DialogBarFactory("MultiuserMonitorGrauBar", typeof (MultiuserMonitorGrau), 568);
+            //this.m_myOnServerChangedHandler = new EventHandler();
+            //this.m_myOnServerChangedHandler.SetEvent("onServerChanged");
+            //this.m_myOnServerChangedHandler.EplanEvent += new EventHandlerFunction(this.m_myOnServerChangedHandler_EplanEvent);
+            return true;
     }
 
     public bool OnExit()

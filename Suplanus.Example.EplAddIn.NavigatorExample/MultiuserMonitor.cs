@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 
 namespace Eplan.EplCoreAddin.MultiuserMonitor
 {
-  public class MultiuserMonitor : System.Windows.Controls.UserControl, IDialog, IDialogBase, IDialogBar, IDialogComponentAccess, ICallingContext, IDialogState, IDialogAction, IDialogClose, IElementStateAccess, IComponentConnector, IStyleConnector
+  public class MultiuserMonitor : UserControl, IDialog, IDialogBar, IDialogComponentAccess, ICallingContext, IDialogState, IDialogAction, IDialogClose, IElementStateAccess, IComponentConnector, IStyleConnector
   {
     public static readonly DependencyProperty IsConnectedProperty = DependencyProperty.RegisterAttached("IsConnected", typeof (bool), typeof (Eplan.EplCoreAddin.MultiuserMonitor.MultiuserMonitor), (PropertyMetadata) new UIPropertyMetadata((object) false, new PropertyChangedCallback(Eplan.EplCoreAddin.MultiuserMonitor.MultiuserMonitor.OnIsConnectedChanged)));
     private Eplan.EplSDK.WPF.Controls.Persistency.ElementStateCollection m_eleState = new Eplan.EplSDK.WPF.Controls.Persistency.ElementStateCollection();
