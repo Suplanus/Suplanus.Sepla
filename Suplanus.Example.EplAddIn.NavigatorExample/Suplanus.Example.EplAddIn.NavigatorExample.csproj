@@ -34,19 +34,9 @@
   <ItemGroup>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="Eplan.EplApi.AFu">
       <HintPath>lib\Eplan.EplApi.AFu.dll</HintPath>
-    </Reference>
-    <Reference Include="Eplan.EplApi.DataModelu">
-      <HintPath>lib\Eplan.EplApi.DataModelu.dll</HintPath>
-    </Reference>
-    <Reference Include="Eplan.EplApi.Baseu">
-      <HintPath>lib\Eplan.EplApi.Baseu.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System.Xaml" />
@@ -56,12 +46,6 @@
     <Reference Include="Eplan.EplSDK.WPF.Controlsu">
       <HintPath>lib\Eplan.EplSDK.WPF.Controlsu.dll</HintPath>
     </Reference>
-    <Reference Include="Eplan.EplExt.MultiuserMonitorClientu">
-      <HintPath>lib\Eplan.EplExt.MultiuserMonitorClientu.dll</HintPath>
-    </Reference>
-    <Reference Include="Eplan.EplExt.MultiuserMonitorCommonu">
-      <HintPath>lib\Eplan.EplExt.MultiuserMonitorCommonu.dll</HintPath>
-    </Reference>
     <Reference Include="Eplan.EplSDK.WPFu">
       <HintPath>lib\Eplan.EplSDK.WPFu.dll</HintPath>
     </Reference>
@@ -70,19 +54,7 @@
     <Compile Include="NavigatorContent.xaml.cs">
       <DependentUpon>NavigatorContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NavigatorExampleAction.cs" />
-    <Compile Include="MultiuserMonitorModule.cs" />
-    <Compile Include="OpenProjectCommand.cs" />
-    <Compile Include="GridColumnSelectionBehavior.cs" />
-    <Compile Include="MultiuserMonitorGrau.cs" />
-    <Compile Include="PortValidationRule.cs" />
-    <Compile Include="MultiuserMonitorSettingsDialog.cs" />
-    <Compile Include="DataConverter_VisibilityToBool.cs" />
-    <Compile Include="DataConverter_boolToVisibility.cs" />
-    <Compile Include="MultiuserMonitor.cs" />
-    <Compile Include="XMUMDialogData.cs" />
-    <Compile Include="XMUMOpenProjectDialogData.cs" />
-    <Compile Include="XMUMReceiver.cs" />
+    <Compile Include="NavigatorExample.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
