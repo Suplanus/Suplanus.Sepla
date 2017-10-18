@@ -34,6 +34,11 @@
   <ItemGroup>
     <Reference Include="Eplan.EplApi.Baseu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64" />
     <Reference Include="Eplan.EplApi.MasterDatau, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64" />
+    <Reference Include="Eplan.EplSDK.WPF.DBu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\EPLAN\Platform\2.6.3\Bin\Eplan.EplSDK.WPF.DBu.dll</HintPath>
+    </Reference>
+    <Reference Include="Eplan.EplSDK.WPFu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="WindowsBase" />
@@ -45,9 +50,6 @@
     <Reference Include="Eplan.EplSDK.WPF.Interfacesu">
       <HintPath>lib\Eplan.EplSDK.WPF.Interfacesu.dll</HintPath>
     </Reference>
-    <Reference Include="Eplan.EplSDK.WPF.Controlsu">
-      <HintPath>lib\Eplan.EplSDK.WPF.Controlsu.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PartsManagementExtensionContent.xaml.cs">
@@ -55,8 +57,10 @@
     </Compile>
     <Compile Include="Addin.cs" />
     <Compile Include="PartsManagementExtensionExampleAction.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Properties\Resources.resx" />

@@ -6,10 +6,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="300"
+    DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}"
     mc:Ignorable="d">
     <Grid Margin="10">
         <Viewbox>
-            <TextBlock Text="Hello PartsManagementExtension!" TextWrapping="Wrap" />
+            <TextBox
+                IsEnabled="{Binding IsEnabled}"
+                Text="Hello PartsManagementExtension!"
+                TextWrapping="Wrap" />
         </Viewbox>
     </Grid>
 </UserControl>

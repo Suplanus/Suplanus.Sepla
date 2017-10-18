@@ -1,11 +1,27 @@
 ﻿using System.IO;
+using System.Reflection;
 using Eplan.EplApi.ApplicationFramework;
 using Eplan.EplApi.MasterData;
+using Eplan.EplSDK.WPF;
+using Eplan.EplSDK.WPF.DB;
 
 namespace Suplanus.Example.EplAddIn.PartsManagementExtensionExample
 {
     class Addin : IEplAddIn
     {
+        public string TabsheetName => nameof(PartsManagementExtensionContent);
+        public string ItemType => "eplan.part";
+
+        public string AddinName
+        {
+            get
+            {
+                string addinName = typeof(Addin).Assembly.CodeBase;
+                addinName = Path.GetFileNameWithoutExtension(addinName);
+                return addinName;
+            }
+        }        
+
         public bool OnRegister(ref bool isLoadingOnStart)
         {
             isLoadingOnStart = true;
@@ -14,6 +30,11 @@ namespace Suplanus.Example.EplAddIn.PartsManagementExtensionExample
 
         public bool OnUnregister()
         {
+            var partsManagement = new MDPartsManagement();
+            partsManagement.UnregisterAddin(AddinName);
+            partsManagement.UnregisterItem(ItemType);
+            partsManagement.UnregisterTabsheet(TabsheetName);
+
             return true;
         }
 
@@ -26,15 +47,13 @@ namespace Suplanus.Example.EplAddIn.PartsManagementExtensionExample
         {
             var partsManagement = new MDPartsManagement();
             string actionName = nameof(PartsManagementExtensionExampleAction);
-            string addinName = typeof(Addin).Assembly.CodeBase;
-            string itemType = "eplan.part"; // default
-            string tabsheetName = nameof(PartsManagementExtensionContent);
 
-            addinName = Path.GetFileNameWithoutExtension(addinName);
-            partsManagement.RegisterAddin(addinName, actionName);            
-            partsManagement.RegisterItem(addinName, itemType);
-            partsManagement.RegisterTabsheet(addinName, itemType, tabsheetName);
-            PartsManagementExtensionExampleAction.TabsheetName = tabsheetName;
+            partsManagement.RegisterAddin(AddinName, actionName);            
+            partsManagement.RegisterItem(AddinName, ItemType);
+            partsManagement.RegisterTabsheet(AddinName, ItemType, TabsheetName);
+            DialogFactoryDB dialogBarFactory = new DialogFactoryDB(TabsheetName,
+                typeof(PartsManagementExtensionContent));
+            PartsManagementExtensionExampleAction.TabsheetName = TabsheetName;
 
             return true;
         }
