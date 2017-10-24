@@ -32,6 +32,8 @@ namespace Suplanus.Example.EplAddIn.PartsManagementExtensionExample
                 case "SelectItem":
                 case "SaveItem":
                 case "PreShowTab":
+                case "OpenDatabase":
+                case "CreateDatabase":
                     wpfDialogEventManager.send("XPartsManagementDialog", action, key);
                     break;
             }

@@ -16,32 +16,43 @@ namespace Suplanus.Example.EplAddIn.PartsManagementExtensionExample
         {
             InitializeComponent();
 
+            ViewModel = new ViewModel();
+            DataContext = ViewModel;
+
+            ViewModel.IsReadOnly = _partsManagement.SelectedPartsDatabase.IsReadOnly;
+
             // Events, called from Action of this Tab
             WPFDialogEventManager dialogEventManager = new WPFDialogEventManager();
             dialogEventManager.getOnWPFNotifyEvent("XPartsManagementDialog", "SelectItem").Notify += SelectItem;
             dialogEventManager.getOnWPFNotifyEvent("XPartsManagementDialog", "SaveItem").Notify += SaveItem;
             dialogEventManager.getOnWPFNotifyEvent("XPartsManagementDialog", "PreShowTab").Notify += PreShowTab;
+            dialogEventManager.getOnWPFNotifyEvent("XPartsManagementDialog", "OpenDatabase").Notify += OpenDatabase;
+            dialogEventManager.getOnWPFNotifyEvent("XPartsManagementDialog", "CreateDatabase").Notify += CreateDatabase;
+        }
+
+        private void CreateDatabase(string data)
+        {
+            
+        }
+
+        private void OpenDatabase(string data)
+        {
+            
         }
 
         private void PreShowTab(string data)
         {
-            ViewModel = new ViewModel();
-
-            // Set Readonly
-            // todo: changes while choosing part with setting activated
-            //bool areChangesAllowed = new Settings().GetBoolSetting("USER.PartSelectionGui.DataSourceScheme.Standard.Data.AllowEditing",0); // changes allowed while choosing part
-            bool isDatabaseReadOnly = _partsManagement.SelectedPartsDatabase.IsReadOnly;
-            ViewModel.IsEnabled = !isDatabaseReadOnly;
+            
         }
 
         private void SelectItem(string data)
         {
-            // Do something with selected items
+            
         }
 
         private void SaveItem(string data)
         {
-            // Do something on database save event
+            
         }
 
     }

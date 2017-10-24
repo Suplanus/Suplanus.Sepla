@@ -57,7 +57,6 @@
     </Compile>
     <Compile Include="Addin.cs" />
     <Compile Include="PartsManagementExtensionExampleAction.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ViewModel.cs" />

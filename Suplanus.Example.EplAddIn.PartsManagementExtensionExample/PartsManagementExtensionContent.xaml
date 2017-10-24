@@ -11,7 +11,8 @@
     <Grid Margin="10">
         <Viewbox>
             <TextBox
-                IsEnabled="{Binding IsEnabled}"
+                Name="txt"
+                IsReadOnly="{Binding IsReadOnly}"
                 Text="Hello PartsManagementExtension!"
                 TextWrapping="Wrap" />
         </Viewbox>
