@@ -47,7 +47,8 @@ namespace Suplanus.Sepla.Application
         }
 
         /// <summary>
-        /// Starts EPLAN
+        /// Starts EPLAN in ConsoleApplication        
+        /// You have to set Attribut <c>[STAThread]</c> for Main void
         /// </summary>
         public void StartWithoutGui()
         {
