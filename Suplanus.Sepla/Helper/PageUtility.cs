@@ -1,4 +1,6 @@
-﻿using Eplan.EplApi.ApplicationFramework;
+﻿using System;
+using Eplan.EplApi.ApplicationFramework;
+using Eplan.EplApi.Base;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
 using Eplan.EplApi.HEServices;
@@ -34,7 +36,7 @@ namespace Suplanus.Sepla.Helper
             new CommandLineInterpreter().Execute("XGedEscapeAction"); // Escape (page selection)
         }
 
-        public static WindowMacro.Enums.RepresentationType GetMacroRepresentationType(Page page)
+        public static WindowMacro.Enums.RepresentationType GetMacroRepresentationTypeFromPage(Page page)
         {
             switch (page.PageType)
             {
@@ -49,6 +51,42 @@ namespace Suplanus.Sepla.Helper
                 case DocumentTypeManager.DocumentType.Planning: return WindowMacro.Enums.RepresentationType.Planning;
                 default: return WindowMacro.Enums.RepresentationType.Default;
             }
+        }
+
+        public static DocumentTypeManager.DocumentType GetPageRepresentationTypeFromMacro(WindowMacro.Enums.RepresentationType representationType)
+        {
+            switch (representationType)
+            {
+                case WindowMacro.Enums.RepresentationType.Default: return DocumentTypeManager.DocumentType.Undefined;
+                case WindowMacro.Enums.RepresentationType.Neutral: return DocumentTypeManager.DocumentType.Undefined;
+                case WindowMacro.Enums.RepresentationType.MultiLine: return DocumentTypeManager.DocumentType.Circuit;
+                case WindowMacro.Enums.RepresentationType.SingleLine: return DocumentTypeManager.DocumentType.CircuitSingleLine;
+                case WindowMacro.Enums.RepresentationType.PairCrossReference: return DocumentTypeManager.DocumentType.PairCrossReference;
+                case WindowMacro.Enums.RepresentationType.Overview: return DocumentTypeManager.DocumentType.Overview;
+                case WindowMacro.Enums.RepresentationType.Graphics: return DocumentTypeManager.DocumentType.Graphics;
+                case WindowMacro.Enums.RepresentationType.ArticlePlacement: return DocumentTypeManager.DocumentType.PanelLayout;
+                case WindowMacro.Enums.RepresentationType.PI_FlowChart: return DocumentTypeManager.DocumentType.ProcessAndInstrumentationDiagram;
+                case WindowMacro.Enums.RepresentationType.Fluid_MultiLine: return DocumentTypeManager.DocumentType.CircuitFluid;
+                case WindowMacro.Enums.RepresentationType.Cabling: return DocumentTypeManager.DocumentType.Topology;
+                case WindowMacro.Enums.RepresentationType.ArticlePlacement3D: return DocumentTypeManager.DocumentType.ModelView;
+                case WindowMacro.Enums.RepresentationType.Functional: return DocumentTypeManager.DocumentType.Functional;
+                case WindowMacro.Enums.RepresentationType.Planning: return DocumentTypeManager.DocumentType.Planning;
+                default: throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public static PointD[] GetLogicalAreaofPage(Page page)
+        {
+            PlotFrame frame = page.PlotFrame;
+            PointD ptSize = frame.Size;
+            int xStart = frame.Properties.FRAME_EVALUATION_AREA_START_POINT_X;
+            double xEnd = xStart + ptSize.X - xStart;
+            int yStart = frame.Properties.FRAME_EVALUATION_AREA_START_POINT_Y;
+            double yEnd = yStart + ptSize.Y - yStart - 5; // 5mm fix of plotframe
+
+            PointD lowerLeft = new PointD(xStart, yStart);
+            PointD upperRight = new PointD(xEnd, yEnd);
+            return new[] { lowerLeft, upperRight };
         }
     }
 }
