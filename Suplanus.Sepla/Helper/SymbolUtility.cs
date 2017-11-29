@@ -18,7 +18,7 @@ namespace Suplanus.Sepla.Helper
         /// <param name="symbolvariant">Symbol variant</param>
         public void Insert(Page page, string symbolLibraryName, string symbolName, int symbolvariant)
         {
-            page.LockObject();
+            page.SmartLock();
 
             SymbolLibrary symbolLibrary = new SymbolLibrary(page.Project, symbolLibraryName);
             Symbol symbol = new Symbol(symbolLibrary, symbolName);
