@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -113,7 +114,7 @@ namespace Suplanus.Sepla.Helper
       /// </summary>
       /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
       /// <returns>EPLAN Project</returns>
-      public static Project OpenProject(string projectLinkFilePath)
+      public static Project OpenProject(string projectLinkFilePath, ProjectManager.OpenMode openMode = ProjectManager.OpenMode.Standard, bool upgradeIfNeeded = true)
       {
          if (!File.Exists(projectLinkFilePath))
          {
@@ -130,7 +131,7 @@ namespace Suplanus.Sepla.Helper
             }
             else
             {
-               return projectManager.OpenProject(projectLinkFilePath, ProjectManager.OpenMode.Standard, true);
+               return projectManager.OpenProject(projectLinkFilePath, openMode, upgradeIfNeeded);
             }
          }
       }
@@ -207,15 +208,15 @@ namespace Suplanus.Sepla.Helper
             StringBuilder sb = new StringBuilder();
             foreach (var user in currentUsers)
             {
-               if (!string.IsNullOrEmpty(user.Name) && !string.IsNullOrEmpty(user.Identification))
+               if (!String.IsNullOrEmpty(user.Name) && !String.IsNullOrEmpty(user.Identification))
                {
                   sb.AppendLine(user.ComputerName + " / " + user.Name + " / " + user.Identification);
                }
-               else if (!string.IsNullOrEmpty(user.Name))
+               else if (!String.IsNullOrEmpty(user.Name))
                {
                   sb.AppendLine(user.ComputerName + " / " + user.Name);
                }
-               else if (!string.IsNullOrEmpty(user.Identification))
+               else if (!String.IsNullOrEmpty(user.Identification))
                {
                   sb.AppendLine(user.ComputerName + " / " + user.Identification);
                }
@@ -229,5 +230,14 @@ namespace Suplanus.Sepla.Helper
          return true;
       }
 
+       public static bool IsCircuitProject(Project project)
+       {
+           var projectType = project.Properties.PROJ_NUMERICTYPE.ToInt();
+           if (projectType == 1) // 1=CircutitProject 2=MacroProject
+           {
+               return true;
+           }
+           return false;
+       }
    }
 }
