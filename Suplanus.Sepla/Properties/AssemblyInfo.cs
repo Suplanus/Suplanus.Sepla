@@ -1,7 +1,12 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-//using Eplan.EplApi.Starter;
+#if TRACE && !DEBUG
+using Eplan.EplApi.Starter;
+[assembly: EplanSignedAssembly(true)]
+[assembly: AssemblyKeyFile(@"\\Mac\Home\Documents\GitHub\ibKastl.Meco.Source\Build\Keyfiles\2161_Public.snk")]
+[assembly: AssemblyDelaySign(true)]
+#endif
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -11,11 +16,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Suplanus.Sepla")]
-[assembly: AssemblyCopyright("Copyright © Suplanus 2016")]
+[assembly: AssemblyCopyright("Copyright ?? Suplanus 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
-//[assembly: EplanSignedAssembly(true)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
