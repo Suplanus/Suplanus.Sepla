@@ -1,42 +1,47 @@
-﻿<UserControl x:Class="Suplanus.Sepla.Gui.PreviewControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="100"
-             d:DesignWidth="100"
-             SizeChanged="PreviewControl_OnSizeChanged"
-             mc:Ignorable="d">
+﻿<UserControl
+    x:Class="Suplanus.Sepla.Gui.PreviewControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="100"
+    d:DesignWidth="100"
+    SizeChanged="PreviewControl_OnSizeChanged"
+    mc:Ignorable="d">
     <Border>
         <DockPanel>
-            <ComboBox Name="CbbRepresentationType"
-                      HorizontalContentAlignment="Stretch"
-                      DockPanel.Dock="Top"
-                      IsEnabled="False"
-                      SelectionChanged="CbbRepresentationType_OnSelectionChanged" />
+            <ComboBox
+                Name="CbbRepresentationType"
+                HorizontalContentAlignment="Stretch"
+                DockPanel.Dock="Top"
+                IsEnabled="False"
+                SelectionChanged="CbbRepresentationType_OnSelectionChanged" />
             <DockPanel DockPanel.Dock="Top">
-                <Button Name="BtnPreviewBack"
-                        Width="28"
-                        Height="28"
-                        Click="BtnPreviewBack_OnClick"
-                        DockPanel.Dock="Left"
-                        IsEnabled="False">
+                <Button
+                    Name="BtnPreviewBack"
+                    Width="28"
+                    Height="28"
+                    Click="BtnPreviewBack_OnClick"
+                    DockPanel.Dock="Left"
+                    IsEnabled="False">
                     <Image Source="..\..\Resources/Images/Arrow_Left_64.png" />
                 </Button>
-                <Button Name="BtnPreviewNext"
-                        Width="28"
-                        Height="28"
-                        Click="BtnPreviewNext_OnClick"
-                        DockPanel.Dock="Left"
-                        IsEnabled="False">
+                <Button
+                    Name="BtnPreviewNext"
+                    Width="28"
+                    Height="28"
+                    Click="BtnPreviewNext_OnClick"
+                    DockPanel.Dock="Left"
+                    IsEnabled="False">
                     <Image Source="..\..\Resources/Images/Arrow_Right_64.png" />
                 </Button>
 
-                <ComboBox Name="CbbVariant"
-                          Height="28"
-                          HorizontalContentAlignment="Stretch"
-                          IsEnabled="False"
-                          SelectionChanged="CbbVariant_OnSelectionChanged" />
+                <ComboBox
+                    Name="CbbVariant"
+                    Height="28"
+                    HorizontalContentAlignment="Stretch"
+                    IsEnabled="False"
+                    SelectionChanged="CbbVariant_OnSelectionChanged" />
 
             </DockPanel>
 
