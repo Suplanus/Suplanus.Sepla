@@ -20,15 +20,14 @@ namespace Suplanus.Sepla.Objects
 
       }
 
-      public LocationIdentifier(PagePropertyList pagePropertyList)
+      public void SetFromPage(Page page)
       {
-         this.FunctionAssignment = GetPageProperty(pagePropertyList.DESIGNATION_FUNCTIONALASSIGNMENT);
-         this.PlaceOfInstallation = GetPageProperty(pagePropertyList.DESIGNATION_PLACEOFINSTALLATION);
-         this.Plant = GetPageProperty(pagePropertyList.DESIGNATION_PLANT);
-         this.Location = GetPageProperty(pagePropertyList.DESIGNATION_LOCATION);
-         this.UserDefinied = GetPageProperty(pagePropertyList.DESIGNATION_USERDEFINED);
-         this.DocType= GetPageProperty(pagePropertyList.DESIGNATION_DOCTYPE);
-         // todo add sub locations
+         this.FunctionAssignment = GetPageProperty(page.Properties.DESIGNATION_FULLFUNCTIONALASSIGNMENT);
+         this.PlaceOfInstallation = GetPageProperty(page.Properties.DESIGNATION_FULLPLACEOFINSTALLATION);
+         this.Plant = GetPageProperty(page.Properties.DESIGNATION_FULLPLANT);
+         this.Location = GetPageProperty(page.Properties.DESIGNATION_FULLLOCATION);
+         this.UserDefinied = GetPageProperty(page.Properties.DESIGNATION_FULLUSERDEFINED);
+         this.DocType= GetPageProperty(page.Properties.DESIGNATION_FULLDOCTYPE);
       }
 
       private string GetPageProperty(PropertyValue propertyValue)
@@ -43,37 +42,37 @@ namespace Suplanus.Sepla.Objects
       /// <summary>
       /// FunctionalAssignment ==
       /// </summary>
-      public string FunctionAssignment { get; set; }
+      public virtual string FunctionAssignment { get; set; }
 
       /// <summary>
       /// Location +
       /// </summary>
-      public string Location { get; set; }
+      public virtual string Location { get; set; }
 
       /// <summary>
       /// PlaceOfInstallation ++
       /// </summary>
-		public string PlaceOfInstallation { get; set; }
+		public virtual string PlaceOfInstallation { get; set; }
 
       /// <summary>
       /// Plant (Function) =
       /// </summary>
-		public string Plant { get; set; }
+		public virtual string Plant { get; set; }
 
       /// <summary>
       /// Userdefinied #
       /// </summary>
-		public string UserDefinied { get; set; }
+		public virtual string UserDefinied { get; set; }
 
       /// <summary>
       /// DocType &amp;
       /// </summary>
-      public string DocType { get; set; }
+      public virtual string DocType { get; set; }
 
       /// <summary>
       /// InstallationNumber (empty)
       /// </summary>
-	   public string InstallationNumber { get; set; }
+	   public virtual string InstallationNumber { get; set; }
 
       /// <summary>
       /// Returns the full location in a string
