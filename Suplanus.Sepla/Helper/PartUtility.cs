@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Eplan.EplApi.ApplicationFramework;
 using Eplan.EplApi.DataModel;
+using Eplan.EplApi.HEServices;
 using Eplan.EplApi.MasterData;
 using Eplan.EplApi.System;
 
@@ -20,20 +21,35 @@ namespace Suplanus.Sepla.Helper
             return part;
         }
 
-        public static MDPart CreateOrUpdateWithFunctionTemplate(Function function)
+        public static MDPart CreateOrUpdateWithFunctionTemplate(ArticleReference articleReference)
         {
             // Need to lock project
-            var project = function.Project;
+            var project = articleReference.Project;
             project.SmartLock();
-            function.SmartLock();
+            if (articleReference.ParentObject != null) articleReference.ParentObject.SmartLock();
+            articleReference.SmartLock();
 
             // Init
             var partsDatabase = new MDPartsManagement().OpenDatabase();
-            var articleReference = function.ArticleReferences.First();
+            //var articleReference = function.ArticleReferences.First();
             articleReference.SmartLock();
             var partNr = articleReference.PartNr;
             var partVariant = articleReference.VariantNr;
             MDPart part = partsDatabase.GetPart(partNr, partVariant);
+
+            // Check if article is in project and remove, because the eplan action to create is not possible
+            var existingArticle = project.Articles
+                .FirstOrDefault(obj =>
+                    obj.PartNr.Equals(partNr) && obj.VariantNr.Equals(partVariant)
+                );
+            if (existingArticle != null)
+            {
+                existingArticle.SmartLock();
+                existingArticle.Remove();
+            }
+
+            // Need to focus again if its lost
+            new Edit().BringToFront((Placement) articleReference.ParentObject);
 
             // Create new part
             if (part == null)
@@ -47,6 +63,7 @@ namespace Suplanus.Sepla.Helper
                 partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
                 part = partsDatabase.GetPart(partNr, partVariant);
             }
+            // Existing part
             else
             {
                 // Rename part
@@ -87,14 +104,14 @@ namespace Suplanus.Sepla.Helper
 
 
                 // Check if article is in project
-                var existingArticle = project.Articles
+                var existingTempArticle = project.Articles
                     .FirstOrDefault(obj =>
                     obj.PartNr.Equals(partNrTemp) && obj.VariantNr.Equals(partVariant)
                     );
-                if (existingArticle != null)
+                if (existingTempArticle != null)
                 {
-                    existingArticle.SmartLock();
-                    existingArticle.Remove();
+                    existingTempArticle.SmartLock();
+                    existingTempArticle.Remove();
                 }
             }
 
@@ -113,5 +130,46 @@ namespace Suplanus.Sepla.Helper
         }
 
 
+        public static MDPart CreatePart(ArticleReference articleReference)
+        {
+            // Need to lock project
+            var project = articleReference.Project;
+            project.SmartLock();
+            if (articleReference.ParentObject != null) articleReference.ParentObject.SmartLock();
+            articleReference.SmartLock();
+
+            // Init
+            var partsDatabase = new MDPartsManagement().OpenDatabase();
+            //var articleReference = function.ArticleReferences.First();
+            articleReference.SmartLock();
+            var partNr = articleReference.PartNr;
+            var partVariant = articleReference.VariantNr;
+            MDPart part = partsDatabase.GetPart(partNr, partVariant);
+
+            // Create new part
+            if (part == null)
+            {
+                part = partsDatabase.AddPart(partNr, partVariant);
+
+                // PartSelection to edit data
+                new EplApplication().ShowPartSelectionDialog(ref partNr, ref partVariant);
+
+                //partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
+                //part = partsDatabase.GetPart(partNr, partVariant);            
+            }
+
+            // Load data
+            var article = project.Articles
+                .FirstOrDefault(obj =>
+                    obj.PartNr.Equals(partNr) && obj.VariantNr.Equals(partVariant)
+                );
+            if (article != null)
+            {
+                article.SmartLock();
+                article.LoadFromMasterdata();
+            }
+
+            return part;
+        }
     }
 }
