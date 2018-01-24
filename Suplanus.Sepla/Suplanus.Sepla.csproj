@@ -198,6 +198,7 @@
     <Compile Include="Application\Starter.cs" />
     <Compile Include="Extensions\Page.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Gui\GuiHelper.cs" />
     <Compile Include="Gui\Preview\Preview.cs" />
     <Compile Include="Gui\Preview\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
