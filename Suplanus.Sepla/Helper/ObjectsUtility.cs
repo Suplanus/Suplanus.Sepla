@@ -16,11 +16,11 @@ namespace Suplanus.Sepla.Helper
       /// <typeparam name="T">EPLAN object type</typeparam>
       /// <param name="project">EPLAN Object</param>
       /// <returns>List of objects</returns>
-		public static List<T> GetAllObjectsOfType<T>(Project project)
-		{
-         DMObjectsFinder dmObjectsFinder = new DMObjectsFinder(project);
-			return dmObjectsFinder.GetPlacements(null).OfType<T>().ToList();       
-		}
+public static List<T> GetAllObjectsOfType<T>(Project project)
+{
+      DMObjectsFinder dmObjectsFinder = new DMObjectsFinder(project);
+	return dmObjectsFinder.GetPlacements(null).OfType<T>().ToList();       
+}
 
       /// <summary>
       /// Returns all objects of a EPLAN project
