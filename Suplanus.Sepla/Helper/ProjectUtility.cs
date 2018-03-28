@@ -23,9 +23,9 @@ namespace Suplanus.Sepla.Helper
       public static Project GetCurrentProject()
       {
          SelectionSet selectionSet = new SelectionSet();
-         selectionSet.LockProjectByDefault = true;
-         selectionSet.LockSelectionByDefault = true;
-         return selectionSet.GetCurrentProject(true);
+         selectionSet.LockProjectByDefault = false;
+         selectionSet.LockSelectionByDefault = false;
+         return selectionSet.GetCurrentProject(false);
       }
 
       /// <summary>
