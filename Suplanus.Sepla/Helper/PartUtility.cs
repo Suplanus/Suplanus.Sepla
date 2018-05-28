@@ -22,7 +22,7 @@ namespace Suplanus.Sepla.Helper
       return part;
     }
 
-    public static MDPart CreateOrUpdateWithFunctionTemplate(ArticleReference articleReference)
+    public static MDPart CreateOrUpdatePart(ArticleReference articleReference, bool updateFunctionTemplate)
     {
       // Need to lock project
       var project = articleReference.Project;
@@ -50,7 +50,11 @@ namespace Suplanus.Sepla.Helper
       }
 
       // Need to focus again if its lost
-      new Edit().BringToFront((Placement)articleReference.ParentObject);
+      
+      if (articleReference.ParentObject is Placement placementToBringInFront)
+      {
+        new Edit().BringToFront(placementToBringInFront);
+      }
 
       // Create new part
       if (part == null)
@@ -67,44 +71,53 @@ namespace Suplanus.Sepla.Helper
       // Existing part
       else
       {
-        // Rename part
-        string suffix = "_temp";
-        string partNrTemp = part.PartNr + suffix;
-        try
-        {
-          articleReference.PartNr = partNrTemp;
-          articleReference.StoreToObject();
+        // Check if pro panel, because there is no update possible
+        bool isProPanel = articleReference.ParentObject is Component;
 
-          // Quiet create temp part
-          var application = new EplApplication();
-          var quiteMode = application.QuietMode;
-          application.QuietMode = EplApplication.QuietModes.ShowNoDialogs;
-          using (new LockingUtility.SeplaLockingVector())
+        string partNrTemp = partNr;
+        if (!isProPanel)
+        {
+          // Rename part
+          string suffix = "_temp";
+          partNrTemp = part.PartNr + suffix;
+          try
           {
-            new CommandLineInterpreter().Execute("XPameCreateType"); 
+            articleReference.PartNr = partNrTemp;
+            articleReference.StoreToObject();
+
+            // Quiet create temp part
+            var application = new EplApplication();
+            var quiteMode = application.QuietMode;
+            application.QuietMode = EplApplication.QuietModes.ShowNoDialogs;
+            using (new LockingUtility.SeplaLockingVector())
+            {
+              new CommandLineInterpreter().Execute("XPameCreateType");
+            }
+            application.QuietMode = quiteMode;
           }
-          application.QuietMode = quiteMode;
-        }
-        finally
-        {
-          // Rename back
-          articleReference.PartNr = partNr;
-          articleReference.StoreToObject();
-        }
+          finally
+          {
+            // Rename back
+            articleReference.PartNr = partNr;
+            articleReference.StoreToObject();
+          }
 
-        // Copy FunctionTemplate
-        partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
-        MDPart partDuplicate = partsDatabase.GetPart(partNrTemp, partVariant);
-        foreach (var partFunctionTemplatePosition in part.FunctionTemplatePositions)
-        {
-          part.RemoveFunctionTemplatePosition(partFunctionTemplatePosition);
+          // Copy FunctionTemplate
+          if (updateFunctionTemplate)
+          {
+            partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
+            MDPart partDuplicate = partsDatabase.GetPart(partNrTemp, partVariant);
+            foreach (var partFunctionTemplatePosition in part.FunctionTemplatePositions)
+            {
+              part.RemoveFunctionTemplatePosition(partFunctionTemplatePosition);
+            }
+            foreach (var partDuplicateFunctionTemplatePosition in partDuplicate.FunctionTemplatePositions)
+            {
+              part.AddFunctionTemplatePosition(partDuplicateFunctionTemplatePosition);
+            }
+            partsDatabase.RemovePart(partDuplicate);
+          } 
         }
-        foreach (var partDuplicateFunctionTemplatePosition in partDuplicate.FunctionTemplatePositions)
-        {
-          part.AddFunctionTemplatePosition(partDuplicateFunctionTemplatePosition);
-        }
-
-        partsDatabase.RemovePart(partDuplicate);
 
 
         // Check if article is in project
@@ -134,50 +147,6 @@ namespace Suplanus.Sepla.Helper
     }
 
 
-
-
-
-    public static MDPart CreatePart(ArticleReference articleReference)
-    {
-      // Need to lock project
-      var project = articleReference.Project;
-      project.SmartLock();
-      if (articleReference.ParentObject != null) articleReference.ParentObject.SmartLock();
-      articleReference.SmartLock();
-
-      // Init
-      var partsDatabase = new MDPartsManagement().OpenDatabase();
-      articleReference.SmartLock();
-      var partNr = articleReference.PartNr;
-      var partVariant = articleReference.VariantNr;
-      MDPart part = partsDatabase.GetPart(partNr, partVariant);
-
-      // Create new part
-      if (part == null)
-      {
-        articleReference.SmartLock();
-        // ReSharper disable once RedundantAssignment
-        part = partsDatabase.AddPart(partNr, partVariant);
-        using (new LockingUtility.SeplaLockingVector())
-        {
-          new EplApplication().ShowPartSelectionDialog(ref partNr, ref partVariant); 
-        }
-        partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
-        part = partsDatabase.GetPart(partNr, partVariant);
-      }
-
-      // Load data
-      var article = project.Articles
-          .FirstOrDefault(obj =>
-              obj.PartNr.Equals(partNr) && obj.VariantNr.Equals(partVariant)
-          );
-      if (article != null)
-      {
-        article.SmartLock();
-        article.LoadFromMasterdata();
-      }
-
-      return part;
-    }
+ 
   }
 }

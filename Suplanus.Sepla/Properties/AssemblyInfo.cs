@@ -1,10 +1,11 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-#if TRACE && !DEBUG
+
+#if SIGN
 using Eplan.EplApi.Starter;
 [assembly: EplanSignedAssembly(true)]
-[assembly: AssemblyKeyFile(@"\\Mac\Home\Documents\GitHub\ibKastl.MD3.Source\Build\Keyfiles\2161_Public.snk")]
+[assembly: AssemblyKeyFile(@"\\Mac\Home\Documents\GitHub\ibKastl.MD3.Source\Build\Keyfiles\2161_Public.snk")]        
 [assembly: AssemblyDelaySign(true)]
 #endif
 
