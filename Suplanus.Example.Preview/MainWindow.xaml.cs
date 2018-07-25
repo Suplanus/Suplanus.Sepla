@@ -16,7 +16,7 @@ namespace Suplanus.Example.Preview
             Path.GetDirectoryName(Path.GetDirectoryName(AssemblyDirectory)))), "Demodata");
 
       readonly string _macroPath = Path.Combine(DemoData, "PageMacro.emp");
-      readonly string _previewProject = Path.Combine(@"C:\Users\moz\AppData\Local\ibKastl\Meco\Preview\Template.elk");
+      readonly string _previewProject = Path.Combine(@"C:\Users\moz\AppData\Local\ibKastl\MD3\Preview\EPLAN\Template_27.elk");
 
       private EplanOffline _eplanOffline;
       private Sepla.Gui.Preview _preview;

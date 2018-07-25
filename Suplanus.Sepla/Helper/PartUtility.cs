@@ -50,7 +50,6 @@ namespace Suplanus.Sepla.Helper
       }
 
       // Need to focus again if its lost
-      
       if (articleReference.ParentObject is Placement placementToBringInFront)
       {
         new Edit().BringToFront(placementToBringInFront);
