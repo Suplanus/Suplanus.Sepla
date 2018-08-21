@@ -11,233 +11,236 @@ using Suplanus.Sepla.Objects;
 
 namespace Suplanus.Sepla.Helper
 {
-   /// <summary>
-   /// Project helper class
-   /// </summary>
-   public class ProjectUtility
-   {
-      /// <summary>
-      /// Returns the active project
-      /// </summary>
-      /// <returns>Active Project</returns>
-      public static Project GetCurrentProject()
+  /// <summary>
+  /// Project helper class
+  /// </summary>
+  public class ProjectUtility
+  {
+    /// <summary>
+    /// Returns the active project
+    /// </summary>
+    /// <returns>Active Project</returns>
+    public static Project GetCurrentProject()
+    {
+      SelectionSet selectionSet = new SelectionSet();
+      selectionSet.LockProjectByDefault = false;
+      selectionSet.LockSelectionByDefault = false;
+      return selectionSet.GetCurrentProject(false);
+    }
+
+    /// <summary>
+    /// Creates project or get the existing project, or overwrite the existing
+    /// </summary>
+    /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+    /// <param name="projectTemplateFilePath">EPLAN template project (*.zw9)</param>
+    /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
+    /// <returns>EPLAN Project</returns>
+    public static Project Create(string projectLinkFilePath, string projectTemplateFilePath, bool overwrite)
+    {
+      ProjectManager projectManager = new ProjectManager();
+      Project project = null;
+
+      using (new LockingStep()) // needed
       {
-         SelectionSet selectionSet = new SelectionSet();
-         selectionSet.LockProjectByDefault = false;
-         selectionSet.LockSelectionByDefault = false;
-         return selectionSet.GetCurrentProject(false);
+        // Exists
+        if (projectManager.ExistsProject(projectLinkFilePath) && overwrite == false)
+        {
+          project = OpenProject(projectLinkFilePath);
+        }
+
+        // New
+        if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
+        {
+
+          project = projectManager.CreateProject(projectLinkFilePath, projectTemplateFilePath);
+        }
       }
 
-      /// <summary>
-      /// Creates project or get the existing project, or overwrite the existing
-      /// </summary>
-      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
-      /// <param name="projectTemplateFilePath">EPLAN template project (*.zw9)</param>
-      /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
-      /// <returns>EPLAN Project</returns>
-      public static Project Create(string projectLinkFilePath, string projectTemplateFilePath, bool overwrite)
+      return project;
+    }
+
+    /// <summary>
+    /// Copy the project or get the existing project, or overwrite the existing
+    /// </summary>
+    /// <param name="projectSource">Source project</param>
+    /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+    /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
+    /// <param name="copyMode"></param>
+    /// <returns>EPLAN Project</returns>
+    public static Project Copy(Project projectSource, string projectLinkFilePath, bool overwrite, ProjectManager.CopyMode copyMode)
+    {
+      using (new LockingStep()) // needed
       {
-         ProjectManager projectManager = new ProjectManager();
-         Project project = null;
+        ProjectManager projectManager = new ProjectManager();
 
-         using (new LockingStep()) // needed
-         {
-            // Exists
-            if (projectManager.ExistsProject(projectLinkFilePath) && overwrite == false)
-            {
-               project = OpenProject(projectLinkFilePath);
-            }
+        // New
+        if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
+        {
+          projectManager.CopyProject(projectSource.ProjectLinkFilePath, projectLinkFilePath,
+             copyMode);
+        }
 
-            // New
-            if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
-            {
+        return OpenProject(projectLinkFilePath);
+      }
+    }
 
-               project = projectManager.CreateProject(projectLinkFilePath, projectTemplateFilePath);
-            }
-         }
+    /// <summary>
+    /// Copy the project or get the existing project, or overwrite the existing
+    /// </summary>
+    /// <param name="projectSource">Source project</param>
+    /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+    /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
+    /// <param name="copyMode"></param>
+    /// <returns>EPLAN Project</returns>
+    public static Project Copy(string projectSource, string projectLinkFilePath, bool overwrite, ProjectManager.CopyMode copyMode)
+    {
+      using (new LockingStep()) // needed
+      {
+        ProjectManager projectManager = new ProjectManager();
 
-         return project;
+        // New
+        if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
+        {
+          projectManager.CopyProject(projectSource, projectLinkFilePath,
+             copyMode);
+        }
+
+        return OpenProject(projectLinkFilePath);
+      }
+    }
+
+    /// <summary>
+    /// Opens project and checks if its open
+    /// </summary>
+    /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+    /// <param name="openMode">Set how the project should be opened</param>
+    /// <param name="upgradeIfNeeded">Set if the project should be upgraded from an older version</param>
+    /// <returns>EPLAN Project</returns>
+    public static Project OpenProject(string projectLinkFilePath, ProjectManager.OpenMode openMode = ProjectManager.OpenMode.Standard, bool upgradeIfNeeded = true)
+    {
+      if (!File.Exists(projectLinkFilePath))
+      {
+        throw new FileNotFoundException("EPLAN project link file not found", projectLinkFilePath);
       }
 
-      /// <summary>
-      /// Copy the project or get the existing project, or overwrite the existing
-      /// </summary>
-      /// <param name="projectSource">Source project</param>
-      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
-      /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
-      /// <param name="copyMode"></param>
-      /// <returns>EPLAN Project</returns>
-      public static Project Copy(Project projectSource, string projectLinkFilePath, bool overwrite, ProjectManager.CopyMode copyMode)
+      using (new LockingStep())
       {
-         using (new LockingStep()) // needed
-         {
-            ProjectManager projectManager = new ProjectManager();
+        ProjectManager projectManager = new ProjectManager();
 
-            // New
-            if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
-            {
-               projectManager.CopyProject(projectSource.ProjectLinkFilePath, projectLinkFilePath,
-                  copyMode);
-            }
+        // Use filename because the path could be other (UNC / Pathvariable)
+        var filenameWithoutExtendsion = Path.GetFileNameWithoutExtension(projectLinkFilePath);
+        var project = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectName.Equals(filenameWithoutExtendsion));
 
-            return OpenProject(projectLinkFilePath);
-         }
+        if (project != null)
+        {
+          return project;
+        }
+        return projectManager.OpenProject(projectLinkFilePath, openMode, upgradeIfNeeded);
+      }
+    }
+
+    /// <summary>
+    /// Generates a project with the given GenerateablePageMacros
+    /// </summary>
+    /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
+    /// <param name="projectTemplateFilePath">EPLAN template project (*.zw9)</param>
+    /// <param name="generatablePageMacros">List of GeneratablePageMaros</param>
+    public static void Generate(string projectLinkFilePath, string projectTemplateFilePath,
+       List<GeneratablePageMacro> generatablePageMacros)
+    {
+      var project = Create(projectLinkFilePath, projectTemplateFilePath, false);
+      project.RemoveAllPages();
+
+      Insert insert = new Insert();
+      var pageCount = project.Pages.Length; // needed cause of overwrite
+      foreach (var generatablePageMacro in generatablePageMacros)
+      {
+        // Load pages from macro
+        PageMacro pageMacro = new PageMacro();
+        pageMacro.Open(generatablePageMacro.Filename, project);
+        foreach (var page in pageMacro.Pages)
+        {
+          // Rename
+          pageCount++;
+
+          PagePropertyList pagePropertyList = page.NameParts;
+          if (generatablePageMacro.LocationIdentifierIdentifier != null)
+          {
+            pagePropertyList[Properties.Page.DESIGNATION_FUNCTIONALASSIGNMENT] =
+               generatablePageMacro.LocationIdentifierIdentifier.FunctionAssignment;
+            pagePropertyList[Properties.Page.DESIGNATION_PLANT] =
+               generatablePageMacro.LocationIdentifierIdentifier.Plant;
+            pagePropertyList[Properties.Page.DESIGNATION_PLACEOFINSTALLATION] =
+               generatablePageMacro.LocationIdentifierIdentifier.PlaceOfInstallation;
+            pagePropertyList[Properties.Page.DESIGNATION_LOCATION] =
+               generatablePageMacro.LocationIdentifierIdentifier.Location;
+            pagePropertyList[Properties.Page.DESIGNATION_USERDEFINED] =
+               generatablePageMacro.LocationIdentifierIdentifier.UserDefinied;
+          }
+
+          pagePropertyList[Properties.Page.PAGE_COUNTER] = pageCount;
+          page.NameParts = pagePropertyList;
+
+          new NameService(page).EvaluateAndSetAllNames();
+        }
+
+        // Insert pagemacro
+        insert.PageMacro(pageMacro, project, null, PageMacro.Enums.NumerationMode.Number);
+      }
+    }
+
+    /// <summary>
+    /// Returns true if there is a multi user conflict in project
+    /// </summary>
+    /// <param name="project">EPLAN project</param>
+    /// <param name="showDialog">Shows dialog if there is a conflict (optional)</param>
+    /// <returns></returns>
+    public static bool IsMultiUserConflict(Project project, bool showDialog = false)
+    {
+      var currentUsers = project.CurrentUsers.ToList();
+
+      // No conflict
+      if (currentUsers.Count <= 1)
+      {
+        return false;
       }
 
-      /// <summary>
-      /// Copy the project or get the existing project, or overwrite the existing
-      /// </summary>
-      /// <param name="projectSource">Source project</param>
-      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
-      /// <param name="overwrite">Overwrites the existing project, False: Open the project</param>
-      /// <param name="copyMode"></param>
-      /// <returns>EPLAN Project</returns>
-      public static Project Copy(string projectSource, string projectLinkFilePath, bool overwrite, ProjectManager.CopyMode copyMode)
+      // Conflict
+      if (showDialog)
       {
-         using (new LockingStep()) // needed
-         {
-            ProjectManager projectManager = new ProjectManager();
-
-            // New
-            if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
-            {
-               projectManager.CopyProject(projectSource, projectLinkFilePath,
-                  copyMode);
-            }
-
-            return OpenProject(projectLinkFilePath);
-         }
+        StringBuilder sb = new StringBuilder();
+        foreach (var user in currentUsers)
+        {
+          if (!String.IsNullOrEmpty(user.Name) && !String.IsNullOrEmpty(user.Identification))
+          {
+            sb.AppendLine(user.ComputerName + " / " + user.Name + " / " + user.Identification);
+          }
+          else if (!String.IsNullOrEmpty(user.Name))
+          {
+            sb.AppendLine(user.ComputerName + " / " + user.Name);
+          }
+          else if (!String.IsNullOrEmpty(user.Identification))
+          {
+            sb.AppendLine(user.ComputerName + " / " + user.Identification);
+          }
+          else
+          {
+            sb.AppendLine(user.ComputerName);
+          }
+        }
+        MessageBox.Show(sb.ToString(), "Multi user conflict", MessageBoxButton.OK, MessageBoxImage.Warning);
       }
+      return true;
+    }
 
-      /// <summary>
-      /// Opens project and checks if its open
-      /// </summary>
-      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
-      /// <returns>EPLAN Project</returns>
-      public static Project OpenProject(string projectLinkFilePath, ProjectManager.OpenMode openMode = ProjectManager.OpenMode.Standard, bool upgradeIfNeeded = true)
+    public static bool IsCircuitProject(Project project)
+    {
+      var projectType = project.Properties.PROJ_NUMERICTYPE.ToInt();
+      if (projectType == 1) // 1=CircutitProject 2=MacroProject
       {
-         if (!File.Exists(projectLinkFilePath))
-         {
-            throw new FileNotFoundException("EPLAN project link file not found", projectLinkFilePath);
-         }
-
-         using (new LockingStep())
-         {
-            ProjectManager projectManager = new ProjectManager();
-            var project = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectLinkFilePath.Equals(projectLinkFilePath));
-            if (project != null)
-            {
-               return project;
-            }
-            else
-            {
-               return projectManager.OpenProject(projectLinkFilePath, openMode, upgradeIfNeeded);
-            }
-         }
+        return true;
       }
-
-      /// <summary>
-      /// Generates a project with the given GenerateablePageMacros
-      /// </summary>
-      /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
-      /// <param name="projectTemplateFilePath">EPLAN template project (*.zw9)</param>
-      /// <param name="generatablePageMacros">List of GeneratablePageMaros</param>
-      public static void Generate(string projectLinkFilePath, string projectTemplateFilePath,
-         List<GeneratablePageMacro> generatablePageMacros)
-      {
-         var project = Create(projectLinkFilePath, projectTemplateFilePath, false);
-         project.RemoveAllPages();
-
-         Insert insert = new Insert();
-         var pageCount = project.Pages.Length; // needed cause of overwrite
-         foreach (var generatablePageMacro in generatablePageMacros)
-         {
-            // Load pages from macro
-            PageMacro pageMacro = new PageMacro();
-            pageMacro.Open(generatablePageMacro.Filename, project);
-            foreach (var page in pageMacro.Pages)
-            {
-               // Rename
-               pageCount++;
-
-               PagePropertyList pagePropertyList = page.NameParts;
-               if (generatablePageMacro.LocationIdentifierIdentifier != null)
-               {
-                  pagePropertyList[Properties.Page.DESIGNATION_FUNCTIONALASSIGNMENT] =
-                     generatablePageMacro.LocationIdentifierIdentifier.FunctionAssignment;
-                  pagePropertyList[Properties.Page.DESIGNATION_PLANT] =
-                     generatablePageMacro.LocationIdentifierIdentifier.Plant;
-                  pagePropertyList[Properties.Page.DESIGNATION_PLACEOFINSTALLATION] =
-                     generatablePageMacro.LocationIdentifierIdentifier.PlaceOfInstallation;
-                  pagePropertyList[Properties.Page.DESIGNATION_LOCATION] =
-                     generatablePageMacro.LocationIdentifierIdentifier.Location;
-                  pagePropertyList[Properties.Page.DESIGNATION_USERDEFINED] =
-                     generatablePageMacro.LocationIdentifierIdentifier.UserDefinied;
-               }
-
-               pagePropertyList[Properties.Page.PAGE_COUNTER] = pageCount;
-               page.NameParts = pagePropertyList;
-
-               new NameService(page).EvaluateAndSetAllNames();
-            }
-
-            // Insert pagemacro
-            insert.PageMacro(pageMacro, project, null, PageMacro.Enums.NumerationMode.Number);
-         }
-      }
-
-      /// <summary>
-      /// Returns true if there is a multi user conflict in project
-      /// </summary>
-      /// <param name="project">EPLAN project</param>
-      /// <param name="showDialog">Shows dialog if there is a conflict (optional)</param>
-      /// <returns></returns>
-      public static bool IsMultiUserConflict(Project project, bool showDialog = false)
-      {
-         var currentUsers = project.CurrentUsers.ToList();
-
-         // No conflict
-         if (currentUsers.Count <= 1)
-         {
-            return false;
-         }
-
-         // Conflict
-         if (showDialog)
-         {
-            StringBuilder sb = new StringBuilder();
-            foreach (var user in currentUsers)
-            {
-               if (!String.IsNullOrEmpty(user.Name) && !String.IsNullOrEmpty(user.Identification))
-               {
-                  sb.AppendLine(user.ComputerName + " / " + user.Name + " / " + user.Identification);
-               }
-               else if (!String.IsNullOrEmpty(user.Name))
-               {
-                  sb.AppendLine(user.ComputerName + " / " + user.Name);
-               }
-               else if (!String.IsNullOrEmpty(user.Identification))
-               {
-                  sb.AppendLine(user.ComputerName + " / " + user.Identification);
-               }
-               else
-               {
-                  sb.AppendLine(user.ComputerName);
-               }
-            }
-            MessageBox.Show(sb.ToString(), "Multi user conflict", MessageBoxButton.OK, MessageBoxImage.Warning);
-         }
-         return true;
-      }
-
-       public static bool IsCircuitProject(Project project)
-       {
-           var projectType = project.Properties.PROJ_NUMERICTYPE.ToInt();
-           if (projectType == 1) // 1=CircutitProject 2=MacroProject
-           {
-               return true;
-           }
-           return false;
-       }
-   }
+      return false;
+    }
+  }
 }
