@@ -2,7 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Sign</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A3AC82B1-6EA9-4127-80C8-0E09C49B1CC0}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -216,6 +216,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\EplanApplicationInfo.cs" />
     <Compile Include="Application\EplanDispatcher.cs" />
     <Compile Include="Application\EplanOffline.cs" />
     <Compile Include="Application\Starter.cs" />
