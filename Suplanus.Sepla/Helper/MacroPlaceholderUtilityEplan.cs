@@ -17,23 +17,87 @@ namespace Suplanus.Sepla.Helper
   /// </summary>
   public class MacroPlaceholderUtilityEplan
   {
-    public static void RemoveAllUnifishedTextPlaceholder(Project project)
+    public static void RemoveAllUnfinishedTextPlaceholder(Project project)
     {
-      // Search text
-      var placeholderIdentifier = new List<string>
-         {
-           PlaceholderUtility.REAL_TEXTPLACEHOLDER_START_TEXT,
-            PlaceholderUtility.REAL_RECORDPLACEHOLDER_START_TEXT,
-            PlaceholderUtility.REAL_BRICKPLACEHOLDER_START_TEXT,
-         };
+      var placeholderIdentifier = GetPlaceholderIdentifier();
+      var search = GetSearch();
+      foreach (var identifier in placeholderIdentifier)
+      {      
+        search.ClearSearchDB(project);
+        search.Project(project, identifier);
+        StorableObject[] foundObjects = search.GetAllSearchDBEntries(project);
+        foreach (var foundObject in foundObjects)
+        {
+          ReplacePlaceholder(foundObject, identifier);
+        }
+      }
+    }
 
-      // Set special characters: http://eplan.help/help/platform/2.5/en-US/help/EPLAN_help.htm#htm/searchandreplacegui_k_platzhalter.htm
-      for (int index = 0; index < placeholderIdentifier.Count; index++)
+    public static void RemoveAllUnfinishedTextPlaceholder(Page page)
+    {
+      var placeholderIdentifier = GetPlaceholderIdentifier();
+      var search = GetSearch();
+      foreach (var identifier in placeholderIdentifier)
       {
-        placeholderIdentifier[index] = placeholderIdentifier[index].Replace("#", "[#]");
+        search.ClearSearchDB(page.Project);
+        search.Page(page, identifier);
+        StorableObject[] foundObjects = search.GetAllSearchDBEntries(page.Project);
+        foreach (var foundObject in foundObjects)
+        {
+          ReplacePlaceholder(foundObject, identifier);
+        }
+      }
+    }
+
+    private static void ReplacePlaceholder(StorableObject foundObject, string identifier)
+    {
+      // Filter only text objects
+      // EPLAN fix (2.6) T1085938
+      var existingValues = foundObject.Properties.ExistingValues
+        .Where(p => !p.Definition.IsInternal &&
+                    !p.Definition.IsReadOnly &&
+                    (
+                      p.Definition.Type == PropertyDefinition.PropertyType.MultilangString ||
+                      p.Definition.Type == PropertyDefinition.PropertyType.String))
+        .ToList();
+      List<PropertyValue> existingValuesWithoutEmpty = new List<PropertyValue>();
+      foreach (var propertyValue in existingValues)
+      {
+        if (propertyValue.Definition.IsIndexed)
+        {
+          foreach (int index in propertyValue.Indexes)
+          {
+            if (!propertyValue[index].IsEmpty)
+            {
+              existingValuesWithoutEmpty.Add(propertyValue[index]);
+            }
+          }
+        }
+        else
+        {
+          if (!propertyValue.IsEmpty)
+          {
+            existingValuesWithoutEmpty.Add(propertyValue);
+          }
+        }
       }
 
+      // Fix fields without placeholder in search result and replace the eplan specific search brackets
+      existingValues = existingValuesWithoutEmpty
+        .Where(obj => obj.ToString().Contains(
+          identifier.Replace("[", "").Replace("]", "")))
+        .ToList();
 
+      // Replace
+      foreach (PropertyValue propertyValue in existingValues)
+      {
+        //propertyValue.Parent?.Parent?.SmartLock();
+        propertyValue.Set("");
+      }
+    }
+
+    private static Search GetSearch()
+    {
       Search search = new Search();
       search[Search.Settings.AllProperties] = true;
       search[Search.Settings.Placeholders] = true;
@@ -47,67 +111,28 @@ namespace Suplanus.Sepla.Helper
       search[Search.Settings.ProjectData] = true;
       search[Search.Settings.Texts] = true;
       search[Search.Settings.WholeTexts] = false;
-      foreach (var identifier in placeholderIdentifier)
+      return search;
+    }
+
+    private static List<string> GetPlaceholderIdentifier()
+    {
+      // Search text
+      var placeholderIdentifier = new List<string>
       {
-        // Init search            
-        search.ClearSearchDB(project);
-        search.Project(project, identifier);
+        PlaceholderUtility.REAL_TEXTPLACEHOLDER_START_TEXT,
+        PlaceholderUtility.REAL_RECORDPLACEHOLDER_START_TEXT,
+        PlaceholderUtility.REAL_BRICKPLACEHOLDER_START_TEXT,
+      };
 
-        // Get objects
-        StorableObject[] foundObjects = search.GetAllSearchDBEntries(project);
-        foreach (var foundObject in foundObjects)
-        {
-          // Filter only text objects
-          // EPLAN fix (2.6) T1085938
-          var existingValues = foundObject.Properties.ExistingValues
-             .Where(p => !p.Definition.IsInternal &&
-                         !p.Definition.IsReadOnly &&
-                         (
-                            p.Definition.Type == PropertyDefinition.PropertyType.MultilangString ||
-                            p.Definition.Type == PropertyDefinition.PropertyType.String))
-             .ToList();
-          List<PropertyValue> existingValuesWithoutEmpty = new List<PropertyValue>();
-          foreach (var propertyValue in existingValues)
-          {
-            if (propertyValue.Definition.IsIndexed)
-            {
-              foreach (int index in propertyValue.Indexes)
-              {
-                if (!propertyValue[index].IsEmpty)
-                {
-                  existingValuesWithoutEmpty.Add(propertyValue[index]);
-                }
-              }
-            }
-            else
-            {
-              if (!propertyValue.IsEmpty)
-              {
-                existingValuesWithoutEmpty.Add(propertyValue);
-              }
-            }
-          }
-
-          // Fix fields without placeholder in search result and replace the eplan specific search brackets
-          existingValues = existingValuesWithoutEmpty
-              .Where(obj => obj.ToString().Contains(
-                  identifier.Replace("[", "").Replace("]", "")))
-              .ToList();
-
-          // Replace
-          foreach (PropertyValue propertyValue in existingValues)
-          {
-            //propertyValue.Parent?.Parent?.SmartLock();
-            propertyValue.Set("");
-          }
-        }
+      // Set special characters: http://eplan.help/help/platform/2.5/en-US/help/EPLAN_help.htm#htm/searchandreplacegui_k_platzhalter.htm
+      for (int index = 0; index < placeholderIdentifier.Count; index++)
+      {
+        placeholderIdentifier[index] = placeholderIdentifier[index].Replace("#", "[#]");
       }
 
-
-
-
-
-
+      return placeholderIdentifier;
     }
+
+
   }
 }
