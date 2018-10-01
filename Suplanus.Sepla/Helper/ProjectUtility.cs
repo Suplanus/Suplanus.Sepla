@@ -51,12 +51,36 @@ namespace Suplanus.Sepla.Helper
         // New
         if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
         {
-
+          // Remove project if exists: Removing on file layer is much faster than via EPLAN API
+          DeleteProject(projectLinkFilePath, projectManager);
           project = projectManager.CreateProject(projectLinkFilePath, projectTemplateFilePath);
         }
       }
 
       return project;
+    }
+
+    private static void DeleteProject(string projectLinkFilePath, ProjectManager projectManager)
+    {
+      try
+      {
+        if (projectManager.ExistsProject(projectLinkFilePath))
+        {
+          // Project folder
+          var suffix = ".elk";
+          string projectFolder = projectLinkFilePath.Substring(0, projectLinkFilePath.Length - suffix.Length);
+          projectFolder = projectFolder + ".edb";
+          Directory.Delete(projectFolder, true);
+
+          // Link file
+          File.Delete(projectLinkFilePath); 
+        }
+      }
+      catch (Exception exception)
+      {
+        ExceptionHelper.HandleException(exception, "MacroTool");
+        throw new Exception("Project could not be removed:" + Environment.NewLine + projectLinkFilePath, exception);
+      }
     }
 
     /// <summary>
