@@ -110,46 +110,6 @@ namespace Suplanus.Sepla.Helper
          return placeholders;
       }
 
-      /// <summary>
-      /// Replaces all placeholder in file and returns a temp macro file
-      /// </summary>
-      /// <param name="macroFilename">Source macro file</param>
-      /// <param name="placeholders">Placeholder to replace</param>
-      /// <param name="endText">End text</param>
-      /// <param name="removeText">Remove text if value is not active or empty</param>
-      /// <param name="startText">Start text</param>
-      /// <returns></returns>
-      public static string ReplacePlaceholderTextAndGetTempFile(
-         string macroFilename, List<IMacroPlaceholder> placeholders,
-         string startText, string endText, bool removeText)
-      {
-         if (!File.Exists(macroFilename))
-         {
-            return null;
-         }
-
-         // needed because EPLAN is checking extension
-         string extension = Path.GetExtension(macroFilename);         
-         string tempFile = Path.Combine(Path.GetTempPath(), "Suplanus.Sepla.MacroPlaceholderUtility" + extension);
-         string content = File.ReadAllText(macroFilename);
-
-         foreach (var placeholder in placeholders)
-         {
-            // Skip if not active or empty
-            if (!placeholder.IsActive || placeholder.Value == null || string.IsNullOrEmpty(placeholder.Value.ToString()))
-            {
-               continue;
-            }
-
-            // Replace
-            var replaceText = placeholder.Value.ToString();
-            var searchText = startText + placeholder.Name + endText;
-            content = content.Replace(searchText, replaceText);
-         }
-
-         File.WriteAllText(tempFile, content, Encoding.UTF8);
-
-         return tempFile;
-      }
+    
    }
 }
