@@ -155,8 +155,37 @@ namespace Suplanus.Sepla.Helper
         var filenameWithoutExtendsion = Path.GetFileNameWithoutExtension(projectLinkFilePath);
         var project = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectName.Equals(filenameWithoutExtendsion));
 
+        // Check if openMode is OK
         if (project != null)
         {
+          bool reOpen = false;
+          switch (openMode)
+          {
+            case ProjectManager.OpenMode.Standard:
+              if (project.IsExclusive || project.IsReadOnly)
+              {
+                reOpen = true;
+              }
+              break;
+            case ProjectManager.OpenMode.ReadOnly:
+              if (!project.IsReadOnly)
+              {
+                reOpen = true;
+              }
+              break;
+            case ProjectManager.OpenMode.Exclusive:
+              if (!project.IsExclusive)
+              {
+                reOpen = true;
+              }
+              break;
+            default: throw new ArgumentOutOfRangeException(nameof(openMode), openMode, null);
+          }
+          if (reOpen)
+          {
+            project.Close();
+            project = OpenProject(projectLinkFilePath, openMode);
+          }
           return project;
         }
         return projectManager.OpenProject(projectLinkFilePath, openMode, upgradeIfNeeded);
