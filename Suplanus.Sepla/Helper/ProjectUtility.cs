@@ -51,6 +51,13 @@ namespace Suplanus.Sepla.Helper
         // New
         if (!projectManager.ExistsProject(projectLinkFilePath) || overwrite == true)
         {
+          // Close if project exists and should be overwritten
+          var existingProject = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectLinkFilePath.Equals(projectLinkFilePath));
+          if (existingProject != null)
+          {
+            existingProject.Close();
+          }
+
           // Remove project if exists: Removing on file layer is much faster than via EPLAN API
           DeleteProject(projectLinkFilePath, projectManager);
           project = projectManager.CreateProject(projectLinkFilePath, projectTemplateFilePath);
