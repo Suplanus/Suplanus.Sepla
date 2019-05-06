@@ -200,56 +200,6 @@ namespace Suplanus.Sepla.Helper
     }
 
     /// <summary>
-    /// Generates a project with the given GenerateablePageMacros
-    /// </summary>
-    /// <param name="projectLinkFilePath">EPLAN project file (*.elk)</param>
-    /// <param name="projectTemplateFilePath">EPLAN template project (*.zw9)</param>
-    /// <param name="generatablePageMacros">List of GeneratablePageMaros</param>
-    public static void Generate(string projectLinkFilePath, string projectTemplateFilePath,
-       List<GeneratablePageMacro> generatablePageMacros)
-    {
-      var project = Create(projectLinkFilePath, projectTemplateFilePath, false);
-      project.RemoveAllPages();
-
-      Insert insert = new Insert();
-      var pageCount = project.Pages.Length; // needed cause of overwrite
-      foreach (var generatablePageMacro in generatablePageMacros)
-      {
-        // Load pages from macro
-        PageMacro pageMacro = new PageMacro();
-        pageMacro.Open(generatablePageMacro.Filename, project);
-        foreach (var page in pageMacro.Pages)
-        {
-          // Rename
-          pageCount++;
-
-          PagePropertyList pagePropertyList = page.NameParts;
-          if (generatablePageMacro.LocationIdentifierIdentifier != null)
-          {
-            pagePropertyList[Properties.Page.DESIGNATION_FUNCTIONALASSIGNMENT] =
-               generatablePageMacro.LocationIdentifierIdentifier.FunctionAssignment;
-            pagePropertyList[Properties.Page.DESIGNATION_PLANT] =
-               generatablePageMacro.LocationIdentifierIdentifier.Plant;
-            pagePropertyList[Properties.Page.DESIGNATION_PLACEOFINSTALLATION] =
-               generatablePageMacro.LocationIdentifierIdentifier.PlaceOfInstallation;
-            pagePropertyList[Properties.Page.DESIGNATION_LOCATION] =
-               generatablePageMacro.LocationIdentifierIdentifier.Location;
-            pagePropertyList[Properties.Page.DESIGNATION_USERDEFINED] =
-               generatablePageMacro.LocationIdentifierIdentifier.UserDefinied;
-          }
-
-          pagePropertyList[Properties.Page.PAGE_COUNTER] = pageCount;
-          page.NameParts = pagePropertyList;
-
-          new NameService(page).EvaluateAndSetAllNames();
-        }
-
-        // Insert pagemacro
-        insert.PageMacro(pageMacro, project, null, PageMacro.Enums.NumerationMode.Number);
-      }
-    }
-
-    /// <summary>
     /// Returns true if there is a multi user conflict in project
     /// </summary>
     /// <param name="project">EPLAN project</param>
