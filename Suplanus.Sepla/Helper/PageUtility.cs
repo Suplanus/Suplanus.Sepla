@@ -82,7 +82,7 @@ namespace Suplanus.Sepla.Helper
       int xStart = frame.Properties.FRAME_EVALUATION_AREA_START_POINT_X;
       double xEnd = xStart + ptSize.X - xStart;
       int yStart = frame.Properties.FRAME_EVALUATION_AREA_START_POINT_Y;
-      double yEnd = yStart + ptSize.Y - yStart - 5; // 5mm fix of plotframe
+      double yEnd = yStart + ptSize.Y - yStart - 5; // fix of plot frame
 
       PointD lowerLeft = new PointD(xStart, yStart);
       PointD upperRight = new PointD(xEnd, yEnd);

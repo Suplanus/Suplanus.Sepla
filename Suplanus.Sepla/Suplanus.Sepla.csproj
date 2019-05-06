@@ -232,7 +232,6 @@
     <Compile Include="Application\EplanOffline.cs" />
     <Compile Include="Application\Starter.cs" />
     <Compile Include="Extensions\Page.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Gui\GuiHelper.cs" />
     <Compile Include="Gui\Preview\Preview.cs" />
     <Compile Include="Gui\Preview\PreviewControl.xaml.cs">
@@ -253,11 +252,6 @@
     <Compile Include="Helper\SearchUtility.cs" />
     <Compile Include="Helper\SymbolUtility.cs" />
     <Compile Include="Helper\UserDefiniedPropertyUtility.cs" />
-    <Compile Include="Objects\Bus\BusPinBase.cs" />
-    <Compile Include="Objects\Bus\BusDevice.cs" />
-    <Compile Include="Objects\Bus\BusType.cs" />
-    <Compile Include="Objects\Bus\PlugSocketType.cs" />
-    <Compile Include="Objects\GeneratablePageMacro.cs" />
     <Compile Include="Objects\ILocationIdentifier.cs" />
     <Compile Include="Objects\LocationIdentifier.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -279,7 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="2161_Public.snk" />
-    <None Include="Objects\Bus\Bus.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,16 +10,16 @@ namespace Suplanus.Sepla.Helper
     {
       List<ProjectMessage> projectMessages = new List<ProjectMessage>();
       PrjMessagesCollection messagesCollection = new PrjMessagesCollection(project);
-      PrjMessagesEnumerator itPrjMsg = messagesCollection.GetPrjMsgEnumerator();
-      itPrjMsg.MoveNext();
+      PrjMessagesEnumerator projEnumerator = messagesCollection.GetPrjMsgEnumerator();
+      projEnumerator.MoveNext();
       do
       {
-        if (itPrjMsg.Current is ProjectMessage oPrjMsg)
+        if (projEnumerator.Current is ProjectMessage projectMessage)
         {
-          projectMessages.Add(oPrjMsg);
+          projectMessages.Add(projectMessage);
         }
       }
-      while (itPrjMsg.MoveNext());
+      while (projEnumerator.MoveNext());
 
       return projectMessages;
     }
