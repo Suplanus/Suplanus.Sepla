@@ -157,10 +157,8 @@ namespace Suplanus.Sepla.Helper
       using (new LockingStep())
       {
         ProjectManager projectManager = new ProjectManager();
-
-        // Use filename because the path could be other (UNC / Pathvariable)
-        var filenameWithoutExtendsion = Path.GetFileNameWithoutExtension(projectLinkFilePath);
-        var project = projectManager.OpenProjects.FirstOrDefault(p => p.ProjectName.Equals(filenameWithoutExtendsion));
+        projectManager.LockProjectByDefault = false;
+        Project project = projectManager.GetProject(projectLinkFilePath);
 
         // Check if openMode is OK
         if (project != null)
