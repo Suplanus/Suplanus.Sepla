@@ -27,7 +27,7 @@ namespace Suplanus.Sepla.Helper
       // Need to lock project
       var project = articleReference.Project;
       project.SmartLock();
-      if (articleReference.ParentObject != null) articleReference.ParentObject.SmartLock();
+      //if (articleReference.ParentObject != null) articleReference.ParentObject.SmartLock();
       articleReference.SmartLock();
 
       // Init
@@ -82,6 +82,7 @@ namespace Suplanus.Sepla.Helper
           try
           {
             articleReference.PartNr = partNrTemp;
+            articleReference.ParentObject.SmartLock();
             articleReference.StoreToObject();
 
             // Quiet create temp part
