@@ -56,7 +56,6 @@ namespace Suplanus.Sepla.Objects
       this.Plant = GetPageProperty(installationSpace.Properties.DESIGNATION_FULLPLANT);
       this.Location = GetPageProperty(installationSpace.Properties.DESIGNATION_FULLLOCATION);
       this.UserDefinied = GetPageProperty(installationSpace.Properties.DESIGNATION_FULLUSERDEFINED);
-      this.DocType = GetPageProperty(installationSpace.Properties.DESIGNATION_FULLDOCTYPE);
     }
 
     private string GetPageProperty(PropertyValue propertyValue)
