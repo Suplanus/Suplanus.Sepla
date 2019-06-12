@@ -161,6 +161,24 @@ namespace Suplanus.Sepla.Objects
       return pagePropertylistCopy;
     }
 
+    /// <summary>
+    /// All designations except DocType, because not available for installation space in 2.8
+    /// </summary>
+    /// <param name="pagePropertyListCopy"></param>
+    /// <returns></returns>
+    public FunctionBasePropertyList GetFunctionBasePropertyListFromPagePropertyList(
+      PagePropertyList pagePropertyListCopy)
+    {
+      var functionBasPropertyList = new FunctionBasePropertyList();
+      GetFunctionalAssignment(functionBasPropertyList, pagePropertyListCopy);
+      GetPlant(functionBasPropertyList, pagePropertyListCopy);
+      GetPlaceOfInstallation(functionBasPropertyList, pagePropertyListCopy);
+      GetLocation(functionBasPropertyList, pagePropertyListCopy);
+      GetInstallationNumber(functionBasPropertyList, pagePropertyListCopy);
+      GetUserDefinied(functionBasPropertyList, pagePropertyListCopy);
+      return functionBasPropertyList;
+    }
+
     private static void GetFunctionalAssignment(PagePropertyList pagePropertylist, string location)
     {
       if (!string.IsNullOrEmpty(location))
@@ -414,5 +432,312 @@ namespace Suplanus.Sepla.Objects
       }
     }
 
+    private static void GetFunctionalAssignment(FunctionBasePropertyList functionBasePropertyList, PagePropertyList pagePropertyList)
+    {
+      if (pagePropertyList != null)
+      {
+        if (!pagePropertyList.DESIGNATION_FUNCTIONALASSIGNMENT.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_FUNCTIONALASSIGNMENT = pagePropertyList.DESIGNATION_FUNCTIONALASSIGNMENT;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT1.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT1 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT1;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT2.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT2 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT2;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT3.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT3 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT3;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT4.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT4 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT4;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT5.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT5 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT5;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT6.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT6 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT6;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT7.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT7 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT7;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT8.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT8 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT8;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT9.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT9 =
+            pagePropertyList.DESIGNATION_SUBFUNCTIONALASSIGNMENT9;
+        }
+      }
+    }
+    
+    private static void GetPlant(FunctionBasePropertyList functionBasePropertyList, PagePropertyList pagePropertyList)
+    {
+      if (pagePropertyList != null)
+      {
+        if (!pagePropertyList.DESIGNATION_PLANT.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_PLANT = pagePropertyList.DESIGNATION_PLANT;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT1.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT1 = pagePropertyList.DESIGNATION_SUBPLANT1;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT2.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT2 = pagePropertyList.DESIGNATION_SUBPLANT2;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT3.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT3 = pagePropertyList.DESIGNATION_SUBPLANT3;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT4.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT4 = pagePropertyList.DESIGNATION_SUBPLANT4;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT5.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT5 = pagePropertyList.DESIGNATION_SUBPLANT5;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT6.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT6 = pagePropertyList.DESIGNATION_SUBPLANT6;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT7.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT7 = pagePropertyList.DESIGNATION_SUBPLANT7;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT8.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT8 = pagePropertyList.DESIGNATION_SUBPLANT8;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLANT9.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLANT9 = pagePropertyList.DESIGNATION_SUBPLANT9;
+        }
+      }
+    }
+
+    private static void GetPlaceOfInstallation(FunctionBasePropertyList functionBasePropertyList, PagePropertyList pagePropertyList)
+    {
+      if (pagePropertyList != null)
+      {
+        if (!pagePropertyList.DESIGNATION_PLACEOFINSTALLATION.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_PLACEOFINSTALLATION = pagePropertyList.DESIGNATION_PLACEOFINSTALLATION;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION1.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION1 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION1;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION2.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION2 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION2;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION3.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION3 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION3;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION4.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION4 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION4;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION5.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION5 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION5;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION6.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION6 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION6;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION7.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION7 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION7;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION8.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION8 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION8;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION9.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION9 =
+            pagePropertyList.DESIGNATION_SUBPLACEOFINSTALLATION9;
+        }
+      }
+    }
+
+    private static void GetLocation(FunctionBasePropertyList functionBasePropertyList, PagePropertyList pagePropertyList)
+    {
+      if (pagePropertyList != null)
+      {
+        if (!pagePropertyList.DESIGNATION_LOCATION.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_LOCATION = pagePropertyList.DESIGNATION_LOCATION;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION1.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION1 = pagePropertyList.DESIGNATION_SUBLOCATION1;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION2.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION2 = pagePropertyList.DESIGNATION_SUBLOCATION2;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION3.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION3 = pagePropertyList.DESIGNATION_SUBLOCATION3;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION4.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION4 = pagePropertyList.DESIGNATION_SUBLOCATION4;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION5.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION5 = pagePropertyList.DESIGNATION_SUBLOCATION5;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION6.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION6 = pagePropertyList.DESIGNATION_SUBLOCATION6;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION7.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION7 = pagePropertyList.DESIGNATION_SUBLOCATION7;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION8.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION8 = pagePropertyList.DESIGNATION_SUBLOCATION8;
+        }
+
+        if (!pagePropertyList.DESIGNATION_SUBLOCATION9.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_SUBLOCATION9 = pagePropertyList.DESIGNATION_SUBLOCATION9;
+        }
+      }
+    }
+
+    private static void GetUserDefinied(FunctionBasePropertyList functionBasePropertyList, PagePropertyList pagePropertyList)
+    {
+      if (pagePropertyList != null)
+      {
+        if (!pagePropertyList.DESIGNATION_USERDEFINED.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED = pagePropertyList.DESIGNATION_USERDEFINED;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB1.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB1 = pagePropertyList.DESIGNATION_USERDEFINED_SUB1;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB2.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB2 = pagePropertyList.DESIGNATION_USERDEFINED_SUB2;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB3.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB3 = pagePropertyList.DESIGNATION_USERDEFINED_SUB3;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB4.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB4 = pagePropertyList.DESIGNATION_USERDEFINED_SUB4;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB5.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB5 = pagePropertyList.DESIGNATION_USERDEFINED_SUB5;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB6.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB6 = pagePropertyList.DESIGNATION_USERDEFINED_SUB6;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB7.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB7 = pagePropertyList.DESIGNATION_USERDEFINED_SUB7;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB8.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB8 = pagePropertyList.DESIGNATION_USERDEFINED_SUB8;
+        }
+
+        if (!pagePropertyList.DESIGNATION_USERDEFINED_SUB9.IsEmpty)
+        {
+          functionBasePropertyList.DESIGNATION_USERDEFINED_SUB9 = pagePropertyList.DESIGNATION_USERDEFINED_SUB9;
+        }
+      }
+    }
+
+    private static void GetInstallationNumber(FunctionBasePropertyList functionBasePropertyList, PagePropertyList pagePropertyList)
+    {
+      if (pagePropertyList != null &&
+          !pagePropertyList.DESIGNATION_INSTALLATIONNUMBER.IsEmpty)
+      {
+        // There is no sub installation number
+        functionBasePropertyList.DESIGNATION_INSTALLATIONNUMBER = pagePropertyList.DESIGNATION_INSTALLATIONNUMBER;
+      }
+    }
   }
 }
