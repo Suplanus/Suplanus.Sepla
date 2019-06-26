@@ -3,6 +3,6 @@
 
 A little helper library for the EPLAN API, to simplify different things or show some example implementations.
 
-## Contributer
+## Contributor
 Many thanks 💐 to:
 - [Daniel Papp](https://github.com/DanielPa)
