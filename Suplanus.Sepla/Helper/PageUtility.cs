@@ -25,7 +25,8 @@ namespace Suplanus.Sepla.Helper
       L = 11,
       M = 12,
       N = 13,
-      P = 14,
+      O = 14,
+      P = 15,
     }
 
     public static void OpenPageAndSyncInNavigator(Page page)
