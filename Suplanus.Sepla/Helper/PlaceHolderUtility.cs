@@ -47,7 +47,7 @@ namespace Suplanus.Sepla.Helper
       }
       catch (System.Exception exception)
       {
-        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
       }
     }
 

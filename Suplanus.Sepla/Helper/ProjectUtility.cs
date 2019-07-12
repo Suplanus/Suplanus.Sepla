@@ -80,7 +80,7 @@ namespace Suplanus.Sepla.Helper
           Directory.Delete(projectFolder, true);
 
           // Link file
-          File.Delete(projectLinkFilePath); 
+          File.Delete(projectLinkFilePath);
         }
       }
       catch (Exception exception)
@@ -236,7 +236,7 @@ namespace Suplanus.Sepla.Helper
             sb.AppendLine(user.ComputerName);
           }
         }
-        MessageBox.Show(sb.ToString(), "Multi user conflict", MessageBoxButton.OK, MessageBoxImage.Warning);
+        MessageBox.Show(sb.ToString(), "Multi user conflict", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
       }
       return true;
     }
