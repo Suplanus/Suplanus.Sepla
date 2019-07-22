@@ -40,7 +40,7 @@ namespace Suplanus.Sepla.Helper
     public static List<StorableObject> GetSelectedStorableObjects()
     {
       SelectionSet selectionSet = new SelectionSet();
-
+      selectionSet.LockProjectByDefault = false;
       // navigators
       List<StorableObject> storableObjects = selectionSet.SelectionRecursive.ToList();
 
@@ -65,9 +65,9 @@ namespace Suplanus.Sepla.Helper
 
       // Project selected
       if (selectedStorableObjects.Length == 1 &&
-          selectedStorableObjects[0] is Project)
+          selectedStorableObjects[0] is Project project)
       {
-        selectedStorableObjects = ((Project)selectedStorableObjects[0]).Pages.Where(obj => obj.IsLogicalPage).ToArray();
+        selectedStorableObjects = project.Pages.Where(obj => obj.IsLogicalPage).ToArray();
       }
 
       // Structure selected
@@ -77,7 +77,8 @@ namespace Suplanus.Sepla.Helper
         selectedStorableObjects = selection.SelectionRecursive;
       }
 
-      return GetStorableObjects<T>(selectedStorableObjects);
+      var selectedObjectsOfType = GetStorableObjects<T>(selectedStorableObjects);
+      return selectedObjectsOfType;
     }
 
     private static List<T> GetStorableObjects<T>(StorableObject[] selectedStorableObjects) where T : StorableObject
