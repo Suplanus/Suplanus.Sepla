@@ -150,6 +150,7 @@ namespace Suplanus.Sepla.Application
             eplApplication.LicenseFile = LicenseFile; // Set specific license
           }
           eplApplication.Init("", true, true);
+          eplApplication.QuietMode = EplApplication.QuietModes.ShowNoDialogs;
           Application = eplApplication;
         }
         catch
@@ -176,10 +177,11 @@ namespace Suplanus.Sepla.Application
           }
           if (!string.IsNullOrEmpty(LicenseFile))
           {
-            eplApplication.LicenseFile = LicenseFile; // Set specific licence
+            eplApplication.LicenseFile = LicenseFile; // Set specific license
           }
           eplApplication.QuietMode = EplApplication.QuietModes.ShowAllDialogs;
           eplApplication.Init("", true, true);
+          eplApplication.QuietMode = EplApplication.QuietModes.ShowNoDialogs;
           Application = eplApplication;
         }
         catch
