@@ -41,6 +41,7 @@ namespace Suplanus.Sepla.Helper
     {
       SelectionSet selectionSet = new SelectionSet();
       selectionSet.LockProjectByDefault = false;
+
       // navigators
       List<StorableObject> storableObjects = selectionSet.SelectionRecursive.ToList();
 
@@ -49,6 +50,7 @@ namespace Suplanus.Sepla.Helper
       {
         storableObjects = selectionSet.Selection.ToList();
       }
+
       return storableObjects;
     }
 
@@ -61,20 +63,12 @@ namespace Suplanus.Sepla.Helper
     {
       var selection = new SelectionSet();
       selection.LockProjectByDefault = false;
-      StorableObject[] selectedStorableObjects = selection.Selection;
+      StorableObject[] selectedStorableObjects = selection.SelectionRecursive;
 
-      // Project selected
-      if (selectedStorableObjects.Length == 1 &&
-          selectedStorableObjects[0] is Project project)
+      // Selection in GED
+      if (selectedStorableObjects.Length == 0)
       {
-        selectedStorableObjects = project.Pages.Where(obj => obj.IsLogicalPage).ToArray();
-      }
-
-      // Structure selected
-      if (selectedStorableObjects.Length == 1 &&
-          selectedStorableObjects[0] is Page)
-      {
-        selectedStorableObjects = selection.SelectionRecursive;
+        selectedStorableObjects = selection.Selection;
       }
 
       var selectedObjectsOfType = GetStorableObjects<T>(selectedStorableObjects);
@@ -97,13 +91,6 @@ namespace Suplanus.Sepla.Helper
         storableObjects.AddRange(storableObjectsFromGroup);
       }
 
-      List<T> storableObjectsOnPages = selectedStorableObjects
-                                       .OfType<Page>()
-                                       .SelectMany(obj => obj.AllPlacements)
-                                       .OfType<T>()
-                                       .ToList();
-
-      storableObjects.AddRange(storableObjectsOnPages);
       return storableObjects;
     }
 
