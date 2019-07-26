@@ -105,8 +105,10 @@ namespace Suplanus.Sepla.Helper
 
       storableObjects.AddRange(storableObjectsInGroups);
 
+      //get only objects of type Group without subtypes like ViewPlacement
       List<Group> groupsSub = group.SubPlacements
                                    .OfType<Group>()
+                                   .Where(obj => obj.GetType() == typeof(Group))
                                    .ToList();
 
       foreach (var groupSub in groupsSub)
