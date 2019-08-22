@@ -54,7 +54,7 @@ namespace Suplanus.Sepla.Helper
       }
     }
 
-    public static void ExportMacro(Project project, string macroFile, string fullFilename, int variant, WindowMacro.Enums.RepresentationType representationType, bool isFrameVisible = true)
+    public static void ExportMacro(string macroFile, string fullFilename, int variant, WindowMacro.Enums.RepresentationType representationType)
     {
       if (File.Exists(fullFilename))
       {
@@ -62,12 +62,10 @@ namespace Suplanus.Sepla.Helper
       }
 
       ActionCallingContext acc = new ActionCallingContext();
-      acc.AddParameter("DatabaseId", project.DatabaseIdentifier.ToString());
       acc.AddParameter("MacroFile", macroFile);
       acc.AddParameter("Filename1", fullFilename); // Full path needed
       acc.AddParameter("Variant1", variant.ToString());
       acc.AddParameter("RepType1", ((int)representationType).ToString());
-      acc.AddParameter("DrawFrame", isFrameVisible.ToString());
       acc.AddParameter("WriteGroupIds", false.ToString());
       new CommandLineInterpreter().Execute("SVGExportAction", acc);
     }

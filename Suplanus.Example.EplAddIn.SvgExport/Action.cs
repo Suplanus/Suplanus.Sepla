@@ -48,10 +48,10 @@ namespace Suplanus.Example.EplAddIn.SvgExport
     private void ExportMacros()
     {
       string filenameWindowMacro = Path.Combine(OUTPUT_PATH, "WindowMacro.svg");
-      SvgExportUtility.ExportMacro(_project, MACRO_FILENAME_WINDOW, filenameWindowMacro, 0,
+      SvgExportUtility.ExportMacro(MACRO_FILENAME_WINDOW, filenameWindowMacro, 0,
                                    WindowMacro.Enums.RepresentationType.MultiLine);
       string filenameSymbolMacro = Path.Combine(OUTPUT_PATH, "SymbolMacro.svg");
-      SvgExportUtility.ExportMacro(_project, MACRO_FILENAME_SYMBOL, filenameSymbolMacro, 0,
+      SvgExportUtility.ExportMacro(MACRO_FILENAME_SYMBOL, filenameSymbolMacro, 0,
                                    WindowMacro.Enums.RepresentationType.MultiLine);
     }
 
