@@ -26,6 +26,21 @@ namespace Suplanus.Sepla.Helper
 
   public class SvgExportUtility
   {
+    public static void ExportProject(Project project, string exportPath, bool isFrameVisible = true)
+    {
+      if (Directory.Exists(exportPath))
+      {
+        Directory.Delete(exportPath);
+      }
+
+      ActionCallingContext acc = new ActionCallingContext();
+      acc.AddParameter("DatabaseId", project.DatabaseIdentifier.ToString());
+      acc.AddParameter("ExportPath", exportPath);
+      acc.AddParameter("DrawFrame", isFrameVisible.ToString());
+      acc.AddParameter("WriteGroupIds", false.ToString());
+      new CommandLineInterpreter().Execute("SVGExportAction", acc);
+    }
+
     public static void ExportPage(Page page, string fullFilename, bool isFrameVisible = true)
     {
       if (File.Exists(fullFilename))
@@ -34,7 +49,6 @@ namespace Suplanus.Sepla.Helper
       }
 
       ActionCallingContext acc = new ActionCallingContext();
-      acc.AddParameter("DatabaseId", page.Project.DatabaseIdentifier.ToString());
       acc.AddParameter("ExportPath", Path.GetDirectoryName(fullFilename));
       acc.AddParameter("PageObjId", page.ToStringIdentifier());
       acc.AddParameter("Filename", Path.GetFileNameWithoutExtension(fullFilename)); // only name needed

@@ -38,11 +38,18 @@ namespace Suplanus.Example.EplAddIn.SvgExport
       ExportMacros();
       ExportPage();
       ExportPageMacro(); // todo: Not working
+      ExportProject();
 
       // Show files
       Process.Start(OUTPUT_PATH);
 
       return true;
+    }
+
+    private void ExportProject()
+    {
+      string exportPath = Path.Combine(OUTPUT_PATH, "Project");
+      SvgExportUtility.ExportProject(_project, exportPath);
     }
 
     private void ExportMacros()
