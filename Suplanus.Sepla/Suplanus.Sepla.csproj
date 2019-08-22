@@ -323,6 +323,7 @@
     <Compile Include="Helper\ProjectMessagesHelper.cs" />
     <Compile Include="Helper\ProjectUtility.cs" />
     <Compile Include="Helper\SearchUtility.cs" />
+    <Compile Include="Helper\SvgExportUtility.cs" />
     <Compile Include="Helper\SymbolUtility.cs" />
     <Compile Include="Helper\UserDefiniedPropertyUtility.cs" />
     <Compile Include="Objects\ILocationIdentifier.cs" />
