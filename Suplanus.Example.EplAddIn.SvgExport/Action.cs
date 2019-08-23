@@ -37,7 +37,7 @@ namespace Suplanus.Example.EplAddIn.SvgExport
       // Export
       ExportMacros();
       ExportPage();
-      ExportPageMacro(); // todo: Not working
+      ExportPageMacro();
       ExportProject();
 
       // Show files

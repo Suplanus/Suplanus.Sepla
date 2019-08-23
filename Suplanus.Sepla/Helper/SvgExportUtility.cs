@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Eplan.EplApi.ApplicationFramework;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
+using Eplan.EplApi.HEServices;
 
 namespace Suplanus.Sepla.Helper
 {
@@ -57,14 +59,36 @@ namespace Suplanus.Sepla.Helper
       new CommandLineInterpreter().Execute("SVGExportAction", acc);
     }
 
-    // todo: Not working
     public static void ExportPageMacro(Project project, string pageMacroFile, string fullFilename, bool isFrameVisible = true)
     {
       using (PageMacro pageMacro = new PageMacro())
       {
+        // Have to insert pages into project because its not working with pageMacro.Pages.First()
         pageMacro.Open(pageMacroFile, project);
-        var page = pageMacro.Pages.First();
-        ExportPage(page, fullFilename, isFrameVisible);
+
+        // Set temp structure
+        for (var index = 0; index < pageMacro.Pages.Length; index++)
+        {
+          var pageMacroPage = pageMacro.Pages[index];
+          pageMacroPage.NameParts[Properties.Page.PAGE_COUNTER] = "SvgExportUtility" + index;
+        }
+
+        var storableObjects = new Insert().PageMacro(pageMacro, project, null, PageMacro.Enums.NumerationMode.None);
+        var newPages = storableObjects.OfType<Page>().ToList();
+
+        for (var index = 0; index < newPages.Count; index++)
+        {
+          var newPage = newPages[index];
+          var path = Path.GetDirectoryName(fullFilename);
+          var filename = Path.GetFileNameWithoutExtension(fullFilename) + "_" + (index + 1) + ".svg";
+
+          // ReSharper disable once AssignNullToNotNullAttribute
+          filename = Path.Combine(path, filename);
+          ExportPage(newPage, filename, isFrameVisible);
+
+          // Remove pages after export
+          newPage.Remove();
+        }
       }
     }
 
