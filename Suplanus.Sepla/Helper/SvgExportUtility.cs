@@ -84,6 +84,12 @@ namespace Suplanus.Sepla.Helper
 
           // ReSharper disable once AssignNullToNotNullAttribute
           filename = Path.Combine(path, filename);
+
+          if (File.Exists(fullFilename))
+          {
+            File.Delete(fullFilename);
+          }
+
           ExportPage(newPage, filename, isFrameVisible);
 
           // Remove pages after export
