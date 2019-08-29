@@ -1,25 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Sepla", "Suplanus.Sepla\Suplanus.Sepla.csproj", "{A3AC82B1-6EA9-4127-80C8-0E09C49B1CC0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Sepla.Test", "Suplanus.Sepla.Test\Suplanus.Sepla.Test.csproj", "{4A404B6B-99C1-4A86-8696-3F82BB56479C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{C2ED80FB-AD22-4E14-AB7E-97B8146F584D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Example.Preview", "Suplanus.Example.Preview\Suplanus.Example.Preview.csproj", "{48D8A972-F8FD-4BD9-9D25-4FB21116D79B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Example.Generate", "Suplanus.Example.Generate\Suplanus.Example.Generate.csproj", "{29952540-4C0E-44E1-8534-891EF20F5865}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Example.EplAddIn.Preview", "Suplanus.Examples.EplAddin.CallOfflineApplication\Suplanus.Example.EplAddIn.Preview.csproj", "{92959F6F-706C-45CB-B4A4-7DD31EF779E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Example.EplAddIn.Preview", "Suplanus.Example.EplAddIn.CallOfflineApplication\Suplanus.Example.EplAddIn.Preview.csproj", "{92959F6F-706C-45CB-B4A4-7DD31EF779E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Example.EplAddIn.NavigatorExample", "Suplanus.Example.EplAddIn.NavigatorExample\Suplanus.Example.EplAddIn.NavigatorExample.csproj", "{F3B92726-8268-4F6A-B3D6-BC1435EDCC15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Example.EplAddIn.PartsManagementExtensionExample", "Suplanus.Example.EplAddIn.PartsManagementExtensionExample\Suplanus.Example.EplAddIn.PartsManagementExtensionExample.csproj", "{869842AA-B514-43C0-8304-8F4A72C35D15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Example.EplAddIn.ItemTypeExample", "Suplanus.Example.EplAddIn.ItemTypeExample\Suplanus.Example.EplAddIn.ItemTypeExample.csproj", "{CEC2A842-8415-438E-AD73-3227F417CF8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suplanus.Example.EplAddIn.SvgExport", "Suplanus.Example.EplAddIn.SvgExport\Suplanus.Example.EplAddIn.SvgExport.csproj", "{D5AD002D-FD4E-423B-9B13-E17AA4BF766C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,18 +29,10 @@ Global
 		{A3AC82B1-6EA9-4127-80C8-0E09C49B1CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3AC82B1-6EA9-4127-80C8-0E09C49B1CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3AC82B1-6EA9-4127-80C8-0E09C49B1CC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A404B6B-99C1-4A86-8696-3F82BB56479C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A404B6B-99C1-4A86-8696-3F82BB56479C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A404B6B-99C1-4A86-8696-3F82BB56479C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A404B6B-99C1-4A86-8696-3F82BB56479C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{48D8A972-F8FD-4BD9-9D25-4FB21116D79B}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{48D8A972-F8FD-4BD9-9D25-4FB21116D79B}.Debug|Any CPU.Build.0 = Debug|x64
 		{48D8A972-F8FD-4BD9-9D25-4FB21116D79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48D8A972-F8FD-4BD9-9D25-4FB21116D79B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29952540-4C0E-44E1-8534-891EF20F5865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29952540-4C0E-44E1-8534-891EF20F5865}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29952540-4C0E-44E1-8534-891EF20F5865}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29952540-4C0E-44E1-8534-891EF20F5865}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92959F6F-706C-45CB-B4A4-7DD31EF779E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{92959F6F-706C-45CB-B4A4-7DD31EF779E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92959F6F-706C-45CB-B4A4-7DD31EF779E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,16 +49,23 @@ Global
 		{CEC2A842-8415-438E-AD73-3227F417CF8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEC2A842-8415-438E-AD73-3227F417CF8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEC2A842-8415-438E-AD73-3227F417CF8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5AD002D-FD4E-423B-9B13-E17AA4BF766C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5AD002D-FD4E-423B-9B13-E17AA4BF766C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5AD002D-FD4E-423B-9B13-E17AA4BF766C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5AD002D-FD4E-423B-9B13-E17AA4BF766C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{48D8A972-F8FD-4BD9-9D25-4FB21116D79B} = {C2ED80FB-AD22-4E14-AB7E-97B8146F584D}
-		{29952540-4C0E-44E1-8534-891EF20F5865} = {C2ED80FB-AD22-4E14-AB7E-97B8146F584D}
 		{92959F6F-706C-45CB-B4A4-7DD31EF779E7} = {C2ED80FB-AD22-4E14-AB7E-97B8146F584D}
 		{F3B92726-8268-4F6A-B3D6-BC1435EDCC15} = {C2ED80FB-AD22-4E14-AB7E-97B8146F584D}
 		{869842AA-B514-43C0-8304-8F4A72C35D15} = {C2ED80FB-AD22-4E14-AB7E-97B8146F584D}
 		{CEC2A842-8415-438E-AD73-3227F417CF8E} = {C2ED80FB-AD22-4E14-AB7E-97B8146F584D}
+		{D5AD002D-FD4E-423B-9B13-E17AA4BF766C} = {C2ED80FB-AD22-4E14-AB7E-97B8146F584D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5DB341A-ABA3-493F-9878-EE5EBB25829A}
 	EndGlobalSection
 EndGlobal
