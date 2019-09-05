@@ -70,7 +70,7 @@ namespace Suplanus.Sepla.Helper
         for (var index = 0; index < pageMacro.Pages.Length; index++)
         {
           var pageMacroPage = pageMacro.Pages[index];
-          pageMacroPage.NameParts[Properties.Page.PAGE_COUNTER] = "SvgExportUtility" + index;
+          pageMacroPage.NameParts[Eplan.EplApi.DataModel.Properties.Page.PAGE_COUNTER] = "SvgExportUtility" + index;
         }
 
         var storableObjects = new Insert().PageMacro(pageMacro, project, null, PageMacro.Enums.NumerationMode.None);
