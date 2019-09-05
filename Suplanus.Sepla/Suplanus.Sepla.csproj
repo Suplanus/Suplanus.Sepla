@@ -52,7 +52,7 @@
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
@@ -246,20 +246,8 @@
       <HintPath>C:\Program Files\EPLAN\Platform\2.7.3\Bin\Eplan.EplApi.WebServiceu.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Eplan.EplSDK.WPF.Controlsu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files\EPLAN\Platform\2.7.3\Bin\Eplan.EplSDK.WPF.Controlsu.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Eplan.EplSDK.WPF.DB.Interfacesu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files\EPLAN\Platform\2.7.3\Bin\Eplan.EplSDK.WPF.DB.Interfacesu.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Eplan.EplSDK.WPF.DBu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
       <HintPath>C:\Program Files\EPLAN\Platform\2.7.3\Bin\Eplan.EplSDK.WPF.DBu.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Eplan.EplSDK.WPF.Interfacesu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files\EPLAN\Platform\2.7.3\Bin\Eplan.EplSDK.WPF.Interfacesu.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Eplan.EplSDK.WPFu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64">
@@ -273,10 +261,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
