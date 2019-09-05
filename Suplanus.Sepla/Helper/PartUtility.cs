@@ -102,11 +102,13 @@ namespace Suplanus.Sepla.Helper
             articleReference.StoreToObject();
           }
 
+          //Get temp part for copy functionTemplate and remove
+          partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
+          MDPart partDuplicate = partsDatabase.GetPart(partNrTemp, partVariant);
+
           // Copy FunctionTemplate
           if (updateFunctionTemplate)
           {
-            partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
-            MDPart partDuplicate = partsDatabase.GetPart(partNrTemp, partVariant);
             foreach (var partFunctionTemplatePosition in part.FunctionTemplatePositions)
             {
               part.RemoveFunctionTemplatePosition(partFunctionTemplatePosition);
@@ -115,11 +117,10 @@ namespace Suplanus.Sepla.Helper
             {
               part.AddFunctionTemplatePosition(partDuplicateFunctionTemplatePosition);
             }
-            partsDatabase.RemovePart(partDuplicate);
-          } 
+          }
+          partsDatabase.RemovePart(partDuplicate);
         }
-
-
+        
         // Check if article is in project
         var existingTempArticle = project.Articles
             .FirstOrDefault(obj =>
