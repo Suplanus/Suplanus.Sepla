@@ -76,5 +76,11 @@ namespace Suplanus.Sepla.Helper
         $"{nameof(name)}: {exception}", MessageLevel.Error);
       bexError.FixMessage();
     }
+
+    public static void WriteSystemMessage(string message, MessageLevel level)
+    {
+      var bexError = new BaseException(message, level);
+      bexError.FixMessage();
+    }
   }
 }
