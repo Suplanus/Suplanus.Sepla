@@ -109,13 +109,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DoSomething.cs" />
-    <Compile Include="EplanOffline.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Starter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Suplanus.Sepla\Suplanus.Sepla.csproj">
+      <Project>{a3ac82b1-6ea9-4127-80c8-0e09c49b1cc0}</Project>
+      <Name>Suplanus.Sepla</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

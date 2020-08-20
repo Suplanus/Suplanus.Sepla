@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Suplanus.Sepla.Application;
 
 namespace Suplanus.Example.EplanOffline.Console
 {
@@ -11,12 +12,15 @@ namespace Suplanus.Example.EplanOffline.Console
     {
       // Start EPLAN
       System.Console.WriteLine("Starting EPLAN...");
-      string binPath = EplanStarter.GetEplanInstallations()
-                                   .Last(obj => obj.EplanVariant
-                                                   .Equals("Electric P8"))
-                                   .EplanPath;
+
+      string binPath = Starter.GetEplanInstallations()
+                              .Last(obj => obj.EplanVariant
+                                              .Equals("Electric P8"))
+                              .EplanPath;
       binPath = Path.GetDirectoryName(binPath);
-      EplanOffline eplanOffline = new EplanOffline(binPath, "API");
+
+      Starter.PinToEplan(binPath); // Don't forget
+      Sepla.Application.EplanOffline eplanOffline = new Sepla.Application.EplanOffline(binPath, "API");
       eplanOffline.StartWithoutGui();
 
       // Do something: Have to be in a separate class which is not initialized
