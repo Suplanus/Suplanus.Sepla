@@ -2,6 +2,7 @@
 using System.Text;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.E3D;
+using Suplanus.Sepla.Application;
 
 namespace Suplanus.Sepla.Objects
 {
@@ -46,7 +47,10 @@ namespace Suplanus.Sepla.Objects
       this.Plant = GetPageProperty(function.Properties.DESIGNATION_FULLPLANT);
       this.Location = GetPageProperty(function.Properties.DESIGNATION_FULLLOCATION);
       this.UserDefinied = GetPageProperty(function.Properties.DESIGNATION_FULLUSERDEFINED);
-      this.DocType = GetPageProperty(function.Properties.DESIGNATION_FULLDOCTYPE);
+      if (EplanApplicationInfo.GetActiveEplanVersion()>=290)
+      {
+        this.DocType = GetPageProperty(function.Properties[1520]); // DESIGNATION_FULLDOCTYPE
+      }
     }
 
     public void SetFromInstallationSpace(InstallationSpace installationSpace)
