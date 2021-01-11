@@ -71,7 +71,7 @@ namespace Suplanus.Sepla.Helper
       else
       {
         // Check if pro panel, because there is no update possible
-        bool isProPanel = articleReference.ParentObject is Component;
+        bool isProPanel = articleReference.ParentObject is Function3D;
 
         string partNrTemp = partNr;
         if (!isProPanel)
