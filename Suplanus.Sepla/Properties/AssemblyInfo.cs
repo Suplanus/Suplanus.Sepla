@@ -14,7 +14,7 @@ using Eplan.EplApi.Starter;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Suplanus.Sepla")]
-[assembly: AssemblyCopyright("Copyright ? Suplanus 2018")]
+[assembly: AssemblyCopyright("Copyright ? Suplanus 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
