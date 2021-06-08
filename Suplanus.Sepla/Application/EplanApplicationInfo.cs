@@ -47,7 +47,7 @@ namespace Suplanus.Sepla.Application
         new BaseException(errorText, MessageLevel.Warning).FixMessage(); 
         eplanVersion = "0";
       }
-      return Convert.ToInt16(eplanVersion.Replace(".", string.Empty));
+      return Convert.ToInt32(eplanVersion.Replace(".", string.Empty));
     }
   }
 }
