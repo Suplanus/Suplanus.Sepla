@@ -17,11 +17,11 @@ namespace Suplanus.Sepla.Helper
       string message;
       if (undoStep == null)
       {
-        message = "Es ist ein Fehler beim Erzeugen aufgetreten:";
+        message = "Es ist ein Fehler aufgetreten:";
       }
       else
       {
-        message = "Es ist ein Fehler beim Erzeugen aufgetreten. Soll die Aktion rückgängig gemacht werden?";
+        message = "Es ist ein Fehler. Soll die Aktion rückgängig gemacht werden?";
       }
 
       string errorText;
