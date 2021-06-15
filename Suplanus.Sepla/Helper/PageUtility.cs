@@ -4,6 +4,7 @@ using Eplan.EplApi.Base;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.MasterData;
 using Eplan.EplApi.HEServices;
+using Suplanus.Sepla.Application;
 
 namespace Suplanus.Sepla.Helper
 {
@@ -64,6 +65,8 @@ namespace Suplanus.Sepla.Helper
       }
     }
 
+
+
     public static DocumentTypeManager.DocumentType GetPageRepresentationTypeFromMacro(WindowMacro.Enums.RepresentationType representationType)
     {
       switch (representationType)
@@ -86,7 +89,7 @@ namespace Suplanus.Sepla.Helper
       }
     }
 
-    public static PointD[] GetLogicalAreaofPage(Page page)
+    public static PointD[] GetLogicalAreaOfPage(Page page)
     {
       PlotFrame frame = page.PlotFrame;
       PointD ptSize = frame.Size;
