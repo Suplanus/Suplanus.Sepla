@@ -149,6 +149,8 @@ namespace Suplanus.Sepla.Helper
     /// <returns>EPLAN Project</returns>
     public static Project OpenProject(string projectLinkFilePath, ProjectManager.OpenMode openMode = ProjectManager.OpenMode.Standard, bool upgradeIfNeeded = true)
     {
+      projectLinkFilePath = Environment.ExpandEnvironmentVariables(projectLinkFilePath);
+      
       if (!File.Exists(projectLinkFilePath))
       {
         throw new FileNotFoundException("EPLAN project link file not found", projectLinkFilePath);
