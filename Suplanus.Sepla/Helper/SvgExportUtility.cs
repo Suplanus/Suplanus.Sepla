@@ -111,7 +111,12 @@ namespace Suplanus.Sepla.Helper
       acc.AddParameter("Variant1", variant.ToString());
       acc.AddParameter("RepType1", ((int)representationType).ToString());
       acc.AddParameter("WriteGroupIds", false.ToString());
-      new CommandLineInterpreter().Execute("SVGExportAction", acc);
+      var result = new CommandLineInterpreter().Execute("SVGExportAction", acc);
+
+      if (!result)
+      {
+        throw new Exception("Macro variant not found");
+      }
     }
   }
 }
