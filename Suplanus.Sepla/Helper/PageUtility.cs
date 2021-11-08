@@ -89,7 +89,7 @@ namespace Suplanus.Sepla.Helper
       }
     }
 
-    public static PointD[] GetLogicalAreaOfPage(Page page)
+    public static PointD[] GetLogicalAreaofPage(Page page)
     {
       PlotFrame frame = page.PlotFrame;
       PointD ptSize = frame.Size;
