@@ -28,7 +28,7 @@ namespace Suplanus.EplAddIn.NavigatorExample
             // Use Class name for uniqueid
             // ReSharper disable once PossibleNullReferenceException
             var className = MethodBase.GetCurrentMethod().DeclaringType.Name;
-            UniqueBarID = className.GetHashCode();            
+            UniqueBarID = (int)(uint)className.GetHashCode();
             
         }
        
