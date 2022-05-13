@@ -63,7 +63,7 @@ namespace Suplanus.Sepla.Helper
         {
           new CommandLineInterpreter().Execute("XPameCreateType"); 
         }
-        
+        partsDatabase.Close();
         partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
         part = partsDatabase.GetPart(partNr, partVariant);
       }
@@ -103,6 +103,7 @@ namespace Suplanus.Sepla.Helper
           }
 
           //Get temp part for copy functionTemplate and remove
+          partsDatabase.Close();
           partsDatabase = new MDPartsManagement().OpenDatabase(); // Second Call needed to get new part
           MDPart partDuplicate = partsDatabase.GetPart(partNrTemp, partVariant);
 
