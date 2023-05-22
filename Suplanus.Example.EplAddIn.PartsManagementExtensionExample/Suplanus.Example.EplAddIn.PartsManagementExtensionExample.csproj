@@ -7,7 +7,7 @@
     <ProjectGuid>{869842AA-B514-43C0-8304-8F4A72C35D15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Suplanus.Example.EplAddIn.PartsManagementExtensionExample</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <FileAlignment>512</FileAlignment>
     <RootNamespace>Suplanus.Example.EplAddIn.PartsManagementExtensionExample</RootNamespace>
@@ -36,7 +36,7 @@
     <Reference Include="Eplan.EplApi.MasterDatau, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64" />
     <Reference Include="Eplan.EplSDK.WPF.DBu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\EPLAN\Platform\2.6.3\Bin\Eplan.EplSDK.WPF.DBu.dll</HintPath>
+      <HintPath>C:\Program Files\EPLAN\Platform\2.9.4\Bin\Eplan.EplSDK.WPF.DBu.dll</HintPath>
     </Reference>
     <Reference Include="Eplan.EplSDK.WPFu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=57aaa27e22f7b107, processorArchitecture=AMD64" />
     <Reference Include="PresentationFramework" />
