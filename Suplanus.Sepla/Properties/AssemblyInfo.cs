@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 #if SIGN
 using Eplan.EplApi.Starter;
 [assembly: EplanSignedAssembly(true)]
-[assembly: AssemblyKeyFile(@"\\Mac\Home\Documents\GitHub\ibKastl.CodingStandards\Keyfiles\2161_Public.snk")]       
+[assembly: AssemblyKeyFile(@"G:\ibKastl.CodingStandards\Keyfiles\2161_Public.snk")]       
 [assembly: AssemblyDelaySign(true)]
 #endif
 
