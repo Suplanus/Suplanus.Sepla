@@ -37,6 +37,7 @@ namespace Suplanus.Sepla.Objects
       this.Plant = GetPageProperty(page.Properties.DESIGNATION_FULLPLANT);
       this.Location = GetPageProperty(page.Properties.DESIGNATION_FULLLOCATION);
       this.UserDefinied = GetPageProperty(page.Properties.DESIGNATION_FULLUSERDEFINED);
+      this.InstallationNumber = GetPageProperty(page.Properties.DESIGNATION_FULLINSTALLATIONNUMBER);
       this.DocType = GetPageProperty(page.Properties.DESIGNATION_FULLDOCTYPE);
     }
 
@@ -46,6 +47,7 @@ namespace Suplanus.Sepla.Objects
       this.PlaceOfInstallation = GetPageProperty(function.Properties.DESIGNATION_FULLPLACEOFINSTALLATION);
       this.Plant = GetPageProperty(function.Properties.DESIGNATION_FULLPLANT);
       this.Location = GetPageProperty(function.Properties.DESIGNATION_FULLLOCATION);
+      this.InstallationNumber = GetPageProperty(function.Properties.DESIGNATION_FULLINSTALLATIONNUMBER);
       this.UserDefinied = GetPageProperty(function.Properties.DESIGNATION_FULLUSERDEFINED);
       if (EplanApplicationInfo.GetActiveEplanVersion()>=290)
       {
@@ -60,6 +62,7 @@ namespace Suplanus.Sepla.Objects
       this.Plant = GetPageProperty(installationSpace.Properties.DESIGNATION_FULLPLANT);
       this.Location = GetPageProperty(installationSpace.Properties.DESIGNATION_FULLLOCATION);
       this.UserDefinied = GetPageProperty(installationSpace.Properties.DESIGNATION_FULLUSERDEFINED);
+      this.InstallationNumber = GetPageProperty(installationSpace.Properties.DESIGNATION_FULLINSTALLATIONNUMBER);
     }
 
     private string GetPageProperty(PropertyValue propertyValue)
