@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Specialized;
+using System.Linq;
 using Eplan.EplApi.ApplicationFramework;
 using Eplan.EplApi.DataModel;
 using Eplan.EplApi.DataModel.E3D;
@@ -52,7 +54,12 @@ namespace Suplanus.Sepla.Helper
       // Need to focus again if its lost
       if (articleReference.ParentObject is Placement placementToBringInFront)
       {
-        new Edit().BringToFront(placementToBringInFront);
+        string projectLink = placementToBringInFront.Project.ProjectLinkFilePath;
+        string objectId = placementToBringInFront.Properties.PROPUSER_DBOBJECTID;
+        int idxOfSlash = objectId.IndexOf("/", 1, objectId.Length - 1, StringComparison.InvariantCultureIgnoreCase);
+        string objectIdWithoutProjectId = objectId.Substring(idxOfSlash + 1, (objectId.Length - idxOfSlash - 1));
+        StringCollection objectIds = new StringCollection { objectIdWithoutProjectId };
+        new Edit().SelectObjects(projectLink, objectIds, true); 
       }
 
       // Create new part
