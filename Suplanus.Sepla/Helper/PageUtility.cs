@@ -85,6 +85,7 @@ namespace Suplanus.Sepla.Helper
         case WindowMacro.Enums.RepresentationType.ArticlePlacement3D: return DocumentTypeManager.DocumentType.ModelView;
         case WindowMacro.Enums.RepresentationType.Functional: return DocumentTypeManager.DocumentType.Functional;
         case WindowMacro.Enums.RepresentationType.Planning: return DocumentTypeManager.DocumentType.Planning;
+        case WindowMacro.Enums.RepresentationType.FluidFunctionalOverview: return DocumentTypeManager.DocumentType.FluidFunctionalOverview;
         default: throw new ArgumentOutOfRangeException();
       }
     }
